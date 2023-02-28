@@ -8,3 +8,8 @@
 - 🤔 I’m looking for help with [sentinal-project](https://github.com/folkvarlabs/sentinal-project)
 - 📫 How to reach me: ping me on [discord](https://discord.gg/nQgTBZZrA4)
 - ⚡ Fun fact: nothing better than a nice cold glass of ice cold milk!
+
+---
+
+# Connect with me
+
