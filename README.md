@@ -1,15 +1,71 @@
-### Hi there 👋
+# 🚀 What up, World! 🚀
 
-![alt text](https://64.media.tumblr.com/33941b01d11c366cc81a1cbb5d1bf12f/tumblr_mhgb0rshoa1qmo2amo4_500.gifv)
+![alt text](https://camo.githubusercontent.com/ebad9cab74600c6ee561ef2649a5b29cfa05bc7ab656573640ef72ffbbd5a3ae/68747470733a2f2f6d656469612e67697068792e636f6d2f6d656469612f76312e59326c6b505463354d4749334e6a45784d6a49794d7a67785a4459315a44426d4e7a55785a6d466a4d6a55314e475132596a59335a6d597a4d574e694e4455354d4442695a535a6a6444316e2f74384a31656156797a326a70314954306c512f67697068792e676966)
 
-- 🔭 I’m currently working on [personal](https://github.com/cywf/projects), [alt-f4](https://github.com/alt-f4-society/projects), [folkvarlabs](https://github.com/folkvarlabs/projects) projects
-- 🌱 I’m currently learning Terraform, Rust, AI, Cloud Security
-- 👯 I’m looking to collaborate on [OWASP San Juan](https://github.com/owasp/www-chapter-san-juan)
-- 🤔 I’m looking for help with [sentinal-project](https://github.com/folkvarlabs/sentinal-project)
-- 📫 How to reach me: ping me on [discord](https://discord.gg/nQgTBZZrA4)
-- ⚡ Fun fact: nothing better than a nice cold glass of ice cold milk!
+It's me, ya boy Ky1o, also known as cywf (cyber wolf). And no, I'm not an actual wolf. Just a cyber one.
 
----
+I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to understand the universe, one semicolon at a time. Striving to remain phlegmatic while wrestling with Heisenbugs in the realm of code.
 
-# Connect with me
+## 🎉 Current Activities 🎉
 
+![gif2](https://media.giphy.com/media/Z543HuFdQAmkg/giphy.gif)
+
+- 🕵️‍♀️ Investigating the mysteries of the universe... one line of code at a time.
+- 🎨 Creating beautiful, functional, and accessible user interfaces.
+- 🚀 Build Security Systems powered by AI & ML
+- 🌍 Exploring Open Source, contributing to projects, and learning from the community.
+
+## 📊 Github Statistics 📊
+
+![My GitHub Stats](https://github-readme-stats.vercel.app/api/?username=cywf&count_private=true&theme=tokyonight&showicons=true)
+![My GitHub Language Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&langs_count=5&theme=tokyonight)
+
+## 📝 Latest Blog Posts 📝
+
+- [Guide on Redhat Linux](https://gist.github.com/cywf/redhat-linux.md) - A deep dive into the reasons behind Red Hat Linux's popularity among engineers and IT professionals.
+- [Loaded List of Honeypot Environment Tools](https://gist.github.com/cywf/honeypots.md) - A curated list of awesome honeypots, including related components and much more.
+- [Introduction to GRATs](https://gist.github.com/cywf/grats.md) - An estate planning tool that allows you to minimize estate and gift taxes.
+- [Concise Introduction to Microk8s](https://gist.github.com/cywf/microk8s.md) - A lightweight Kubernetes distribution designed for local development and testing.
+
+## 🏗️ Projects 🏗️
+
+- [**Sentinel-Project**](https://github.com/folkvarlabs/sentinel-project): A project that uses AI & ML to detect and prevent cyber attacks. 
+- [**Mainframe**](https://github.com/cywf/mainframe): a powerful and advanced platform for hosting Capture The Flag (CTF) competitions
+- [**NetNijna**](https://github.com/cywf/netninja): an automation tool for networking and system administration
+- [**OWASP-San-Juan**](https://github.com/cywf/www-chapter-san-juan): the official repo for the OWASP San Juan chapter
+
+## 📚 Learning Interests 📚
+
+I am currently interested in the following areas:
+
+- **Machine Learning & AI:** Exploring the capabilities and applications of AI and machine learning.
+- **Web Development:** Keeping up (trying to lol) with the latest trends in web development, including frameworks and libraries like React and Vue.js.
+- **Open Source:** Contributing to open-source projects and becoming an active member of the community.
+- **Cybersecurity:** Developing cybersecurity focused tools & training material, including penetration testing, red teaming, and blue teaming.
+- **DevSecOps**: Integrating security into the DevOps pipeline, including the use of tools like Terraform, Ansible, and Chef.
+- **Containerization:** Exploring the use of containerization tools like Docker and Kubernetes.
+
+## 📮 How to Reach Me 📮
+
+You can find me on the following platforms:
+
+[![Twitter](https://img.shields.io/twitter/follow/cwfpk?style=social)](https://twitter.com/cwfpk)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kparisher/)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@thealt-f4society936)
+[![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/nQgTBZZrA4)
+[![Twitch](https://img.shields.io/badge/Twitch-9146FF?style=for-the-badge&logo=twitch&logoColor=white)](https://www.twitch.tv/altf4society)
+[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cywf)
+
+## 🎮 Gaming 🎮
+
+I'm a huge fan of gaming, and I'm currently playing the following games:
+
+- **Minecraft**: Currently building a Nuclear Reactor Turbibe Facility...yes you read that correctly. I'm a nerd, you got me...you can check it out and watch it [here](https://www.youtube.com/watch?v=ag0bRABA0Nw&t=101s)
+- **Hacknet**: A hacking simulator game that I'm currently playing through. 
+- **HackTheBox**: A gamified penetration testing platform that allows you to legally hack into machines and networks. I'm currently ranked in the top 10% of all users on the platform. You can check out my profile [here](https://app.hackthebox.com/profile/752236).
+- **World of Warcraft**: I'm a huge fan of WoW, ever since I was a kid running around Orgrimar with my friends while waiting for PvP BG que's to pop (back then all the good players were alliance so we had to wait a while). I'm always down to run some Mythic+ dungeons or PvP arenas.
+- **COD Mobile**: I'm a huge fan of COD Mobile, and I'm currently ranked in the top 1% of all players in the US region, and if you dare to 1v1 me I will show no mercy...unless of course you'd like to join our clan, in which case we should team up and wipe the floor in ranked MP or BR. Join me in the [battle](https://www.callofduty.com/cdn/invite/west/system_en_US.html)
+
+## 📜 Closing Remarks 📜
+
+_Made with :heart: by cywf. Feel free to reach out if you have any questions or just want to chat about technology. Happy Hacking!_
