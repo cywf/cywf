@@ -29,9 +29,9 @@ I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to
 
 ## 🏗️ Projects 🏗️
 
-- [**Sentinel-Project**](https://github.com/folkvarlabs/sentinel-project): A project that uses AI & ML to detect and prevent cyber attacks. 
-- [**Mainframe**](https://github.com/cywf/mainframe): a powerful and advanced platform for hosting Capture The Flag (CTF) competitions
-- [**NetNijna**](https://github.com/cywf/netninja): an automation tool for networking and system administration
+- [**Sentinel-Project**](https://github.com/folkvarlabs/sentinel-project): A project that uses AI & ML to detect and prevent & respond to cyber attacks. 
+- [**FortiPath**](https://github.com/cywf/FortiPath): a security tool for executive protection agents and professionals.
+- [**AegisNet**](https://github.com/cywf/AegisNet): an advanced autonomous drone defense solution
 - [**OWASP-San-Juan**](https://github.com/cywf/www-chapter-san-juan): the official repo for the OWASP San Juan chapter
 
 ## 📚 Learning Interests 📚
