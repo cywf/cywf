@@ -22,10 +22,10 @@ I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to
 
 ## 📝 Latest Blog Posts 📝
 
-- [Guide on Redhat Linux](https://gist.github.com/cywf/redhat-linux.md) - A deep dive into the reasons behind Red Hat Linux's popularity among engineers and IT professionals.
-- [Loaded List of Honeypot Environment Tools](https://gist.github.com/cywf/honeypots.md) - A curated list of awesome honeypots, including related components and much more.
-- [Introduction to GRATs](https://gist.github.com/cywf/grats.md) - An estate planning tool that allows you to minimize estate and gift taxes.
-- [Concise Introduction to Microk8s](https://gist.github.com/cywf/microk8s.md) - A lightweight Kubernetes distribution designed for local development and testing.
+- [200+ Ways to Protect Your Privacy](https://gist.github.com/cywf/ec0e06983acb16549ee3c58de681543a): A long list of privacy tips to secure your privacy online and offline.
+- [Mastering Prompt Engineering](https://gist.github.com/cywf/cc19004e4d6bc57b285efca9fb9da129): A Deep Dive into Language Model Mechanics and how to best craft your prompts.
+- [Integrative Learning: A deep dive](https://gist.github.com/cywf/e5398eb4bb1a01088b19b1aea6feec4f): An exploration into Integrative Learning, delving into the brain's mechanics, the significance of retrieval, the art of metacognition, and strategies for effective learning.
+- [Satellite Security](https://gist.github.com/cywf/f91f0194d385da8e443d62159f224a4f): A technical exploration of Emotet, DarkGate, and LokiBot.
 
 ## 🏗️ Projects 🏗️
 
