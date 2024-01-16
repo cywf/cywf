@@ -1,7 +1,5 @@
 # 🚀 What up, World! 🚀
 
-![alt text](https://camo.githubusercontent.com/ebad9cab74600c6ee561ef2649a5b29cfa05bc7ab656573640ef72ffbbd5a3ae/68747470733a2f2f6d656469612e67697068792e636f6d2f6d656469612f76312e59326c6b505463354d4749334e6a45784d6a49794d7a67785a4459315a44426d4e7a55785a6d466a4d6a55314e475132596a59335a6d597a4d574e694e4455354d4442695a535a6a6444316e2f74384a31656156797a326a70314954306c512f67697068792e676966)
-
 It's me, ya boy Ky1o, also known as cywf (cyber wolf). And no, I'm not an actual wolf. Just a cyber one.
 
 I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to understand the universe, one semicolon at a time. Striving to remain phlegmatic while wrestling with Heisenbugs in the realm of code.
@@ -31,7 +29,7 @@ I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to
 
 - [**Sentinel-Project**](https://github.com/folkvarlabs/sentinel-project): A project that uses AI & ML to detect and prevent & respond to cyber attacks. 
 - [**FortiPath**](https://github.com/cywf/FortiPath): a security tool for executive protection agents and professionals.
-- [**AegisNet**](https://github.com/cywf/AegisNet): an advanced autonomous drone defense solution
+- [**Sol-Sentry**](https://github.com/cywf/Sol-Sentry): an AI driven blockchain security application
 - [**OWASP-San-Juan**](https://github.com/cywf/www-chapter-san-juan): the official repo for the OWASP San Juan chapter
 
 ## 📚 Learning Interests 📚
@@ -39,7 +37,6 @@ I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to
 I am currently interested in the following areas:
 
 - **Machine Learning & AI:** Exploring the capabilities and applications of AI and machine learning.
-- **Web Development:** Keeping up (trying to lol) with the latest trends in web development, including frameworks and libraries like React and Vue.js.
 - **Open Source:** Contributing to open-source projects and becoming an active member of the community.
 - **Cybersecurity:** Developing cybersecurity focused tools & training material, including penetration testing, red teaming, and blue teaming.
 - **DevSecOps**: Integrating security into the DevOps pipeline, including the use of tools like Terraform, Ansible, and Chef.
