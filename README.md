@@ -29,7 +29,7 @@ I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to
 
 - [**Sentinel-Project**](https://github.com/folkvarlabs/sentinel-project): A project that uses AI & ML to detect and prevent & respond to cyber attacks. 
 - [**FortiPath**](https://github.com/cywf/FortiPath): a security tool for executive protection agents and professionals.
-- [**Sol-Sentry**](https://github.com/cywf/Sol-Sentry): an AI driven blockchain security application
+- [**Sol-Sentry**](https://github.com/cywf/Sol-Sentry): an AI driven blockchain security tool that preforms Solana Smart Contract Audits
 - [**OWASP-San-Juan**](https://github.com/cywf/www-chapter-san-juan): the official repo for the OWASP San Juan chapter
 
 ## 📚 Learning Interests 📚
