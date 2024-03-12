@@ -18,6 +18,12 @@ I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to
 ![My GitHub Stats](https://github-readme-stats.vercel.app/api/?username=cywf&count_private=true&theme=tokyonight&showicons=true)
 ![My GitHub Language Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&langs_count=5&theme=tokyonight)
 
+## Wigle Stats
+
+<a href="https://wigle.net">
+<img border="0" src="https://wigle.net/bi/9EDl3QzSxJZrLN9qleZsRw.png">
+</a>
+
 ## 📝 Latest Blog Posts 📝
 
 - [200+ Ways to Protect Your Privacy](https://gist.github.com/cywf/ec0e06983acb16549ee3c58de681543a): A long list of privacy tips to secure your privacy online and offline.
