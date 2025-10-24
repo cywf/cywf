@@ -14,15 +14,8 @@ I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to
 - 🌍 Exploring Open Source, contributing to projects, and learning from the community.
 
 ## 📊 Github Statistics 📊
-
-![My GitHub Stats](https://github-readme-stats.vercel.app/api/?username=cywf&count_private=true&theme=tokyonight&showicons=true)
-![My GitHub Language Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&langs_count=5&theme=tokyonight)
-
-## Wigle Stats
-
-<a href="https://wigle.net">
-<img border="0" src="https://wigle.net/bi/9EDl3QzSxJZrLN9qleZsRw.png">
-</a>
+![My GitHub Language Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&langs_count=5&theme=tokyonight&cache_seconds=86400)
+![My GitHub Stats](https://github-readme-stats.vercel.app/api/?username=cywf&count_private=true&theme=tokyonight&show_icons=true&cache_seconds=86400)
 
 ## 📝 Latest Blog Posts 📝
 
