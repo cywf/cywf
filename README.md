@@ -1,67 +1,63 @@
-# 🚀 What up, World! 🚀
+# 🚀 What up, World! 🚀  
+It's me, ya boy Ky1o, also known as **cywf** (cyber wolf). And no, I'm not an actual wolf. Just a cyber one.  
+I'm a **Developer**, **Technophile**, and **Open Source Enthusiast** on an eternal quest to understand the universe, one semicolon at a time. Striving to remain phlegmatic while writing code that sparks joy—and occasional bugs.  
 
-It's me, ya boy Ky1o, also known as cywf (cyber wolf). And no, I'm not an actual wolf. Just a cyber one.
+## 🌱 Current Activities  
+- Building and maintaining automation pipelines that would make Rube Goldberg proud.  
+- Educating community members and future guardians of cyberspace via PR‑CYBR and Executive Security International.  
+- Exploring emerging paradigms in AI, cybersecurity, space systems and psionics.  
+- Working on the G8 System for intergenerational stewardship and resilience.  
+- Balancing professional pursuits with personal growth, sustainability, and a small amount of mischief.  
 
-I'm a Developer, Technophile, and Open Source Enthusiast. On an eternal quest to understand the universe, one semicolon at a time. Striving to remain phlegmatic while wrestling with Heisenbugs in the realm of code.
+## 📚 Latest Blog Posts  
+Here are my four most recent public gists that serve as mini‑blog posts:  
 
-## 🎉 Current Activities 🎉
+- **[PR‑CYBR: WatchDog's Veteran Transition Program – Introduction](https://gist.github.com/cywf/db19af3af790469e2715777c5f19250c)** – A glimpse into our WatchDog transition program, updated September 23 2025.  
+- **[Cursor AI – Rules for AI – General Settings](https://gist.github.com/cywf/a620a43424d47f1fb746638a11924cae)** – Outlining general settings for responsible AI interactions, updated June 19 2025.  
+- **[General use template for the .cursorrules file](https://gist.github.com/cywf/601a521551f659ab75b5a6146d4d8e72)** – A template for customizing Cursor AI behavior, updated June 17 2025.  
+- **[Guide for maintaining and configuring Proxmox](https://gist.github.com/cywf/973f9180ae6036e5bcd06eb85aac7c2c)** – Tips on keeping your Proxmox infrastructure running smoothly, updated February 6 2025.  
 
-![gif2](https://media.giphy.com/media/Z543HuFdQAmkg/giphy.gif)
+If a blog entry seems stale, it's because I'm busy saving the world—one security patch at a time.  
 
-- 🕵️‍♀️ Investigating the mysteries of the universe... one line of code at a time.
-- 🎨 Creating beautiful, functional, and accessible user interfaces.
-- 🚀 Build Security Systems powered by AI & ML
-- 🌍 Exploring Open Source, contributing to projects, and learning from the community.
+## 🛠️ Projects  
+These are the repositories I've pinned and actively maintain. Each entry includes a build‑status badge reflecting the latest CI workflow.  
 
-## 📊 Github Statistics 📊
-![My GitHub Language Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&langs_count=5&theme=tokyonight&cache_seconds=86400)
-![My GitHub Stats](https://github-readme-stats.vercel.app/api/?username=cywf&count_private=true&theme=tokyonight&show_icons=true&cache_seconds=86400)
+| Project | Description & Tech | Build Status |  
+| --- | --- | --- |  
+| **[FortiPath](https://github.com/cywf/FortiPath)** | Advanced network path analysis and threat prediction using machine learning; built with Python, PyTorch and networking magic. | ![Build Status](https://github.com/cywf/FortiPath/actions/workflows/main.yml/badge.svg) |  
+| **[htb‑helper](https://github.com/cywf/htb-helper)** | Companion tool for Hack The Box labs; automates reconnaissance, enumeration and exploitation tasks. | *(no CI pipeline)* |  
+| **[sentinel‑project](https://github.com/cywf/sentinel-project)** | Autonomous detection system for adversarial threats across infrastructure; features real‑time monitoring and response. | ![Build Status](https://github.com/cywf/sentinel-project/actions/workflows/ci-cd-pipeline.yml/badge.svg) |  
+| **[AegisNet](https://github.com/cywf/AegisNet)** | Secure network architecture leveraging AI‑driven threat intelligence and zero‑trust principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
+| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Build Status](hstructure; features real‑time monitoring and response. | ![Build Status](https://github.com/cywf/sentinel-project/actions/workflows/ci-cd-pipeline.yml/badge.svg) |  
+| **[AegisNet](https://github.com/cywf/AegisNet)** | Secure network architecture leveraging AI‑driven threat intelligence and zero‑trust principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
+| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Build Status](hst principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
+| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Build Status](https://github.com/cywf/AirwayAtlas/actions/workflows/ci_cd.yml/badge.svg) |  
+| **[willow](https://github.com/cywf/willow)** | Lightweight framework for orchestrating multi‑agent systems and event‑driven workflows. | ![Build Status](https://github.com/cywf/willow/actions/workflows/deploy.yml/badge.sst principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
+| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Build Status](vg) |  
 
-## 📝 Latest Blog Posts 📝
+## 📈 Github Statistics  
+I enjoy analyzing statistics almost as much as writing code. Check out my GitHub statistics below:  
 
-- [200+ Ways to Protect Your Privacy](https://gist.github.com/cywf/ec0e06983acb16549ee3c58de681543a): A long list of privacy tips to secure your privacy online and offline.
-- [Mastering Prompt Engineering](https://gist.github.com/cywf/cc19004e4d6bc57b285efca9fb9da129): A Deep Dive into Language Model Mechanics and how to best craft your prompts.
-- [Integrative Learning: A deep dive](https://gist.github.com/cywf/e5398eb4bb1a01088b19b1aea6feec4f): An exploration into Integrative Learning, delving into the brain's mechanics, the significance of retrieval, the art of metacognition, and strategies for effective learning.
-- [Satellite Security](https://gist.github.com/cywf/f91f0194d385da8e443d62159f224a4f): A technical exploration of Emotet, DarkGate, and LokiBot.
+![KP's GitHub Stats](https://github-readme-stats.vercel.app/api?username=cywf&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)  
 
-## 🏗️ Projects 🏗️
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&layout=compact&theme=tokyonight)  
 
-- [**Sentinel-Project**](https://github.com/folkvarlabs/sentinel-project): A project that uses AI & ML to detect and prevent & respond to cyber attacks. 
-- [**FortiPath**](https://github.com/cywf/FortiPath): a security tool for executive protection agents and professionals.
-- [**Sol-Sentry**](https://github.com/cywf/Sol-Sentry): an AI driven blockchain security tool that preforms Solana Smart Contract Audits
-- [**OWASP-San-Juan**](https://github.com/cywf/www-chapter-san-juan): the official repo for the OWASP San Juan chapter
+## 🧠 Learning & Interests  
+I'm constantly exploring new horizons:  
+- **Cybersecurity & AI/ML:** Defensive automation, ethical hacking, and generative models.  
+- **PR‑CYBR & Community:** Building resilience and equipping communities with knowledge.  
+- **G8 System:** Designing frameworks for sustainable legacy and intergenerational knowledge transfer.  
+- **Space Systems & Quantum:** Investigating new frontiers in communications and energy systems.  
+- **Psionics & Consciousness:**st principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
+|  Unraveling the mysteries of resonance, vibration, and human potential.  
 
-## 📚 Learning Interests 📚
+## ✉️ Contact  
+For collaboration, queries, or just to say hello:  
+- Email: cyberspacewolf [at] proton [dot] me  
+- LinkedIn: [KP Parisher](https://www.linkedin.com/in/kylo-parisher)  
+- Mastodon: [@cywf@mastodon.social](https://mastodon.social/@cywf)  
 
-I am currently interested in the following areas:
+## 🎮 Gaming & Fun  
+I unwind by cracking puzzles, practicing martial arts, and exploring virtual worlds. When I'm not writing code, I'm probably spending time with my family or flying simulations as a professional pilot student.  
 
-- **Machine Learning & AI:** Exploring the capabilities and applications of AI and machine learning.
-- **Open Source:** Contributing to open-source projects and becoming an active member of the community.
-- **Cybersecurity:** Developing cybersecurity focused tools & training material, including penetration testing, red teaming, and blue teaming.
-- **DevSecOps**: Integrating security into the DevOps pipeline, including the use of tools like Terraform, Ansible, and Chef.
-- **Containerization:** Exploring the use of containerization tools like Docker and Kubernetes.
-
-## 📮 How to Reach Me 📮
-
-You can find me on the following platforms:
-
-[![Twitter](https://img.shields.io/twitter/follow/cwfpk?style=social)](https://twitter.com/cwfpk)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kparisher/)
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@thealt-f4society936)
-[![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/nQgTBZZrA4)
-[![Twitch](https://img.shields.io/badge/Twitch-9146FF?style=for-the-badge&logo=twitch&logoColor=white)](https://www.twitch.tv/altf4society)
-[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cywf)
-
-## 🎮 Gaming 🎮
-
-I'm a huge fan of gaming, and I'm currently playing the following games:
-
-- **Minecraft**: Currently building a Nuclear Reactor Turbibe Facility...yes you read that correctly. I'm a nerd, you got me...you can check it out and watch it [here](https://www.youtube.com/watch?v=ag0bRABA0Nw&t=101s)
-- **Hacknet**: A hacking simulator game that I'm currently playing through. 
-- **HackTheBox**: A gamified penetration testing platform that allows you to legally hack into machines and networks. I'm currently ranked in the top 10% of all users on the platform. You can check out my profile [here](https://app.hackthebox.com/profile/752236).
-- **World of Warcraft**: I'm a huge fan of WoW, ever since I was a kid running around Orgrimar with my friends while waiting for PvP BG que's to pop (back then all the good players were alliance so we had to wait a while). I'm always down to run some Mythic+ dungeons or PvP arenas.
-- **COD Mobile**: I'm a huge fan of COD Mobile, and I'm currently ranked in the top 1% of all players in the US region, and if you dare to 1v1 me I will show no mercy...unless of course you'd like to join our clan, in which case we should team up and wipe the floor in ranked MP or BR. Join me in the [battle](https://www.callofduty.com/cdn/invite/west/system_en_US.html)
-
-## 📜 Closing Remarks 📜
-
-_Made with :heart: by cywf. Feel free to reach out if you have any questions or just want to chat about technology. Happy Hacking!_
+Thanks for stopping by! Stay curious, secure, and ready for adventure 🚀
