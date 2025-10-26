@@ -24,23 +24,23 @@ These are the repositories I've pinned and actively maintain. Each entry include
 
 | Project | Description & Tech | Build Status |  
 | --- | --- | --- |  
-| **[FortiPath](https://github.com/cywf/FortiPath)** | Advanced network path analysis and threat prediction using machine learning; built with Python, PyTorch and networking magic. | ![Build Status](https://github.com/cywf/FortiPath/actions/workflows/main.yml/badge.svg) |  
+| **[FortiPath](https://github.com/cywf/FortiPath)** | Advanced network path analysis and threat prediction using machine learning; built with Python, PyTorch and networking magic. | ![Build Status](https://github.com/cywf/FortiPath/actions/workflows/build.yml/badge.svg) |  
 | **[htb‑helper](https://github.com/cywf/htb-helper)** | Companion tool for Hack The Box labs; automates reconnaissance, enumeration and exploitation tasks. | *(no CI pipeline)* |  
-| **[sentinel‑project](https://github.com/cywf/sentinel-project)** | Autonomous detection system for adversarial threats across infrastructure; features real‑time monitoring and response. | ![Build Status](https://github.com/cywf/sentinel-project/actions/workflows/ci-cd-pipeline.yml/badge.svg) |  
-| **[AegisNet](https://github.com/cywf/AegisNet)** | Secure network architecture leveraging AI‑driven threat intelligence and zero‑trust principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
-| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Build Status](hstructure; features real‑time monitoring and response. | ![Build Status](https://github.com/cywf/sentinel-project/actions/workflows/ci-cd-pipeline.yml/badge.svg) |  
-| **[AegisNet](https://github.com/cywf/AegisNet)** | Secure network architecture leveraging AI‑driven threat intelligence and zero‑trust principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
-| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Build Status](hst principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
-| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Build Status](https://github.com/cywf/AirwayAtlas/actions/workflows/ci_cd.yml/badge.svg) |  
-| **[willow](https://github.com/cywf/willow)** | Lightweight framework for orchestrating multi‑agent systems and event‑driven workflows. | ![Build Status](https://github.com/cywf/willow/actions/workflows/deploy.yml/badge.sst principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
-| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Build Status](vg) |  
+| **[sentinel‑project](https://github.com/cywf/sentinel-project)** | Autonomous detection system for adversarial threats across infrastructure; features real‑time monitoring and response. | ![Build Status](https://github.com/cywf/sentinel-project/actions/workflows/test.yml/badge.svg) |  
+| **[AegisNet](https://github.com/cywf/AegisNet)** | Secure network architecture leveraging AI‑driven threat intelligence and zero‑trust principles. | ![Terraform Validation](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
+| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Deploy Status](https://github.com/cywf/AirwayAtlas/actions/workflows/deploy.yml/badge.svg) |  
+| **[willow](https://github.com/cywf/willow)** | Lightweight framework for orchestrating multi‑agent systems and event‑driven workflows. | ![Build Status](https://github.com/cywf/willow/actions/workflows/deploy.yml/badge.svg) |  
 
 ## 📈 Github Statistics  
 I enjoy analyzing statistics almost as much as writing code. Check out my GitHub statistics below:  
 
-![KP's GitHub Stats](https://github-readme-stats.vercel.app/api?username=cywf&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true)  
+<div align="center">
 
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&layout=compact&theme=tokyonight)  
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=cywf&show_icons=true&theme=github_dark&hide_border=true)  
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&layout=compact&theme=github_dark&hide_border=true)
+
+</div>  
 
 ## 🧠 Learning & Interests  
 I'm constantly exploring new horizons:  
@@ -48,8 +48,7 @@ I'm constantly exploring new horizons:
 - **PR‑CYBR & Community:** Building resilience and equipping communities with knowledge.  
 - **G8 System:** Designing frameworks for sustainable legacy and intergenerational knowledge transfer.  
 - **Space Systems & Quantum:** Investigating new frontiers in communications and energy systems.  
-- **Psionics & Consciousness:**st principles. | ![Build Status](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
-|  Unraveling the mysteries of resonance, vibration, and human potential.  
+- **Psionics & Consciousness:** Unraveling the mysteries of resonance, vibration, and human potential.  
 
 ## ✉️ Contact  
 For collaboration, queries, or just to say hello:  
