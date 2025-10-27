@@ -141,22 +141,6 @@ I'm constantly exploring new horizons across multiple domains:
 
 ---
 
-## 📬 Contact
-
-<details>
-<summary><b>Click to view contact information</b></summary>
-
-For collaboration, queries, or just to say hello:
-
-- 📧 **Email:** cyberspacewolf [at] proton [dot] me
-- 💼 **LinkedIn:** [KP Parisher](https://www.linkedin.com/in/kylo-parisher)
-- 🐘 **Mastodon:** [@cywf@mastodon.social](https://mastodon.social/@cywf)
-- 🐙 **GitHub:** [@cywf](https://github.com/cywf)
-
-</details>
-
----
-
 <div align="center">
 
 _README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2025-10-27 23:46 UTC<!-- /UPDATE_TIME -->_
