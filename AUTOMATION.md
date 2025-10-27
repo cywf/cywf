@@ -8,7 +8,7 @@ This repository contains automated workflows that update the README.md file dail
 
 ### 1. Update README with Latest Gists (`update-readme.yml`)
 
-**Schedule:** Daily at 10:00 UTC  
+**Schedule:** Daily at 10:00 UTC (`cron: '0 10 * * *'`)  
 **Purpose:** Fetches the 20 most recent public gists and updates the "Latest Blog Posts" section.
 
 **How it works:**
@@ -23,7 +23,7 @@ This repository contains automated workflows that update the README.md file dail
 
 ### 2. Update Project Status Matrix (`update-project-status.yml`)
 
-**Schedule:** Daily at 11:00 UTC  
+**Schedule:** Daily at 11:00 UTC (`cron: '0 11 * * *'`)  
 **Purpose:** Updates the CI/CD status badges for all tracked projects.
 
 **How it works:**
@@ -37,14 +37,14 @@ This repository contains automated workflows that update the README.md file dail
 
 ### 3. Update Statistics & Metrics (`update-stats.yml`)
 
-**Schedule:** Daily at 12:00 UTC and on every push to main  
+**Schedule:** Daily at 12:00 UTC (`cron: '0 12 * * *'`) and on every push to main  
 **Purpose:** Refreshes the cached GitHub statistics widgets.
 
 **How it works:**
 1. Checks out the repository
 2. Updates the timestamp in the README footer
-3. Warms up the cache by making requests to stat APIs
-4. Commits and pushes changes if needed
+3. Commits and pushes changes if needed
+4. Warms up the cache by making requests to stat APIs
 
 **Manual trigger:** You can manually trigger this workflow from the Actions tab.
 
@@ -69,7 +69,7 @@ Node.js script that:
 - Updates the project matrix table in README.md
 
 **Environment variables:**
-- `GITHUB_TOKEN` (optional): GitHub token for API authentication
+- `GITHUB_TOKEN` (required): GitHub token for API authentication and repository write access
 
 ## Tracked Projects
 
