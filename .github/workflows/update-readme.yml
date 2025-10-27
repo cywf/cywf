@@ -1,0 +1,52 @@
+name: Update README with Latest Gists
+
+on:
+  schedule:
+    # Runs daily at 10:00 UTC
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Fetch Latest Gists
+        id: fetch-gists
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node scripts/fetch-gists.js
+      
+      - name: Update Last Sync Time
+        run: |
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+          sed -i "s|<!-- LAST_SYNC -->.*<!-- /LAST_SYNC -->|<!-- LAST_SYNC -->$TIMESTAMP<!-- /LAST_SYNC -->|g" README.md
+          sed -i "s|<!-- UPDATE_TIME -->.*<!-- /UPDATE_TIME -->|<!-- UPDATE_TIME -->$TIMESTAMP<!-- /UPDATE_TIME -->|g" README.md
+      
+      - name: Check for changes
+        id: check-changes
+        run: |
+          git diff --exit-code README.md || echo "changes=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push changes
+        if: steps.check-changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git commit -m "ci: update README with latest gists [skip ci]"
+          git push
