@@ -1,62 +1,166 @@
-# 🚀 What up, World! 🚀  
-It's me, ya boy Ky1o, also known as **cywf** (cyber wolf). And no, I'm not an actual wolf. Just a cyber one.  
-I'm a **Developer**, **Technophile**, and **Open Source Enthusiast** on an eternal quest to understand the universe, one semicolon at a time. Striving to remain phlegmatic while writing code that sparks joy—and occasional bugs.  
+# 🧠 cywf – Dev Command Center
 
-## 🌱 Current Activities  
-- Building and maintaining automation pipelines that would make Rube Goldberg proud.  
-- Educating community members and future guardians of cyberspace via PR‑CYBR and Executive Security International.  
-- Exploring emerging paradigms in AI, cybersecurity, space systems and psionics.  
-- Working on the G8 System for intergenerational stewardship and resilience.  
-- Balancing professional pursuits with personal growth, sustainability, and a small amount of mischief.  
+**A living dashboard for my open-source projects, automations, and analytics.**
 
-## 📚 Latest Blog Posts  
-Here are my four most recent public gists that serve as mini‑blog posts:  
+<details>
+<summary><b>📊 System Overview</b></summary>
 
-- **[PR‑CYBR: WatchDog's Veteran Transition Program – Introduction](https://gist.github.com/cywf/db19af3af790469e2715777c5f19250c)** – A glimpse into our WatchDog transition program, updated September 23 2025.  
-- **[Cursor AI – Rules for AI – General Settings](https://gist.github.com/cywf/a620a43424d47f1fb746638a11924cae)** – Outlining general settings for responsible AI interactions, updated June 19 2025.  
-- **[General use template for the .cursorrules file](https://gist.github.com/cywf/601a521551f659ab75b5a6146d4d8e72)** – A template for customizing Cursor AI behavior, updated June 17 2025.  
-- **[Guide for maintaining and configuring Proxmox](https://gist.github.com/cywf/973f9180ae6036e5bcd06eb85aac7c2c)** – Tips on keeping your Proxmox infrastructure running smoothly, updated February 6 2025.  
+| Metric | Status |
+|--------|--------|
+| Active Repos | 13 |
+| CI/CD Workflows | 5 |
+| Connected Agents | In Development |
+| Last Sync | <!-- LAST_SYNC -->Auto-updated daily<!-- /LAST_SYNC --> |
 
-If a blog entry seems stale, it's because I'm busy saving the world—one security patch at a time.  
+</details>
 
-## 🛠️ Projects  
-These are the repositories I've pinned and actively maintain. Each entry includes a build‑status badge reflecting the latest CI workflow.  
+---
 
-| Project | Description & Tech | Build Status |  
-| --- | --- | --- |  
-| **[FortiPath](https://github.com/cywf/FortiPath)** | Advanced network path analysis and threat prediction using machine learning; built with Python, PyTorch and networking magic. | ![Build Status](https://github.com/cywf/FortiPath/actions/workflows/build.yml/badge.svg) |  
-| **[htb‑helper](https://github.com/cywf/htb-helper)** | Companion tool for Hack The Box labs; automates reconnaissance, enumeration and exploitation tasks. | *(no CI pipeline)* |  
-| **[sentinel‑project](https://github.com/cywf/sentinel-project)** | Autonomous detection system for adversarial threats across infrastructure; features real‑time monitoring and response. | ![Build Status](https://github.com/cywf/sentinel-project/actions/workflows/test.yml/badge.svg) |  
-| **[AegisNet](https://github.com/cywf/AegisNet)** | Secure network architecture leveraging AI‑driven threat intelligence and zero‑trust principles. | ![Terraform Validation](https://github.com/cywf/AegisNet/actions/workflows/terraform.yml/badge.svg) |  
-| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Visualizes and optimizes airway networks for pilots and aviation enthusiasts; uses GIS and machine learning. | ![Deploy Status](https://github.com/cywf/AirwayAtlas/actions/workflows/deploy.yml/badge.svg) |  
-| **[willow](https://github.com/cywf/willow)** | Lightweight framework for orchestrating multi‑agent systems and event‑driven workflows. | ![Build Status](https://github.com/cywf/willow/actions/workflows/deploy.yml/badge.svg) |  
+## 📝 Latest Blog Posts
 
-## 📈 Github Statistics  
-I enjoy analyzing statistics almost as much as writing code. Check out my GitHub statistics below:  
+<details>
+<summary><b>Click to view recent Gists & Posts</b></summary>
+
+<!-- GISTS_START -->
+| Date | Title | Summary | Source |
+|------|-------|---------|--------|
+| 2025-09-23 | PR‑CYBR: WatchDog's Veteran Transition Program | A glimpse into our WatchDog transition program | [View Gist](https://gist.github.com/cywf/db19af3af790469e2715777c5f19250c) |
+| 2025-06-19 | Cursor AI – Rules for AI – General Settings | Outlining general settings for responsible AI interactions | [View Gist](https://gist.github.com/cywf/a620a43424d47f1fb746638a11924cae) |
+| 2025-06-17 | General use template for the .cursorrules file | A template for customizing Cursor AI behavior | [View Gist](https://gist.github.com/cywf/601a521551f659ab75b5a6146d4d8e72) |
+| 2025-02-06 | Guide for maintaining and configuring Proxmox | Tips on keeping your Proxmox infrastructure running smoothly | [View Gist](https://gist.github.com/cywf/973f9180ae6036e5bcd06eb85aac7c2c) |
+<!-- GISTS_END -->
+
+_This section auto-updates nightly via automation._
+
+</details>
+
+---
+
+## 🚀 Project Matrix
+
+<details>
+<summary><b>Click to view CI/CD Metrics & Status</b></summary>
+
+<!-- PROJECT_MATRIX_START -->
+| Project | Description | Build | Test | Deploy | Docs | Link |
+|---------|-------------|-------|------|--------|------|------|
+| **FortiPath** | Advanced network path analysis with ML | ![Build](https://github.com/cywf/FortiPath/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/FortiPath/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/FortiPath/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/FortiPath/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/FortiPath) |
+| **sentinel-project** | Autonomous threat detection system | ![Build](https://github.com/cywf/sentinel-project/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/sentinel-project/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/sentinel-project/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/sentinel-project/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/sentinel-project) |
+| **AegisNet** | AI-driven secure network architecture | ![Build](https://github.com/cywf/AegisNet/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/AegisNet/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/AegisNet/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/AegisNet/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/AegisNet) |
+| **AirwayAtlas** | Airway network visualization with GIS | ![Build](https://github.com/cywf/AirwayAtlas/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/AirwayAtlas/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/AirwayAtlas/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/AirwayAtlas/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/AirwayAtlas) |
+| **willow** | Multi-agent orchestration framework | ![Build](https://github.com/cywf/willow/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/willow/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/willow/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/willow/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/willow) |
+| **OTG-TAK** | Tactical awareness kit for operations | ![Build](https://github.com/cywf/OTG-TAK/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/OTG-TAK/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/OTG-TAK/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/OTG-TAK/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/OTG-TAK) |
+| **InfraGuard** | Infrastructure monitoring & hardening | ![Build](https://github.com/cywf/InfraGuard/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/InfraGuard/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/InfraGuard/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/InfraGuard/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/InfraGuard) |
+| **NetNinja** | Network reconnaissance & automation | ![Build](https://github.com/cywf/NetNinja/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/NetNinja/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/NetNinja/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/NetNinja/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/NetNinja) |
+| **ZeroTier-Toolkit** | ZeroTier network management tools | ![Build](https://github.com/cywf/ZeroTier-Toolkit/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/ZeroTier-Toolkit/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/ZeroTier-Toolkit/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/ZeroTier-Toolkit/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/ZeroTier-Toolkit) |
+| **AlphaNest** | Secure collaboration platform | ![Build](https://github.com/cywf/AlphaNest/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/AlphaNest/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/AlphaNest/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/AlphaNest/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/AlphaNest) |
+| **Boilerplates** | Project templates & scaffolding | ![Build](https://github.com/cywf/Boilerplates/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/Boilerplates/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/Boilerplates/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/Boilerplates/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/Boilerplates) |
+| **CTF-Kit** | Capture The Flag tools & utilities | ![Build](https://github.com/cywf/CTF-Kit/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/CTF-Kit/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/CTF-Kit/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/CTF-Kit/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/CTF-Kit) |
+| **cywf.github.io** | Personal website & portfolio | ![Build](https://github.com/cywf/cywf.github.io/actions/workflows/build.yml/badge.svg) | ![Test](https://github.com/cywf/cywf.github.io/actions/workflows/test.yml/badge.svg) | ![Deploy](https://github.com/cywf/cywf.github.io/actions/workflows/deploy.yml/badge.svg) | ![Docs](https://github.com/cywf/cywf.github.io/actions/workflows/docs.yml/badge.svg) | [View →](https://github.com/cywf/cywf.github.io) |
+<!-- PROJECT_MATRIX_END -->
+
+_This table updates nightly via automation._
+
+</details>
+
+---
+
+## 📊 Developer Analytics
+
+<details>
+<summary><b>Click to view GitHub Statistics & Activity</b></summary>
 
 <div align="center">
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=cywf&show_icons=true&theme=github_dark&hide_border=true)  
+### GitHub Stats
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&layout=compact&theme=github_dark&hide_border=true)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=cywf&show_icons=true&theme=github_dark&hide_border=true&count_private=true&include_all_commits=true)
 
-</div>  
+### Contribution Streak
 
-## 🧠 Learning & Interests  
-I'm constantly exploring new horizons:  
-- **Cybersecurity & AI/ML:** Defensive automation, ethical hacking, and generative models.  
-- **PR‑CYBR & Community:** Building resilience and equipping communities with knowledge.  
-- **G8 System:** Designing frameworks for sustainable legacy and intergenerational knowledge transfer.  
-- **Space Systems & Quantum:** Investigating new frontiers in communications and energy systems.  
-- **Psionics & Consciousness:** Unraveling the mysteries of resonance, vibration, and human potential.  
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=cywf&theme=github-dark-blue&hide_border=true)
 
-## ✉️ Contact  
-For collaboration, queries, or just to say hello:  
-- Email: cyberspacewolf [at] proton [dot] me  
-- LinkedIn: [KP Parisher](https://www.linkedin.com/in/kylo-parisher)  
-- Mastodon: [@cywf@mastodon.social](https://mastodon.social/@cywf)  
+### Top Languages
 
-## 🎮 Gaming & Fun  
-I unwind by cracking puzzles, practicing martial arts, and exploring virtual worlds. When I'm not writing code, I'm probably spending time with my family or flying simulations as a professional pilot student.  
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=cywf&layout=compact&theme=github_dark&hide_border=true&langs_count=8)
 
-Thanks for stopping by! Stay curious, secure, and ready for adventure 🚀
+### Activity Graph
+
+![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=cywf&theme=github-compact&hide_border=true)
+
+### Profile Summary
+
+![Profile Summary](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=cywf&theme=github_dark)
+
+![Stats](https://github-profile-summary-cards.vercel.app/api/cards/stats?username=cywf&theme=github_dark)
+![Productive Time](https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=cywf&theme=github_dark)
+
+</div>
+
+</details>
+
+---
+
+## 🧠 Learning & Interests
+
+<details>
+<summary><b>Click to view current focus areas</b></summary>
+
+I'm constantly exploring new horizons across multiple domains:
+
+### 🔐 Cybersecurity & AI/ML
+- Defensive automation and threat intelligence
+- Ethical hacking and penetration testing
+- Generative models and adversarial ML
+- Zero-trust architecture implementation
+
+### 🌐 PR-CYBR & Community
+- Building resilience in communities
+- WatchDog veteran transition programs
+- Knowledge sharing and education
+- Open-source security tooling
+
+### 🌍 G8 System
+- Sustainable legacy frameworks
+- Intergenerational knowledge transfer
+- Resilience and stewardship models
+
+### 🚀 Space Systems & Quantum
+- Satellite communications
+- Quantum computing fundamentals
+- Energy systems optimization
+- Aviation and aerospace technology
+
+### 🧬 Psionics & Consciousness
+- Resonance and vibration studies
+- Human potential exploration
+- Consciousness research
+- Mind-body integration
+
+</details>
+
+---
+
+## 📬 Contact
+
+<details>
+<summary><b>Click to view contact information</b></summary>
+
+For collaboration, queries, or just to say hello:
+
+- 📧 **Email:** cyberspacewolf [at] proton [dot] me
+- 💼 **LinkedIn:** [KP Parisher](https://www.linkedin.com/in/kylo-parisher)
+- 🐘 **Mastodon:** [@cywf@mastodon.social](https://mastodon.social/@cywf)
+- 🐙 **GitHub:** [@cywf](https://github.com/cywf)
+
+</details>
+
+---
+
+<div align="center">
+
+_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->$(date -u +"%Y-%m-%d %H:%M UTC")<!-- /UPDATE_TIME -->_
+
+**Stay curious, secure, and ready for adventure** 🚀
+
+</div>
