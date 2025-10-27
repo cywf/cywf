@@ -159,7 +159,7 @@ For collaboration, queries, or just to say hello:
 
 <div align="center">
 
-_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->$(date -u +"%Y-%m-%d %H:%M UTC")<!-- /UPDATE_TIME -->_
+_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2025-10-27 23:46 UTC<!-- /UPDATE_TIME -->_
 
 **Stay curious, secure, and ready for adventure** 🚀
 
