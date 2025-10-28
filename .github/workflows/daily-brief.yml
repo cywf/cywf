@@ -12,18 +12,18 @@ permissions:
 jobs:
   generate-daily-brief:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
       - name: Generate Daily Brief
         id: generate
         env:
@@ -33,7 +33,7 @@ jobs:
           node scripts/daily/generate-daily-brief.js
           echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           echo "time=$(date -u +'%H:%M UTC')" >> $GITHUB_OUTPUT
-      
+
       - name: Add Job Summary
         if: always()
         run: |
@@ -45,13 +45,13 @@ jobs:
           echo "✅ Daily brief has been generated and committed." >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "📁 Archive: \`daily/${{ steps.generate.outputs.date }}.md\`" >> $GITHUB_STEP_SUMMARY
-      
+
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'ci: update daily brief [skip ci]'
           file_pattern: 'README.md daily/*.md assets/daily/*'
-      
+
       - name: Notify Slack (Optional)
         if: ${{ secrets.SLACK_WEBHOOK_URL && always() }}
         uses: slackapi/slack-github-action@v1.26.0
