@@ -16,6 +16,25 @@
 
 ---
 
+## 📅 Daily Brief
+
+<!-- BEGIN DAILY BRIEF -->
+<details>
+<summary><b>📰 Today's Intelligence Brief</b></summary>
+
+<div align="center">
+
+**Auto-generated daily brief will appear here**
+
+_Updates daily at 09:00 UTC_
+
+</div>
+
+</details>
+<!-- END DAILY BRIEF -->
+
+---
+
 ## 📝 Latest Blog Posts
 
 <details>
