@@ -26,4 +26,4 @@
 
 ## Secret alignment
 - [ ] Confirm Terraform Cloud workspace exposes `OPENWEATHER_API_KEY` and `GH_TOKEN` to workflow runtime.
-- [ ] Note any additional secrets needed for optional feeds (e.g., Slack webhook) without committing real values.
+- [ ] Note any additional secrets needed for optional feeds without committing real values.

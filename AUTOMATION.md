@@ -18,8 +18,7 @@ This repository contains automated workflows that update the README.md file dail
 4. Updates the README.md between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers
 5. Creates a daily archive in `/daily/YYYY-MM-DD.md` with YAML front matter
 6. Commits and pushes changes automatically
-7. (Optional) Sends Slack notification if webhook is configured
-8. Generates job summary with date and archive path
+7. Generates job summary with date and archive path
 
 **Data sources:**
 - **Weather:** OpenWeatherMap API (San Juan, Puerto Rico)
@@ -33,7 +32,6 @@ This repository contains automated workflows that update the README.md file dail
 **Environment variables:**
 - `OPENWEATHER_API_KEY` (required): Get from https://openweathermap.org/api
 - `GITHUB_TOKEN` (automatic): Provided by GitHub Actions
-- `SLACK_WEBHOOK_URL` (optional): For Slack notifications
 
 ### 2. Update README with Latest Gists (`update-readme.yml`)
 
