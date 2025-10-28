@@ -23,7 +23,7 @@ This repository contains automated workflows that update the README.md file dail
 
 **Data sources:**
 - **Weather:** OpenWeatherMap API (San Juan, Puerto Rico)
-- **News:** Reuters RSS feeds for global intelligence (GRINTSUM)
+- **News:** Reuters RSS feeds for global intelligence summary (GRINTSUM)
 - **Space Weather:** NOAA SWPC alerts and KP index
 - **Quote:** ZenQuotes daily inspirational quote
 - **Trending:** GitHub's trending repositories (past week)
