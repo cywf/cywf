@@ -5,6 +5,19 @@ on:
     # Runs daily at 10:00 UTC (06:00 Puerto Rico time)
     - cron: '0 10 * * *'
   workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force regeneration even if cached data exists'
+        required: false
+        default: 'false'
+      section:
+        description: 'Select which section(s) to refresh (all, weather, intel, space, trending)'
+        required: false
+        default: 'all'
+      debug_mode:
+        description: 'Enable verbose logging for troubleshooting'
+        required: false
+        default: 'false'
 
 permissions:
   contents: write
@@ -12,45 +25,79 @@ permissions:
 jobs:
   generate-daily-brief:
     runs-on: ubuntu-latest
+    env:
+      TZ: America/Puerto_Rico
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          echo "📦 Installing dependencies..."
+          npm ci || npm install
 
       - name: Generate Daily Brief
         id: generate
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-          NOAA_API_URL: https://services.swpc.noaa.gov/json/planetary_k_index_1m.json
-          ZENQUOTES_API_URL: https://zenquotes.io/api/today
+          NOAA_API_URL: ${{ secrets.NOAA_API_URL }}
+          ZENQUOTES_API_URL: ${{ secrets.ZENQUOTES_API_URL }}
+          FORCE_REFRESH: ${{ github.event.inputs.force_refresh }}
+          SECTION: ${{ github.event.inputs.section }}
+          DEBUG_MODE: ${{ github.event.inputs.debug_mode }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          node scripts/daily/generate-daily-brief.js
+          echo "⚙️ Running Daily Brief Generator..."
+          echo "Inputs:"
+          echo " - Force Refresh: $FORCE_REFRESH"
+          echo " - Section: $SECTION"
+          echo " - Debug Mode: $DEBUG_MODE"
+          echo ""
+
+          node scripts/daily/generate-daily-brief.js --section "$SECTION" --force "$FORCE_REFRESH" --debug "$DEBUG_MODE" || {
+            echo "❌ Brief generation failed. Check logs or API keys."
+            exit 1
+          }
+
           echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
           echo "time=$(date -u +'%H:%M UTC')" >> $GITHUB_OUTPUT
+
+      - name: Verify Output
+        run: |
+          echo "🧾 Verifying generated files..."
+          if [ -d "daily" ]; then
+            ls -lh daily/
+          else
+            echo "⚠️ No output directory found!"
+          fi
 
       - name: Add Job Summary
         if: always()
         run: |
-          echo "## 📅 Daily Brief Generated" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Date:** ${{ steps.generate.outputs.date }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Time:** ${{ steps.generate.outputs.time }}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Daily brief has been generated and committed." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "📁 Archive: \`daily/${{ steps.generate.outputs.date }}.md\`" >> $GITHUB_STEP_SUMMARY
+          {
+            echo "## 📅 Daily Brief Generated"
+            echo ""
+            echo "**Date:** ${{ steps.generate.outputs.date }}"
+            echo "**Time:** ${{ steps.generate.outputs.time }}"
+            echo ""
+            echo "✅ Daily brief has been generated and committed."
+            echo ""
+            echo "📁 Archive: \`daily/${{ steps.generate.outputs.date }}.md\`"
+          } >> $GITHUB_STEP_SUMMARY
 
-      - name: Commit and push changes
+      - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'feat: enhance daily brief workflow with live weather, intel, space, and trending repos'
+          commit_message: 'ci: update Daily Brief for ${{ steps.generate.outputs.date }}'
           file_pattern: 'README.md daily/*.md assets/daily/*'
+          branch: main
+          push_options: '--force'
