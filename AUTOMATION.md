@@ -209,4 +209,4 @@ All workflows use the built-in `GITHUB_TOKEN` with the following permissions:
 - The scripts are designed to be resilient and will skip updates if data cannot be fetched
 - Badge URLs automatically update based on the latest workflow runs in each repository
 - All date/time values in the daily brief use UTC timezone
-- Weather data is displayed in metric units (Celsius) with wind speed in mph
+- Weather data uses metric units (Celsius for temperature) with wind speed converted to mph for local relevance
