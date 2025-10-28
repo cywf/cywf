@@ -6,7 +6,36 @@ This repository contains automated workflows that update the README.md file dail
 
 ## Workflows
 
-### 1. Update README with Latest Gists (`update-readme.yml`)
+### 1. Daily Brief Automation (`daily-brief.yml`)
+
+**Schedule:** Daily at 09:00 UTC (`cron: '0 9 * * *'`)  
+**Purpose:** Generates a comprehensive daily intelligence brief with weather, news, space weather, quotes, and GitHub trending repos.
+
+**How it works:**
+1. Checks out the repository
+2. Sets up Node.js runtime
+3. Runs `scripts/daily/generate-daily-brief.js` to fetch data from multiple sources
+4. Updates the README.md between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers
+5. Creates a daily archive in `/daily/YYYY-MM-DD.md` with YAML front matter
+6. Commits and pushes changes automatically
+7. (Optional) Sends Slack notification if webhook is configured
+8. Generates job summary with date and archive path
+
+**Data sources:**
+- **Weather:** OpenWeatherMap API (San Juan, Puerto Rico)
+- **News:** Reuters RSS feeds for global intelligence summary (GRINTSUM)
+- **Space Weather:** NOAA SWPC alerts and KP index
+- **Quote:** ZenQuotes daily inspirational quote
+- **Trending:** GitHub's trending repositories (past week)
+
+**Manual trigger:** You can manually trigger this workflow from the Actions tab.
+
+**Environment variables:**
+- `OPENWEATHER_API_KEY` (required): Get from https://openweathermap.org/api
+- `GITHUB_TOKEN` (automatic): Provided by GitHub Actions
+- `SLACK_WEBHOOK_URL` (optional): For Slack notifications
+
+### 2. Update README with Latest Gists (`update-readme.yml`)
 
 **Schedule:** Daily at 10:00 UTC (`cron: '0 10 * * *'`)  
 **Purpose:** Fetches the 20 most recent public gists and updates the "Latest Blog Posts" section.
@@ -48,7 +77,35 @@ This repository contains automated workflows that update the README.md file dail
 
 **Manual trigger:** You can manually trigger this workflow from the Actions tab.
 
+---
+
 ## Scripts
+
+### `scripts/daily/generate-daily-brief.js`
+
+Main orchestrator script that:
+- Ensures required directories exist (`daily/`, `assets/daily/`)
+- Fetches data from all sources in parallel with error handling
+- Generates formatted markdown with collapsible sections
+- Updates README.md between daily brief markers
+- Creates timestamped archive files with YAML front matter
+
+**Supporting modules in `scripts/daily/lib/`:**
+- `weather.js` - OpenWeatherMap API client with retry logic
+- `news.js` - RSS feed parser for Reuters and other sources
+- `space-weather.js` - NOAA SWPC data fetcher for alerts and KP index
+- `quote.js` - ZenQuotes API client with fallback quotes
+- `github-trending.js` - GitHub trending repos fetcher
+
+### `scripts/daily/test-daily-brief.js`
+
+Validation script that:
+- Checks for required README markers
+- Validates daily archive structure
+- Verifies front matter format
+- Tests markdown syntax
+- Ensures all required sections are present
+- Runs 8 comprehensive tests
 
 ### `scripts/fetch-gists.js`
 
@@ -125,10 +182,17 @@ If a workflow fails:
 1. Check the Actions tab for error logs
 2. Verify the GitHub token has `contents: write` permission
 3. Ensure the README markers are present:
+   - `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->`
    - `<!-- GISTS_START -->` and `<!-- GISTS_END -->`
    - `<!-- PROJECT_MATRIX_START -->` and `<!-- PROJECT_MATRIX_END -->`
    - `<!-- LAST_SYNC -->` and `<!-- /LAST_SYNC -->`
    - `<!-- UPDATE_TIME -->` and `<!-- /UPDATE_TIME -->`
+
+**Daily Brief specific issues:**
+- If OpenWeather API fails, the brief will still generate with fallback data
+- News/space weather failures are non-blocking
+- Check that `OPENWEATHER_API_KEY` is set in repository secrets
+- Review daily archive files in `/daily/` for full output
 
 ## Permissions
 
