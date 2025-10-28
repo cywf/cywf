@@ -224,6 +224,11 @@ async function main() {
     const matrix = await generateProjectMatrix();
     updateReadme(matrix);
   } catch (error) {
+    if (error.code && ['ENETUNREACH', 'ECONNRESET', 'ETIMEDOUT', 'EAI_AGAIN'].includes(error.code)) {
+      console.warn(`Network issue encountered (${error.code}). Skipping README update for now.`);
+      return;
+    }
+
     console.error('Error updating README:', error.message);
     process.exit(1);
   }

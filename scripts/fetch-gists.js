@@ -147,16 +147,21 @@ function updateReadme(gistTableContent) {
 async function main() {
   try {
     const gists = await fetchGists();
-    
+
     if (gists.length === 0) {
       console.log('No gists found, skipping update');
       return;
     }
-    
+
     const gistTable = generateGistTable(gists);
     updateReadme(gistTable);
-    
+
   } catch (error) {
+    if (error.code && ['ENETUNREACH', 'ECONNRESET', 'ETIMEDOUT', 'EAI_AGAIN'].includes(error.code)) {
+      console.warn(`Network issue encountered (${error.code}). Skipping README update for now.`);
+      return;
+    }
+
     console.error('Error updating README:', error.message);
     process.exit(1);
   }
