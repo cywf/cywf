@@ -25,14 +25,49 @@ jobs:
           node-version: '20'
       
       - name: Generate Daily Brief
+        id: generate
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           node scripts/daily/generate-daily-brief.js
+          echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "time=$(date -u +'%H:%M UTC')" >> $GITHUB_OUTPUT
+      
+      - name: Add Job Summary
+        if: always()
+        run: |
+          echo "## 📅 Daily Brief Generated" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Date:** ${{ steps.generate.outputs.date }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Time:** ${{ steps.generate.outputs.time }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Daily brief has been generated and committed." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📁 Archive: \`daily/${{ steps.generate.outputs.date }}.md\`" >> $GITHUB_STEP_SUMMARY
       
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'ci: update daily brief [skip ci]'
           file_pattern: 'README.md daily/*.md assets/daily/*'
+      
+      - name: Notify Slack (Optional)
+        if: ${{ secrets.SLACK_WEBHOOK_URL != '' && always() }}
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "📅 Daily Brief Generated",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Daily Brief Update*\n✅ Generated for ${{ steps.generate.outputs.date }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
