@@ -51,23 +51,3 @@ jobs:
         with:
           commit_message: 'ci: update daily brief [skip ci]'
           file_pattern: 'README.md daily/*.md assets/daily/*'
-
-      - name: Notify Slack (Optional)
-        if: ${{ secrets.SLACK_WEBHOOK_URL && always() }}
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          payload: |
-            {
-              "text": "📅 Daily Brief Generated",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Daily Brief Update*\n✅ Generated for ${{ steps.generate.outputs.date }}"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

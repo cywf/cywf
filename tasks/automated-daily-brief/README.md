@@ -39,7 +39,6 @@ All phases have been successfully completed! The automated daily brief workflow 
 - Job summaries for observability
 
 ✅ **Optional Integrations**
-- Slack webhook notifications
 - GitHub Actions summaries
 - Extensible for future integrations
 
@@ -94,9 +93,6 @@ node scripts/daily/test-daily-brief.js
 **Required Secrets:**
 - `OPENWEATHER_API_KEY` - Get from https://openweathermap.org/api
 - `GITHUB_TOKEN` - Automatically provided by GitHub Actions
-
-**Optional Secrets:**
-- `SLACK_WEBHOOK_URL` - For Slack notifications
 
 ### Next Steps
 
