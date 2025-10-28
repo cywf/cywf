@@ -28,3 +28,13 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+
+# Agent outputs (temporary)
+agents/output/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python

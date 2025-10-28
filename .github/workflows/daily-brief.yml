@@ -5,19 +5,6 @@ on:
     # Runs daily at 10:00 UTC (06:00 Puerto Rico time)
     - cron: '0 10 * * *'
   workflow_dispatch:
-    inputs:
-      force_refresh:
-        description: 'Force regeneration even if cached data exists'
-        required: false
-        default: 'false'
-      section:
-        description: 'Select which section(s) to refresh (all, weather, intel, space, trending)'
-        required: false
-        default: 'all'
-      debug_mode:
-        description: 'Enable verbose logging for troubleshooting'
-        required: false
-        default: 'false'
 
 permissions:
   contents: write
@@ -35,36 +22,24 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 20
+          python-version: '3.12'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
-          echo "📦 Installing dependencies..."
-          npm ci || npm install
+          echo "📦 Installing Python dependencies..."
+          pip install -r requirements.txt
 
       - name: Generate Daily Brief
         id: generate
-        env:
-          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-          NOAA_API_URL: ${{ secrets.NOAA_API_URL }}
-          ZENQUOTES_API_URL: ${{ secrets.ZENQUOTES_API_URL }}
-          FORCE_REFRESH: ${{ github.event.inputs.force_refresh }}
-          SECTION: ${{ github.event.inputs.section }}
-          DEBUG_MODE: ${{ github.event.inputs.debug_mode }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "⚙️ Running Daily Brief Generator..."
-          echo "Inputs:"
-          echo " - Force Refresh: $FORCE_REFRESH"
-          echo " - Section: $SECTION"
-          echo " - Debug Mode: $DEBUG_MODE"
+          echo "⚙️ Running Multi-Agent Daily Brief Generator..."
           echo ""
 
-          node scripts/daily/generate-daily-brief.js --section "$SECTION" --force "$FORCE_REFRESH" --debug "$DEBUG_MODE" || {
-            echo "❌ Brief generation failed. Check logs or API keys."
+          python scripts/generate_daily_brief.py || {
+            echo "❌ Brief generation failed. Check logs."
             exit 1
           }
 
@@ -97,7 +72,5 @@ jobs:
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'ci: update Daily Brief for ${{ steps.generate.outputs.date }}'
-          file_pattern: 'README.md daily/*.md assets/daily/*'
-          branch: main
-          push_options: '--force'
+          commit_message: 'ci: update multi-agent Daily Brief for ${{ steps.generate.outputs.date }}'
+          file_pattern: 'README.md daily/*.md assets/*'
