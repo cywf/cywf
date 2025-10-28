@@ -77,7 +77,7 @@ async function fetchAllData() {
     const [weather, forecast, news, spaceAlerts, kpIndex, quote, trending] = await Promise.allSettled([
       fetchCurrentWeather(apiKey),
       fetchForecast(apiKey),
-      fetchNews(5),
+      fetchNews(3),
       fetchSpaceWeatherAlerts(),
       fetchKpIndex(),
       fetchQuote(),

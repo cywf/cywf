@@ -8,12 +8,12 @@ This repository contains automated workflows that update the README.md file dail
 
 ### 1. Daily Brief Automation (`daily-brief.yml`)
 
-**Schedule:** Daily at 09:00 UTC (`cron: '0 9 * * *'`)  
+**Schedule:** Daily at 10:00 UTC / 06:00 Puerto Rico time (`cron: '0 10 * * *'`)  
 **Purpose:** Generates a comprehensive daily intelligence brief with weather, news, space weather, quotes, and GitHub trending repos.
 
 **How it works:**
 1. Checks out the repository
-2. Sets up Node.js runtime
+2. Sets up Node.js 20 runtime
 3. Runs `scripts/daily/generate-daily-brief.js` to fetch data from multiple sources
 4. Updates the README.md between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers
 5. Creates a daily archive in `/daily/YYYY-MM-DD.md` with YAML front matter
@@ -21,17 +21,20 @@ This repository contains automated workflows that update the README.md file dail
 7. Generates job summary with date and archive path
 
 **Data sources:**
-- **Weather:** OpenWeatherMap API (San Juan, Puerto Rico)
-- **News:** Reuters RSS feeds for global intelligence summary (GRINTSUM)
-- **Space Weather:** NOAA SWPC alerts and KP index
-- **Quote:** ZenQuotes daily inspirational quote
-- **Trending:** GitHub's trending repositories (past week)
+- **Weather:** OpenWeatherMap API (San Juan, Puerto Rico - metric units)
+- **News:** Reuters World News RSS feed (top 3 headlines)
+- **Space Weather:** NOAA SWPC alerts and KP index (1-minute readings)
+- **Quote:** ZenQuotes daily inspirational quote with fallback quotes
+- **Trending:** GitHub's top 3 trending repositories (past week)
 
 **Manual trigger:** You can manually trigger this workflow from the Actions tab.
 
 **Environment variables:**
 - `OPENWEATHER_API_KEY` (required): Get from https://openweathermap.org/api
+- `NOAA_API_URL`: https://services.swpc.noaa.gov/json/planetary_k_index_1m.json
+- `ZENQUOTES_API_URL`: https://zenquotes.io/api/today
 - `GITHUB_TOKEN` (automatic): Provided by GitHub Actions
+- `GH_TOKEN` (automatic): Alias for GITHUB_TOKEN
 
 ### 2. Update README with Latest Gists (`update-readme.yml`)
 
@@ -187,10 +190,12 @@ If a workflow fails:
    - `<!-- UPDATE_TIME -->` and `<!-- /UPDATE_TIME -->`
 
 **Daily Brief specific issues:**
-- If OpenWeather API fails, the brief will still generate with fallback data
-- News/space weather failures are non-blocking
+- If OpenWeather API fails, the brief will still generate with fallback messages ("Data unavailable ⛔")
+- News/space weather/trending failures are non-blocking with graceful fallbacks
+- All data fetchers have built-in error handling and retry logic
 - Check that `OPENWEATHER_API_KEY` is set in repository secrets
 - Review daily archive files in `/daily/` for full output
+- The workflow will never fail due to network/API errors
 
 ## Permissions
 
@@ -199,6 +204,9 @@ All workflows use the built-in `GITHUB_TOKEN` with the following permissions:
 
 ## Notes
 
-- All commits made by automation include `[skip ci]` to prevent triggering additional workflow runs
+- The Daily Brief workflow uses `feat: enhance daily brief workflow with live weather, intel, space, and trending repos` as commit message
+- Other automation commits include `[skip ci]` to prevent triggering additional workflow runs
 - The scripts are designed to be resilient and will skip updates if data cannot be fetched
 - Badge URLs automatically update based on the latest workflow runs in each repository
+- All date/time values in the daily brief use UTC timezone
+- Weather data uses metric units (Celsius for temperature) with wind speed converted to mph for local relevance
