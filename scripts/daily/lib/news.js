@@ -10,7 +10,7 @@ const https = require('https');
 const NEWS_FEEDS = [
   {
     name: 'Reuters World News',
-    url: 'https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best'
+    url: 'https://feeds.reuters.com/reuters/worldNews'
   }
 ];
 

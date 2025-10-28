@@ -1,0 +1,28 @@
+{
+  "name": "cywf-daily-brief",
+  "version": "1.0.0",
+  "description": "Daily intelligence brief automation for cywf GitHub profile",
+  "main": "scripts/daily/generate-daily-brief.js",
+  "scripts": {
+    "test": "node scripts/daily/test-daily-brief.js",
+    "generate": "node scripts/daily/generate-daily-brief.js"
+  },
+  "keywords": [
+    "automation",
+    "github",
+    "daily-brief",
+    "weather",
+    "news",
+    "space-weather"
+  ],
+  "author": "cywf",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "rss-parser": "^3.13.0",
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

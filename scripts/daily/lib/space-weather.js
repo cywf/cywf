@@ -8,7 +8,7 @@
 const https = require('https');
 
 const SWPC_ALERTS_URL = 'https://services.swpc.noaa.gov/products/alerts.json';
-const SWPC_KP_URL = 'https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json';
+const SWPC_KP_URL = 'https://services.swpc.noaa.gov/json/planetary_k_index_1m.json';
 
 /**
  * Fetch JSON data from HTTPS URL
@@ -73,11 +73,12 @@ async function fetchKpIndex() {
   try {
     const data = await fetchJSON(SWPC_KP_URL);
     
-    // Skip header row and get latest forecast
-    if (data && data.length > 1) {
+    // The 1-minute K-index endpoint returns an array of objects with time_tag and kp_index
+    if (data && data.length > 0) {
+      // Get the most recent reading
       const latest = data[data.length - 1];
-      const kpValue = parseFloat(latest[1]);
-      const observedTime = latest[0];
+      const kpValue = parseFloat(latest.kp_index || latest.Kp || 0);
+      const observedTime = latest.time_tag || new Date().toISOString();
       
       let condition = 'Quiet';
       let emoji = '🟢';

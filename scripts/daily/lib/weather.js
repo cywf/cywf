@@ -62,7 +62,7 @@ async function fetchCurrentWeather(apiKey) {
   }
   
   try {
-    const url = `https://${OPENWEATHER_API_URL}/data/2.5/weather?lat=${DEFAULT_LOCATION.lat}&lon=${DEFAULT_LOCATION.lon}&appid=${apiKey}&units=imperial`;
+    const url = `https://${OPENWEATHER_API_URL}/data/2.5/weather?q=San%20Juan,PR,US&units=metric&appid=${apiKey}`;
     const data = await httpsGet(url);
     
     return {
@@ -71,7 +71,7 @@ async function fetchCurrentWeather(apiKey) {
       feelsLike: Math.round(data.main.feels_like),
       humidity: data.main.humidity,
       pressure: data.main.pressure,
-      windSpeed: Math.round(data.wind.speed),
+      windSpeed: Math.round(data.wind.speed * 2.237), // Convert m/s to mph
       description: data.weather[0].description,
       icon: data.weather[0].icon,
       clouds: data.clouds.all
@@ -91,7 +91,7 @@ async function fetchForecast(apiKey) {
   }
   
   try {
-    const url = `https://${OPENWEATHER_API_URL}/data/2.5/forecast?lat=${DEFAULT_LOCATION.lat}&lon=${DEFAULT_LOCATION.lon}&appid=${apiKey}&units=imperial`;
+    const url = `https://${OPENWEATHER_API_URL}/data/2.5/forecast?q=San%20Juan,PR,US&units=metric&appid=${apiKey}`;
     const data = await httpsGet(url);
     
     // Get next 3 days forecast (one per day at noon)
@@ -122,7 +122,7 @@ function formatWeatherMarkdown(current, forecast) {
   
   let md = `### 🌤️ Current Weather\n\n`;
   md += `**${current.location}**\n\n`;
-  md += `- 🌡️ Temperature: ${current.temperature}°F (Feels like ${current.feelsLike}°F)\n`;
+  md += `- 🌡️ Temperature: ${current.temperature}°C (Feels like ${current.feelsLike}°C)\n`;
   md += `- 📝 Conditions: ${current.description}\n`;
   md += `- 💧 Humidity: ${current.humidity}%\n`;
   md += `- 💨 Wind Speed: ${current.windSpeed} mph\n`;
@@ -133,7 +133,7 @@ function formatWeatherMarkdown(current, forecast) {
     md += `| Day | Temp | Conditions |\n`;
     md += `|-----|------|------------|\n`;
     forecast.forEach(day => {
-      md += `| ${day.date} | ${day.temp}°F | ${day.description} |\n`;
+      md += `| ${day.date} | ${day.temp}°C | ${day.description} |\n`;
     });
   }
   

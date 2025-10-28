@@ -2,8 +2,8 @@ name: Daily Brief Automation
 
 on:
   schedule:
-    # Runs daily at 09:00 UTC
-    - cron: '0 9 * * *'
+    # Runs daily at 10:00 UTC (06:00 Puerto Rico time)
+    - cron: '0 10 * * *'
   workflow_dispatch:
 
 permissions:
@@ -28,7 +28,10 @@ jobs:
         id: generate
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+          NOAA_API_URL: https://services.swpc.noaa.gov/json/planetary_k_index_1m.json
+          ZENQUOTES_API_URL: https://zenquotes.io/api/today
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           node scripts/daily/generate-daily-brief.js
           echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
@@ -49,5 +52,5 @@ jobs:
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'ci: update daily brief [skip ci]'
+          commit_message: 'feat: enhance daily brief workflow with live weather, intel, space, and trending repos'
           file_pattern: 'README.md daily/*.md assets/daily/*'
