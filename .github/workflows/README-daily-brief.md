@@ -76,12 +76,12 @@ The script has graceful error handling and fallback data for all APIs. If an API
 ### Missing API key
 If `OPENWEATHER_API_KEY` is not set, the weather section will show as unavailable, but the workflow will still complete successfully with other data.
 
-##  Recent Updates (October 2024)
+## Recent Updates (October 2024)
 
-### API Status Verified:
+### API Status Verified (as of October 2024):
 - ✅ **OpenWeatherMap**: Endpoints `/data/2.5/weather` and `/data/2.5/forecast` are stable and working
 - ✅ **ZenQuotes**: Endpoint `zenquotes.io/api/today` is stable and working
-- ℹ️ **Note**: While OpenWeatherMap released One Call API 3.0, the 2.5 endpoints used in this workflow remain supported and functional
+- ℹ️ **Note**: The 2.5 endpoints used in this workflow are stable versions. If you encounter issues, check the [OpenWeatherMap API documentation](https://openweathermap.org/api) for current status
 
 ### Code Quality:
 - ✅ Removed trailing spaces from workflow file
