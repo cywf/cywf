@@ -1,0 +1,205 @@
+name: AI-Powered Daily Brief (Claude)
+
+on:
+  schedule:
+    # Runs daily at 10:00 UTC (06:00 Puerto Rico time)
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-ai-daily-brief:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Generate Daily Brief with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are an AI assistant (Claude) tasked with generating a comprehensive "Daily Brief" for a GitHub profile README.
+            
+            **Your Task:**
+            Generate a markdown snippet that will replace the content between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers in the README.md file.
+            
+            **Requirements:**
+            
+            1. **Structure**: The output must be a collapsible section starting with:
+               ```markdown
+               <details>
+               <summary><b>📰 Today's Intelligence Brief</b></summary>
+               ```
+               
+            2. **Header Section** (centered):
+               ```markdown
+               <div align="center">
+               
+               # 📅 Daily Brief
+               
+               **[DayOfWeek, Month DD, YYYY]**
+               
+               </div>
+               
+               ---
+               ```
+            
+            3. **Subsections** (each in its own collapsible `<details>` block):
+            
+               a. **💭 Quote of the Day**:
+                  - Fetch a random inspirational quote
+                  - Format as a blockquote with author attribution
+                  - Example format:
+                    ```markdown
+                    ### 💭 Quote of the Day
+                    
+                    > "Quote text here."
+                    >
+                    > — **Author Name**
+                    ```
+               
+               b. **🌤️ Weather Report**:
+                  - Location: San Juan, Puerto Rico
+                  - Current conditions: temperature (°F), humidity (%), wind speed (mph)
+                  - Today's forecast: High/Low temperatures, precipitation
+                  - Use appropriate weather emoji (☀️, ⛅, 🌧️, etc.)
+                  
+                  **Space Weather Status** (within same section):
+                  - KP Index with status indicator (🟢 Quiet, 🟡 Unsettled, 🟠 Active, 🔴 Storm)
+                  - Recent space weather alerts (if available)
+               
+               c. **📰 Global Intelligence News**:
+                  - Fetch top 3 world news headlines
+                  - Provide 1-2 sentence summaries for each
+                  - If unavailable: "**Intel data unavailable** ⛔"
+               
+               d. **🔐 Cyber Pulse Report**:
+                  - Fetch top 3 cybersecurity news items
+                  - Provide 1-2 sentence summaries for each
+                  - If unavailable: "**CyberPulse data unavailable** ⛔"
+               
+               e. **🔥 Trending on GitHub**:
+                  - List top 3 trending repositories from past week
+                  - Use a markdown table with columns: Repo | Author | Description | Language | Stars | Forks | Link
+                  - Format: Stars with ⭐ emoji, Forks with 🔱 emoji
+                  - Include a placeholder for trending chart: `![Trending Repos Chart](assets/trending.png)`
+            
+            4. **Footer** (centered):
+               ```markdown
+               ---
+               
+               <div align="center">
+               
+               _Generated at HH:MM AM/PM UTC_
+               
+               </div>
+               ```
+            
+            5. **Closing tag**:
+               ```markdown
+               </details>
+               ```
+            
+            **Important Notes:**
+            - Use real-time data where possible, but provide graceful fallbacks if data is unavailable
+            - Maintain the exact format and emoji style shown above
+            - Each subsection should be in a `<details>` block with a `<summary><b>Title</b></summary>` header
+            - Use horizontal rules (`---`) to separate major sections
+            - Output ONLY the content from `<!-- BEGIN DAILY BRIEF -->` to `<!-- END DAILY BRIEF -->` (including these markers)
+            - Ensure all markdown is properly formatted and valid
+            - Keep descriptions concise (truncate to ~80 chars if needed)
+            
+            **Data Sources (suggestions if you can access them):**
+            - Quotes: Use a variety of inspirational, philosophical, or motivational quotes
+            - Weather: OpenMeteo API or similar (coordinates: 18.4655, -66.1057 for San Juan)
+            - Space Weather: NOAA SWPC data
+            - News: Reuters, AP News, BBC World News
+            - Cybersecurity: Recent security bulletins, breaches, or vulnerability announcements
+            - GitHub Trending: GitHub trending API or scraping (filter by stars gained in past week)
+            
+            Please generate the complete daily brief section now, including all markers and properly formatted markdown.
+
+      - name: Update README with Claude's Output
+        run: |
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Get current date for commit message and archive
+          CURRENT_DATE=$(date -u +'%Y-%m-%d')
+          CURRENT_TIME=$(date -u +'%H:%M UTC')
+          
+          # Check if README.md exists
+          if [ ! -f "README.md" ]; then
+            echo "❌ ERROR: README.md not found!"
+            exit 1
+          fi
+          
+          # Check if the daily brief markers exist
+          if ! grep -q "<!-- BEGIN DAILY BRIEF -->" README.md || ! grep -q "<!-- END DAILY BRIEF -->" README.md; then
+            echo "⚠️ WARNING: Daily brief markers not found in README.md"
+            echo "Expected markers: <!-- BEGIN DAILY BRIEF --> and <!-- END DAILY BRIEF -->"
+            exit 1
+          fi
+          
+          echo "✅ README.md markers found. Ready to commit changes."
+          
+          # Create daily archive directory if it doesn't exist
+          mkdir -p daily
+          
+          # Extract the daily brief section from README and save as archive
+          # Note: Claude should have updated the README.md directly
+          sed -n '/<!-- BEGIN DAILY BRIEF -->/,/<!-- END DAILY BRIEF -->/p' README.md > "daily/${CURRENT_DATE}.md"
+          
+          # Add YAML front matter to the archive
+          {
+            echo "---"
+            echo "date: ${CURRENT_DATE}"
+            echo "title: \"Daily Brief - $(date -u +'%A, %B %d, %Y')\""
+            echo "generated: $(date -u +'%Y-%m-%dT%H:%M:%S')Z"
+            echo "---"
+            echo ""
+            cat "daily/${CURRENT_DATE}.md"
+          } > "daily/${CURRENT_DATE}.tmp.md"
+          mv "daily/${CURRENT_DATE}.tmp.md" "daily/${CURRENT_DATE}.md"
+          
+          # Stage changes
+          git add README.md "daily/${CURRENT_DATE}.md"
+          
+          # Check if there are changes to commit
+          if git diff --cached --quiet; then
+            echo "ℹ️ No changes to commit"
+            exit 0
+          fi
+          
+          # Commit and push
+          git commit -m "ci: update AI-powered Daily Brief for ${CURRENT_DATE} [skip ci]"
+          git push
+          
+          echo "✅ Daily brief updated and pushed successfully!"
+          
+      - name: Add Job Summary
+        if: always()
+        run: |
+          CURRENT_DATE=$(date -u +'%Y-%m-%d')
+          CURRENT_TIME=$(date -u +'%H:%M UTC')
+          
+          {
+            echo "## 🤖 AI-Powered Daily Brief Generated"
+            echo ""
+            echo "**Date:** ${CURRENT_DATE}"
+            echo "**Time:** ${CURRENT_TIME}"
+            echo ""
+            echo "✅ Daily brief has been generated by Claude AI and committed."
+            echo ""
+            echo "📁 Archive: \`daily/${CURRENT_DATE}.md\`"
+            echo ""
+            echo "🔗 View the updated README: [README.md](../blob/main/README.md)"
+          } >> $GITHUB_STEP_SUMMARY
