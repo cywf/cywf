@@ -26,7 +26,7 @@
 
 # 📅 Daily Brief
 
-**Tuesday, October 28, 2025**
+**Wednesday, October 29, 2025**
 
 </div>
 
@@ -37,9 +37,9 @@
 
 ### 💭 Quote of the Day
 
-> "In order to be irreplaceable, one must always be different."
+> "We are always complaining that our days are few, and acting as though there would be no end of them.  "
 >
-> — **Coco Chanel**
+> — **Seneca**
 
 </details>
 
@@ -48,13 +48,39 @@
 
 ## 🌤️ Weather Report
 
-**Weather data unavailable** ⛔
+**Location:** San Juan, Puerto Rico
+
+☀️ **Current Conditions:**
+- Temperature: 80°F
+- Humidity: 83%
+- Wind Speed: 5 mph
+
+**Today's Forecast:**
+- High: 94°F / Low: 80°F
+- Precipitation: 0.004 in
 
 ---
 
 ## 🌌 Space Weather Status
 
-**Space weather data unavailable** ⛔
+**KP Index:** 1.0 (🟢 Quiet)
+
+**Recent Alerts:**
+- Space Weather Message Code: ALTK05
+Serial Number: 1854
+Issue Time: 2025 Sep 29 1720 UTC
+
+ALER...
+- Space Weather Message Code: ALTK05
+Serial Number: 1854
+Issue Time: 2025 Sep 29 1200 UTC
+
+ALER...
+- Space Weather Message Code: WARK05
+Serial Number: 2103
+Issue Time: 2025 Sep 29 1159 UTC
+
+WARN...
 
 </details>
 
@@ -63,7 +89,7 @@
 
 **Intel data unavailable** ⛔
 
-_Error: Failed to fetch data_
+_Error: Object of type datetime is not JSON serializable_
 
 </details>
 
@@ -72,16 +98,22 @@ _Error: Failed to fetch data_
 
 **CyberPulse data unavailable** ⛔
 
-_Error: Failed to fetch data_
+_Error: Object of type datetime is not JSON serializable_
 
 </details>
 
 <details>
 <summary><b>🔥 Trending on GitHub</b></summary>
 
-**Trending data unavailable** ⛔
+## 🔥 Trending on GitHub
 
-_Error: Failed to fetch data_
+![Trending Repos Chart](assets/trending.png)
+
+| Repo | Author | Description | Language | Stars | Forks | Link |
+|------|--------|-------------|----------|-------|-------|------|
+| AI-Trader | HKUDS | "AI-Trader: Can AI Beat the Market?" Live Trading: https://h... | Python | ⭐ 3413 | 🔱 549 | [View](https://github.com/HKUDS/AI-Trader) |
+| deepseek-ocr.rs | TimmyOVO | Rust implementation of DeepSeek-OCR with OpenAI-compatible s... | Rust | ⭐ 1353 | 🔱 98 | [View](https://github.com/TimmyOVO/deepseek-ocr.rs) |
+| ai-agents-from-scratch | pguso | Demystify AI agents by building them yourself. Local LLMs, n... | JavaScript | ⭐ 1138 | 🔱 122 | [View](https://github.com/pguso/ai-agents-from-scratch) |
 
 </details>
 
@@ -89,7 +121,7 @@ _Error: Failed to fetch data_
 
 <div align="center">
 
-_Generated at 10:10 PM _
+_Generated at 06:04 AM _
 
 </div>
 
