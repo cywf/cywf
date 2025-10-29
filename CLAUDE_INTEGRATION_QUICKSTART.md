@@ -85,7 +85,7 @@ All formatted with emojis, collapsible sections, and proper markdown styling.
 To modify what Claude generates:
 
 1. Edit `.github/workflows/ai-daily-brief.yml`
-2. Find the `prompt:` section (line ~27)
+2. Find the `prompt:` section under the `anthropic_api_key` parameter
 3. Modify the instructions
 4. Commit and push
 5. Test manually before waiting for the scheduled run
@@ -95,7 +95,7 @@ To modify what Claude generates:
 If the AI workflow has issues:
 
 1. Edit `.github/workflows/daily-brief.yml`
-2. Uncomment the schedule section (lines 4-6)
+2. Uncomment the schedule section containing the cron expression
 3. Commit and push
 4. The Python system will resume automatic updates
 
