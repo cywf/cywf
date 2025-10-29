@@ -6,35 +6,59 @@ This repository contains automated workflows that update the README.md file dail
 
 ## Workflows
 
-### 1. Daily Brief Automation (`daily-brief.yml`)
+### 1a. AI-Powered Daily Brief (`ai-daily-brief.yml`) ⭐ NEW
 
 **Schedule:** Daily at 10:00 UTC / 06:00 Puerto Rico time (`cron: '0 10 * * *'`)  
-**Purpose:** Generates a comprehensive daily intelligence brief with weather, news, space weather, quotes, and GitHub trending repos.
+**Purpose:** Generates a comprehensive daily intelligence brief using Anthropic's Claude AI with weather, news, space weather, quotes, and GitHub trending repos.
 
 **How it works:**
 1. Checks out the repository
-2. Sets up Node.js 20 runtime
-3. Runs `scripts/daily/generate-daily-brief.js` to fetch data from multiple sources
+2. Uses `anthropics/claude-code-action@v1` to generate the daily brief
+3. Claude fetches real-time data from multiple sources and formats it as markdown
 4. Updates the README.md between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers
 5. Creates a daily archive in `/daily/YYYY-MM-DD.md` with YAML front matter
 6. Commits and pushes changes automatically
 7. Generates job summary with date and archive path
 
-**Data sources:**
-- **Weather:** OpenWeatherMap API (San Juan, Puerto Rico - metric units)
-- **News:** Reuters World News RSS feed (top 3 headlines)
-- **Space Weather:** NOAA SWPC alerts and KP index (1-minute readings)
-- **Quote:** ZenQuotes daily inspirational quote with fallback quotes
+**Key advantages:**
+- **No code maintenance**: Update content by editing the prompt instead of Python/JS code
+- **Intelligent summarization**: Claude provides natural language summaries
+- **Adaptive**: Automatically handles API changes and finds alternative data sources
+- **Extensible**: Add new sections by simply updating the prompt
+- **Built-in fallbacks**: Graceful error handling for unavailable data
+
+**Data sources (fetched by Claude):**
+- **Weather:** OpenMeteo API or similar (San Juan, Puerto Rico)
+- **News:** Reuters, AP News, BBC World News (top 3 headlines)
+- **Space Weather:** NOAA SWPC alerts and KP index
+- **Quote:** Inspirational/philosophical quotes from various sources
 - **Trending:** GitHub's top 3 trending repositories (past week)
+- **Cybersecurity:** Recent security bulletins, breaches, vulnerability announcements
 
 **Manual trigger:** You can manually trigger this workflow from the Actions tab.
 
 **Environment variables:**
-- `OPENWEATHER_API_KEY` (required): Get from https://openweathermap.org/api
-- `NOAA_API_URL`: https://services.swpc.noaa.gov/json/planetary_k_index_1m.json
-- `ZENQUOTES_API_URL`: https://zenquotes.io/api/today
+- `ANTHROPIC_API_KEY` (required): Get from https://console.anthropic.com/
 - `GITHUB_TOKEN` (automatic): Provided by GitHub Actions
-- `GH_TOKEN` (automatic): Alias for GITHUB_TOKEN
+
+**Setup:** See `.github/workflows/README-ai-daily-brief.md` for detailed setup instructions.
+
+### 1b. Daily Brief Automation - Legacy Python (`daily-brief.yml`)
+
+**Schedule:** Manual trigger only (automatic schedule disabled)  
+**Purpose:** Legacy Python-based daily intelligence brief generator (kept as backup).
+
+**Status:** This workflow has been superseded by the AI-powered workflow above but is kept as a fallback option.
+
+**How it works:**
+1. Checks out the repository
+2. Sets up Python 3.12 runtime
+3. Runs `scripts/generate_daily_brief.py` using multi-agent architecture
+4. Updates the README.md between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers
+5. Creates a daily archive in `/daily/YYYY-MM-DD.md` with YAML front matter
+6. Commits and pushes changes automatically
+
+**Manual trigger:** Available from the Actions tab as a fallback if AI workflow encounters issues.
 
 ### 2. Update README with Latest Gists (`update-readme.yml`)
 

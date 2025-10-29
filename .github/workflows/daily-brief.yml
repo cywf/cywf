@@ -1,10 +1,10 @@
-name: Daily Brief Automation
+name: Daily Brief Automation (Legacy Python)
 
 on:
-  schedule:
-    # Runs daily at 10:00 UTC (06:00 Puerto Rico time)
-    - cron: '0 10 * * *'
-  workflow_dispatch:
+  # Disabled automatic schedule - use AI workflow instead
+  # schedule:
+  #   - cron: '0 10 * * *'
+  workflow_dispatch:  # Manual trigger only
 
 permissions:
   contents: write
