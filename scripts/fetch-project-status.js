@@ -2,15 +2,13 @@
 
 /**
  * Fetch Project Status Script
- * Fetches CI/CD workflow statuses for all listed projects
+ * Generates project matrix with test status badges
  * and updates the README.md file with the results.
  */
 
-const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const GITHUB_API_URL = 'api.github.com';
 const USERNAME = 'cywf';
 const README_PATH = path.join(__dirname, '..', 'README.md');
 
@@ -85,80 +83,6 @@ const PROJECTS = [
 
 // Workflow types to check
 const WORKFLOW_TYPES = ['test'];
-
-/**
- * Make an HTTPS GET request to GitHub API
- */
-function githubApiRequest(path) {
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: GITHUB_API_URL,
-      path: path,
-      method: 'GET',
-      headers: {
-        'User-Agent': 'cywf-readme-bot',
-        'Accept': 'application/vnd.github.v3+json'
-      }
-    };
-
-    // Add authorization if token is available
-    if (process.env.GITHUB_TOKEN) {
-      options.headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`;
-    }
-
-    const req = https.request(options, (res) => {
-      let data = '';
-
-      res.on('data', (chunk) => {
-        data += chunk;
-      });
-
-      res.on('end', () => {
-        if (res.statusCode === 200) {
-          resolve(JSON.parse(data));
-        } else if (res.statusCode === 404) {
-          resolve(null); // Repository or workflow not found
-        } else {
-          reject(new Error(`GitHub API returned status ${res.statusCode}: ${data}`));
-        }
-      });
-    });
-
-    req.on('error', (error) => {
-      reject(error);
-    });
-
-    req.end();
-  });
-}
-
-/**
- * Check if a repository exists and get workflows
- */
-async function getWorkflowStatus(repo, workflowType) {
-  try {
-    const workflowFile = `${workflowType}.yml`;
-    const apiPath = `/repos/${USERNAME}/${repo}/actions/runs?per_page=1&status=completed`;
-    
-    const result = await githubApiRequest(apiPath);
-    
-    if (!result || !result.workflow_runs || result.workflow_runs.length === 0) {
-      return null;
-    }
-    
-    // Find the most recent run for this workflow type
-    const run = result.workflow_runs.find(r => r.path.includes(workflowType));
-    
-    if (run) {
-      return run.conclusion === 'success' ? '✅' : '❌';
-    }
-    
-    return null;
-  } catch (error) {
-    console.error(`Error checking ${repo}/${workflowType}:`, error.message);
-    return null;
-  }
-}
 
 /**
  * Generate the project matrix table
