@@ -9,12 +9,22 @@ import logging
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Dict, Optional
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+
+
+class DateTimeEncoder(json.JSONEncoder):
+    """Custom JSON encoder that handles datetime objects."""
+    
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+        return super().default(obj)
 
 
 class BaseAgent(ABC):
@@ -113,7 +123,7 @@ class BaseAgent(ABC):
             "data": data if isinstance(data, (dict, list)) else str(data),
             "error": self.error_message
         }
-        json_file.write_text(json.dumps(metadata, indent=2), encoding='utf-8')
+        json_file.write_text(json.dumps(metadata, indent=2, cls=DateTimeEncoder), encoding='utf-8')
         self.logger.debug(f"Wrote metadata to {json_file}")
     
     def _write_error_output(self):
