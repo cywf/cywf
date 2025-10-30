@@ -63,15 +63,18 @@ This repository contains automated workflows that update the README.md file dail
 ### 2. Update README with Latest Gists (`update-readme.yml`)
 
 **Schedule:** Daily at 10:00 UTC (`cron: '0 10 * * *'`)  
-**Purpose:** Fetches the 20 most recent public gists and updates the "Latest Blog Posts" section.
+**Purpose:** Randomly selects 5 public gists and updates the "Latest Blog Posts" section daily.
 
 **How it works:**
 1. Checks out the repository
 2. Sets up Node.js runtime
-3. Runs `scripts/fetch-gists.js` to fetch gists from GitHub API
-4. Updates the README.md between `<!-- GISTS_START -->` and `<!-- GISTS_END -->` markers
-5. Updates the Last Sync timestamp
-6. Commits and pushes changes if any updates were made
+3. Runs `scripts/fetch-gists.js` to fetch up to 100 gists from GitHub API
+4. Randomly selects 5 gists using Fisher-Yates shuffle algorithm
+5. Updates the README.md between `<!-- GISTS_START -->` and `<!-- GISTS_END -->` markers
+6. Updates the Last Sync timestamp
+7. Commits and pushes changes if any updates were made
+
+**Note:** The selection changes daily, providing variety in displayed content.
 
 **Manual trigger:** You can manually trigger this workflow from the Actions tab.
 
@@ -135,10 +138,13 @@ Validation script that:
 ### `scripts/fetch-gists.js`
 
 Node.js script that:
-- Fetches up to 20 public gists from the GitHub API
+- Fetches up to 100 public gists from the GitHub API
+- Randomly selects 5 gists using Fisher-Yates shuffle algorithm
 - Extracts title, description, date, and URL
 - Formats data into a Markdown table
 - Updates the README.md file
+
+**Note:** The random selection changes each time the script runs (daily via automation).
 
 **Environment variables:**
 - `GITHUB_TOKEN` (optional): GitHub token for API authentication
