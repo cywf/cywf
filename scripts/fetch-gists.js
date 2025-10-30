@@ -116,6 +116,13 @@ function generateGistTable(gists) {
   // Shuffle gists and take only the number to display
   const randomGists = shuffleArray(gists).slice(0, GISTS_TO_DISPLAY);
   
+  // Log if we have fewer gists than requested
+  if (randomGists.length < GISTS_TO_DISPLAY) {
+    console.log(`Note: Only ${randomGists.length} gist(s) available (requested ${GISTS_TO_DISPLAY})`);
+  } else {
+    console.log(`Randomly selected ${randomGists.length} gist(s) from ${gists.length} available`);
+  }
+  
   const rows = randomGists.map(gist => {
     const date = formatDate(gist.updated_at);
     const files = Object.keys(gist.files);
