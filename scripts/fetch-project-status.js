@@ -84,7 +84,7 @@ const PROJECTS = [
 ];
 
 // Workflow types to check
-const WORKFLOW_TYPES = ['build', 'test', 'deploy', 'docs'];
+const WORKFLOW_TYPES = ['test'];
 
 /**
  * Make an HTTPS GET request to GitHub API
@@ -171,17 +171,11 @@ async function generateProjectMatrix() {
   for (const project of PROJECTS) {
     console.log(`Checking ${project.repo}...`);
     
-    const statusPromises = WORKFLOW_TYPES.map(type => getWorkflowStatus(project.repo, type));
-    const statuses = await Promise.all(statusPromises);
-    
-    // Generate badge URLs
-    const buildBadge = `![Build](https://github.com/${USERNAME}/${project.repo}/actions/workflows/build.yml/badge.svg)`;
+    // Generate badge URL for test status only
     const testBadge = `![Test](https://github.com/${USERNAME}/${project.repo}/actions/workflows/test.yml/badge.svg)`;
-    const deployBadge = `![Deploy](https://github.com/${USERNAME}/${project.repo}/actions/workflows/deploy.yml/badge.svg)`;
-    const docsBadge = `![Docs](https://github.com/${USERNAME}/${project.repo}/actions/workflows/docs.yml/badge.svg)`;
     const projectLink = `[View →](https://github.com/${USERNAME}/${project.repo})`;
     
-    const row = `| **${project.name}** | ${project.description} | ${buildBadge} | ${testBadge} | ${deployBadge} | ${docsBadge} | ${projectLink} |`;
+    const row = `| **${project.name}** | ${project.description} | ${testBadge} | ${projectLink} |`;
     rows.push(row);
   }
   
@@ -206,7 +200,7 @@ function updateReadme(matrixContent) {
     process.exit(1);
   }
   
-  const tableHeader = `| Project | Description | Build | Test | Deploy | Docs | Link |\n|---------|-------------|-------|------|--------|------|------|`;
+  const tableHeader = `| Project | Description | Test | Link |\n|---------|-------------|------|------|`;
   const newContent = `${startMarker}\n${tableHeader}\n${matrixContent}\n${endMarker}`;
   
   const updatedReadme = readme.substring(0, startIndex) + newContent + readme.substring(endIndex + endMarker.length);
