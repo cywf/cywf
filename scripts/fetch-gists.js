@@ -2,8 +2,9 @@
 
 /**
  * Fetch Latest Gists Script
- * Fetches the 20 most recent public gists from the cywf GitHub account
+ * Fetches public gists from the cywf GitHub account, randomly selects 5,
  * and updates the README.md file with the results.
+ * The selection changes daily when the workflow runs.
  */
 
 const https = require('https');
@@ -13,7 +14,8 @@ const path = require('path');
 const GITHUB_API_URL = 'api.github.com';
 const USERNAME = 'cywf';
 const README_PATH = path.join(__dirname, '..', 'README.md');
-const GISTS_PER_PAGE = 20;
+const GISTS_PER_PAGE = 100; // Fetch more gists to have a better pool for randomization
+const GISTS_TO_DISPLAY = 5; // Display only 5 random gists
 
 /**
  * Make an HTTPS GET request to GitHub API
@@ -80,6 +82,18 @@ function truncate(text, maxLength = 100) {
 }
 
 /**
+ * Shuffle an array using Fisher-Yates algorithm
+ */
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+/**
  * Fetch gists from GitHub API
  */
 async function fetchGists() {
@@ -99,7 +113,10 @@ async function fetchGists() {
  * Generate markdown table rows from gists
  */
 function generateGistTable(gists) {
-  const rows = gists.slice(0, GISTS_PER_PAGE).map(gist => {
+  // Shuffle gists and take only the number to display
+  const randomGists = shuffleArray(gists).slice(0, GISTS_TO_DISPLAY);
+  
+  const rows = randomGists.map(gist => {
     const date = formatDate(gist.updated_at);
     const files = Object.keys(gist.files);
     const filename = files[0] || 'Untitled';
