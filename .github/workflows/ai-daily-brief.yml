@@ -8,22 +8,26 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   generate-ai-daily-brief:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
 
       - name: Generate Daily Brief with Claude
         uses: anthropics/claude-code-action@v1
         with:
+          # Required for Anthropic authentication
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Optional fallback token (used if OIDC unavailable)
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           prompt: |
             You are an AI assistant (Claude) tasked with generating a comprehensive "Daily Brief" for a GitHub profile README.
             
@@ -127,38 +131,31 @@ jobs:
             Please generate the complete daily brief section now, including all markers and properly formatted markdown.
 
       - name: Update README with Claude's Output
+        env:
+          GH_PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
-          # Configure git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Get current date for commit message and archive
           CURRENT_DATE=$(date -u +'%Y-%m-%d')
           CURRENT_TIME=$(date -u +'%H:%M UTC')
           
-          # Check if README.md exists
           if [ ! -f "README.md" ]; then
             echo "❌ ERROR: README.md not found!"
             exit 1
           fi
           
-          # Check if the daily brief markers exist
           if ! grep -q "<!-- BEGIN DAILY BRIEF -->" README.md || ! grep -q "<!-- END DAILY BRIEF -->" README.md; then
             echo "⚠️ WARNING: Daily brief markers not found in README.md"
-            echo "Expected markers: <!-- BEGIN DAILY BRIEF --> and <!-- END DAILY BRIEF -->"
             exit 1
           fi
           
           echo "✅ README.md markers found. Ready to commit changes."
           
-          # Create daily archive directory if it doesn't exist
           mkdir -p daily
           
-          # Extract the daily brief section from README and save as archive
-          # Note: Claude should have updated the README.md directly
           sed -n '/<!-- BEGIN DAILY BRIEF -->/,/<!-- END DAILY BRIEF -->/p' README.md > "daily/${CURRENT_DATE}.md"
           
-          # Add YAML front matter to the archive
           {
             echo "---"
             echo "date: ${CURRENT_DATE}"
@@ -170,21 +167,18 @@ jobs:
           } > "daily/${CURRENT_DATE}.tmp.md"
           mv "daily/${CURRENT_DATE}.tmp.md" "daily/${CURRENT_DATE}.md"
           
-          # Stage changes
           git add README.md "daily/${CURRENT_DATE}.md"
           
-          # Check if there are changes to commit
           if git diff --cached --quiet; then
             echo "ℹ️ No changes to commit"
             exit 0
           fi
           
-          # Commit and push
           git commit -m "ci: update AI-powered Daily Brief for ${CURRENT_DATE} [skip ci]"
-          git push
+          git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
           
           echo "✅ Daily brief updated and pushed successfully!"
-          
+
       - name: Add Job Summary
         if: always()
         run: |
