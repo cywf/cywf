@@ -1,0 +1,56 @@
+.toggle {
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  min-height: 44px;
+}
+
+.toggle:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-hover);
+  color: var(--fg);
+}
+
+.toggle.active {
+  background: var(--acc-1);
+  color: var(--bg-0);
+  border-color: var(--acc-1);
+  box-shadow: var(--shadow-glow);
+}
+
+.toggle.active .icon {
+  animation: spin 2s linear infinite;
+}
+
+.icon {
+  font-size: var(--text-base);
+}
+
+.label {
+  white-space: nowrap;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .label {
+    display: none;
+  }
+}

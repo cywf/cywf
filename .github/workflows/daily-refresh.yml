@@ -1,0 +1,115 @@
+name: Daily Analytics Refresh
+
+on:
+  schedule:
+    # 09:30 UTC = 05:30 EDT (Eastern Daylight Time)
+    - cron: '30 9 * * *'
+    # 10:30 UTC = 05:30 EST (Eastern Standard Time)
+    - cron: '30 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "daily-refresh"
+  cancel-in-progress: false
+
+jobs:
+  refresh-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if it's 05:30 ET
+        id: time_check
+        run: |
+          # Set timezone to America/New_York
+          export TZ=America/New_York
+          CURRENT_TIME=$(date +%H:%M)
+          echo "Current time in ET: $CURRENT_TIME"
+          
+          if [ "$CURRENT_TIME" = "05:30" ]; then
+            echo "It's 05:30 ET - proceeding with refresh"
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "Not 05:30 ET (current: $CURRENT_TIME) - skipping"
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        if: steps.time_check.outputs.should_run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        if: steps.time_check.outputs.should_run == 'true'
+        run: npm ci
+
+      - name: Fetch GitHub analytics
+        if: steps.time_check.outputs.should_run == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: cywf
+        run: npm run fetch:analytics
+
+      - name: Fetch RSS briefs
+        if: steps.time_check.outputs.should_run == 'true'
+        run: npm run fetch:rss
+
+      - name: Check for changes
+        if: steps.time_check.outputs.should_run == 'true'
+        id: check_changes
+        run: |
+          git add public/data/*.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.time_check.outputs.should_run == 'true' && steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: daily analytics refresh $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
+
+      - name: Build Next.js site
+        if: steps.time_check.outputs.should_run == 'true' && steps.check_changes.outputs.has_changes == 'true'
+        run: npm run build
+
+      - name: Upload Pages artifact
+        if: steps.time_check.outputs.should_run == 'true' && steps.check_changes.outputs.has_changes == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+      - name: Deploy to GitHub Pages
+        if: steps.time_check.outputs.should_run == 'true' && steps.check_changes.outputs.has_changes == 'true'
+        uses: actions/deploy-pages@v4
+        
+      - name: Summary
+        if: always()
+        run: |
+          if [ "${{ steps.time_check.outputs.should_run }}" = "true" ]; then
+            echo "✅ Daily refresh completed at $(date)" >> $GITHUB_STEP_SUMMARY
+            if [ "${{ steps.check_changes.outputs.has_changes }}" = "true" ]; then
+              echo "📊 Analytics data updated and deployed" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "ℹ️ No changes detected - deployment skipped" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "⏭️ Skipped - not 05:30 ET" >> $GITHUB_STEP_SUMMARY
+          fi
