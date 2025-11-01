@@ -1,9 +1,19 @@
 {
-  "name": "cywf-daily-brief",
+  "name": "cywf-analytics-dashboard",
   "version": "1.0.0",
-  "description": "Daily intelligence brief automation for cywf GitHub profile",
-  "main": "scripts/daily/generate-daily-brief.js",
+  "description": "Grafana-style analytics dashboard and daily intelligence brief for cywf GitHub profile",
+  "private": true,
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    "fetch:analytics": "tsx scripts/github/fetch-analytics.mts",
+    "fetch:rss": "tsx scripts/briefs/fetch-rss.mts",
+    "fetch:all": "npm run fetch:analytics && npm run fetch:rss",
     "test": "node scripts/daily/test-daily-brief.js",
     "generate": "node scripts/daily/generate-daily-brief.js"
   },
@@ -11,16 +21,41 @@
     "automation",
     "github",
     "daily-brief",
-    "weather",
-    "news",
-    "space-weather"
+    "analytics",
+    "dashboard",
+    "grafana",
+    "nextjs"
   ],
   "author": "cywf",
   "license": "MIT",
   "dependencies": {
-    "node-fetch": "^3.3.2",
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@octokit/graphql": "^8.1.1",
+    "echarts": "^5.5.1",
+    "echarts-for-react": "^3.0.2",
     "rss-parser": "^3.13.0",
-    "cheerio": "^1.0.0-rc.12"
+    "zod": "^3.23.8",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
+    "clsx": "^2.1.1",
+    "node-fetch": "^3.3.2",
+    "cheerio": "^1.0.0-rc.12",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.8.6",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/js-yaml": "^4.0.9",
+    "typescript": "^5.6.3",
+    "tsx": "^4.19.1",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.15",
+    "prettier": "^3.3.3",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0"
   },
   "engines": {
     "node": ">=20.0.0"
