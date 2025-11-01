@@ -68,32 +68,32 @@ def validate_workflow():
         job_names = list(jobs.keys())
         checks.append(("Jobs", f"{len(job_names)} job(s): {', '.join(job_names)}", len(job_names) > 0))
         
-        # Check for Claude action
-        claude_found = False
+        # Check for OpenAI integration
+        openai_found = False
+        openai_key_found = False
+        
         for job_name, job_config in jobs.items():
+            # Check for OpenAI API key in env
+            if 'env' in job_config and 'OPENAI_API_KEY' in job_config['env']:
+                openai_key_found = True
+            
             if 'steps' in job_config:
                 for step in job_config['steps']:
-                    if 'uses' in step and 'claude' in step['uses'].lower():
-                        claude_found = True
-                        # Check Claude config
-                        if 'with' in step:
-                            with_config = step['with']
-                            if 'anthropic_api_key' in with_config:
-                                checks.append(("Claude API Key", "Configured", True))
-                            else:
-                                checks.append(("Claude API Key", "Missing", False))
-                            
-                            if 'prompt' in with_config:
-                                prompt = with_config['prompt']
-                                prompt_len = len(prompt)
-                                checks.append(("Claude Prompt", f"{prompt_len} chars", prompt_len > 100))
-                            else:
-                                checks.append(("Claude Prompt", "Missing", False))
+                    # Check if step uses OpenAI (via curl or script)
+                    if 'run' in step:
+                        run_content = step['run']
+                        if 'openai' in run_content.lower() or 'api.openai.com' in run_content.lower():
+                            openai_found = True
         
-        if claude_found:
-            checks.append(("Claude Action", "Found", True))
+        if openai_key_found:
+            checks.append(("OpenAI API Key", "Configured", True))
         else:
-            checks.append(("Claude Action", "Not found", False))
+            checks.append(("OpenAI API Key", "Missing", False))
+        
+        if openai_found:
+            checks.append(("OpenAI Integration", "Found", True))
+        else:
+            checks.append(("OpenAI Integration", "Not found", False))
     else:
         checks.append(("Jobs", "Missing", False))
     
@@ -137,7 +137,7 @@ def validate_workflow():
         print("🎉 All validations passed! Workflow is ready to use.")
         print()
         print("📝 Next steps:")
-        print("   1. Ensure ANTHROPIC_API_KEY secret is set in repository settings")
+        print("   1. Ensure OPENAI_API_KEY secret is set in repository settings")
         print("   2. Commit and push the workflow file")
         print("   3. Trigger manually from Actions tab for testing")
         print("   4. Monitor the first few automated runs")
