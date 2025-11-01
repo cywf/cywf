@@ -82,13 +82,25 @@ function deduplicateItems(items: FeedItem[]): FeedItem[] {
 }
 
 function sanitizeContent(content: string): string {
-  // Basic HTML sanitization - remove scripts and normalize whitespace
+  // Comprehensive HTML sanitization - remove all HTML tags and normalize whitespace
+  // This is more secure than trying to filter specific tags
   return content
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-    .replace(/<[^>]+>/g, '')
+    // First, remove all script and style tags with their content
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    // Remove all remaining HTML tags
+    .replace(/<[^>]*>/g, '')
+    // Decode HTML entities
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    // Normalize whitespace
     .replace(/\s+/g, ' ')
     .trim()
-    .slice(0, 500); // Limit length
+    // Limit length
+    .slice(0, 500);
 }
 
 async function main() {

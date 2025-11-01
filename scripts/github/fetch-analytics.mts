@@ -179,7 +179,9 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`Fetching GitHub analytics for user: ${GITHUB_USERNAME}`);
+  // Only log the username value, not the env variable reference
+  const username = GITHUB_USERNAME;
+  console.log(`Fetching GitHub analytics for user: ${username}`);
 
   const ranges = getDateRanges();
   const analytics: any = {
