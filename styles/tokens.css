@@ -1,27 +1,35 @@
-/* CSS Variables for Neon-Green Cyber Theme with WCAG AA Compliance */
+/* CSS Variables for Neon-Green Cyberpunk Theme - Dark Only */
 
 :root {
-  /* Background colors - Near black with subtle variations */
-  --bg-0: hsl(200, 20%, 3%);        /* #050709 - Deepest background */
-  --bg-1: hsl(160, 20%, 6%);        /* #0b1110 - Panel container bg */
-  --bg-panel: hsl(165, 20%, 8%);    /* #0f1616 - Panel background */
-  --bg-elevated: hsl(165, 18%, 10%); /* Elevated panels/cards */
+  /* Force dark color scheme */
+  color-scheme: dark;
 
-  /* Grid and borders */
-  --grid: hsla(150, 94%, 61%, 0.10); /* rgba(58, 255, 129, 0.10) - Subtle gridlines */
-  --border: hsla(150, 94%, 61%, 0.20); /* rgba(58, 255, 129, 0.20) - Panel borders */
-  --border-hover: hsla(150, 94%, 61%, 0.35); /* Hover state for borders */
+  /* Background colors - Deep near-black with subtle variations */
+  --bg-0: #0a0f0d;              /* Deep near-black - main background */
+  --bg-1: #0f1512;              /* Slightly lighter - container background */
+  --bg-panel: #0f1512;          /* Panel background */
+  --bg-elevated: #141a17;       /* Elevated panels/cards */
 
-  /* Text colors - High contrast for WCAG AA (4.5:1) */
-  --fg: hsl(145, 45%, 93%);          /* #e7f7ee - Primary text */
-  --fg-muted: hsl(145, 25%, 72%);    /* #a6cbb7 - Secondary text */
-  --fg-dim: hsl(145, 15%, 55%);      /* Tertiary/dim text */
+  /* Grid and borders - with neon green tint */
+  --grid: rgba(57, 255, 20, 0.10);        /* Subtle gridlines */
+  --border: #16331f;                       /* Panel borders with green tint */
+  --border-hover: rgba(57, 255, 20, 0.35); /* Hover state for borders */
 
-  /* Accent colors - Neon green family */
-  --acc-1: hsl(150, 98%, 58%);       /* #2AFD7B - Primary accent */
-  --acc-2: hsl(145, 100%, 81%);      /* #9CFFBF - Secondary accent */
-  --acc-hover: hsl(150, 98%, 65%);   /* Brighter on hover */
-  --acc-active: hsl(150, 98%, 50%);  /* Darker when active */
+  /* Text colors - High contrast for WCAG AA compliance */
+  --fg: #e6ffe6;                /* Primary text - readable on dark */
+  --fg-muted: #9fffb3;          /* Secondary/muted text */
+  --fg-dim: #7acc92;            /* Tertiary/dim text */
+
+  /* Accent colors - Neon green cyberpunk palette */
+  --primary: #39ff14;           /* Neon green primary - the star of the show */
+  --acc-1: #39ff14;             /* Primary accent (same as primary) */
+  --acc-2: #00ffc6;             /* Teal accent for variety */
+  --acc-hover: #4aff25;         /* Brighter on hover */
+  --acc-active: #2aee04;        /* Darker when active */
+
+  /* Glow effects for cyberpunk aesthetic */
+  --glow: 0 0 6px rgba(57, 255, 20, 0.70), 0 0 18px rgba(57, 255, 20, 0.35);
+  --glow-strong: 0 0 8px rgba(57, 255, 20, 0.85), 0 0 22px rgba(57, 255, 20, 0.50);
 
   /* Status colors */
   --status-success: hsl(145, 90%, 55%);
@@ -30,14 +38,14 @@
   --status-info: hsl(200, 85%, 60%);
 
   /* Focus ring for accessibility */
-  --focus-ring: 0 0 0 3px hsla(150, 98%, 58%, 0.4);
+  --focus-ring: 0 0 0 3px rgba(57, 255, 20, 0.4);
   --focus-ring-offset: 2px;
 
-  /* Shadows for depth */
+  /* Shadows for depth with green glow */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 15px hsla(150, 98%, 58%, 0.3);
+  --shadow-glow: 0 0 15px rgba(57, 255, 20, 0.3);
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -55,12 +63,12 @@
 
   /* Border radius */
   --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
 
-  /* Font families */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  /* Font families - with custom font variables from layout */
+  --font-sans: 'Orbitron', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
 
   /* Font sizes */
   --text-xs: 0.75rem;
@@ -71,32 +79,6 @@
   --text-2xl: 1.5rem;
   --text-3xl: 1.875rem;
   --text-4xl: 2.25rem;
-}
-
-/* Light theme override (if needed) */
-[data-theme="light"] {
-  --bg-0: hsl(0, 0%, 98%);
-  --bg-1: hsl(0, 0%, 95%);
-  --bg-panel: hsl(0, 0%, 100%);
-  --bg-elevated: hsl(0, 0%, 100%);
-
-  --grid: hsla(150, 50%, 40%, 0.15);
-  --border: hsla(150, 30%, 40%, 0.25);
-  --border-hover: hsla(150, 30%, 40%, 0.40);
-
-  --fg: hsl(0, 0%, 10%);
-  --fg-muted: hsl(0, 0%, 35%);
-  --fg-dim: hsl(0, 0%, 50%);
-
-  --acc-1: hsl(150, 85%, 40%);
-  --acc-2: hsl(145, 80%, 35%);
-  --acc-hover: hsl(150, 85%, 35%);
-  --acc-active: hsl(150, 85%, 30%);
-
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-glow: 0 0 15px hsla(150, 85%, 40%, 0.2);
 }
 
 /* Reduced motion support for accessibility */
@@ -115,7 +97,8 @@
 @media (prefers-contrast: high) {
   :root {
     --fg: hsl(0, 0%, 100%);
-    --border: hsla(150, 94%, 61%, 0.5);
+    --border: rgba(57, 255, 20, 0.5);
     --acc-1: hsl(150, 100%, 70%);
+    --primary: hsl(150, 100%, 70%);
   }
 }

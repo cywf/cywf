@@ -32,14 +32,16 @@ body {
 
 /* Links */
 a {
-  color: var(--acc-1);
+  color: var(--primary);
   text-decoration: none;
+  text-underline-offset: 0.18em;
   transition: color var(--transition-fast);
 }
 
 a:hover {
   color: var(--acc-hover);
   text-decoration: underline;
+  text-shadow: var(--glow);
 }
 
 /* Headings */
@@ -165,4 +167,37 @@ pre code {
 
 .gap-4 {
   gap: var(--space-4);
+}
+
+/* Cyberpunk Neon Utilities */
+.neon {
+  text-shadow: var(--glow);
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(17, 26, 22, 0.88), rgba(10, 15, 13, 0.88));
+  border: 1px solid var(--border);
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.18), 0 0 22px rgba(57, 255, 20, 0.12);
+  border-radius: var(--radius-lg);
+}
+
+.btn {
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  background: transparent;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--glow);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.btn:hover {
+  background: rgba(57, 255, 20, 0.1);
+  box-shadow: var(--glow-strong);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
 }
