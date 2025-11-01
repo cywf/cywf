@@ -79,10 +79,14 @@ def validate_workflow():
             
             if 'steps' in job_config:
                 for step in job_config['steps']:
-                    # Check if step uses OpenAI (via curl or script)
+                    # Check if step uses OpenAI API endpoint
                     if 'run' in step:
                         run_content = step['run']
-                        if 'openai' in run_content.lower() or 'api.openai.com' in run_content.lower():
+                        # Check for OpenAI API endpoint (more reliable than string matching)
+                        if 'api.openai.com/v1/chat/completions' in run_content:
+                            openai_found = True
+                        # Also check for general openai references as fallback
+                        elif 'openai' in run_content.lower() and ('curl' in run_content or 'api' in run_content):
                             openai_found = True
         
         if openai_key_found:

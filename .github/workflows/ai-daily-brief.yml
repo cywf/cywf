@@ -133,25 +133,26 @@ jobs:
           # Read the prompt
           PROMPT_TEXT=$(cat /tmp/prompt.txt)
           
-          # Create JSON payload for OpenAI API
-          # Try gpt-4o-mini first, fallback to gpt-4o if needed
-          cat > /tmp/payload.json << EOF
-          {
-            "model": "gpt-4o-mini",
-            "messages": [
-              {
-                "role": "system",
-                "content": "You are an AI assistant generating a Daily Brief for a GitHub profile README. Generate markdown content that is well-formatted and includes real-time data where possible."
-              },
-              {
-                "role": "user",
-                "content": $(echo "$PROMPT_TEXT" | jq -Rs .)
-              }
-            ],
-            "temperature": 0.7,
-            "max_tokens": 4000
-          }
-          EOF
+          # Create JSON payload using jq for safe string handling
+          jq -n \
+            --arg model "gpt-4o-mini" \
+            --arg system_content "You are an AI assistant generating a Daily Brief for a GitHub profile README. Generate markdown content that is well-formatted and includes real-time data where possible." \
+            --arg prompt "$PROMPT_TEXT" \
+            '{
+              "model": $model,
+              "messages": [
+                {
+                  "role": "system",
+                  "content": $system_content
+                },
+                {
+                  "role": "user",
+                  "content": $prompt
+                }
+              ],
+              "temperature": 0.7,
+              "max_tokens": 4000
+            }' > /tmp/payload.json
 
           echo "🚀 Calling OpenAI API..."
           
@@ -181,8 +182,9 @@ jobs:
           else
             echo "❌ ERROR: OpenAI API call failed with HTTP code ${HTTP_CODE}"
             
-            # Check if it's a model availability issue
-            if [ "$HTTP_CODE" = "404" ] || grep -q "model.*not found" /tmp/response.json 2>/dev/null; then
+            # Check if it's a model availability issue (OpenAI returns 400 or 404 for model errors)
+            if [ "$HTTP_CODE" = "404" ] || [ "$HTTP_CODE" = "400" ] || \
+               grep -q "model.*not.*found\|model_not_found" /tmp/response.json 2>/dev/null; then
               echo "⚠️ Trying fallback to gpt-4o..."
               
               # Update payload to use gpt-4o
@@ -235,32 +237,41 @@ jobs:
           if echo "$BRIEF_CONTENT" | grep -q "<!-- BEGIN DAILY BRIEF -->"; then
             # Content includes markers, use as-is
             echo "✅ Content includes markers, using as-is"
-            REPLACEMENT_CONTENT="$BRIEF_CONTENT"
+            # Use awk to replace content between markers
+            awk -v replacement="$BRIEF_CONTENT" '
+              /<!-- BEGIN DAILY BRIEF -->/ {
+                print replacement
+                skip=1
+                next
+              }
+              /<!-- END DAILY BRIEF -->/ {
+                skip=0
+                next
+              }
+              !skip
+            ' README.md > README.md.tmp
           else
-            # Content doesn't include markers, wrap it
+            # Content doesn't include markers, wrap it and then replace
             echo "✅ Wrapping content with markers"
-            REPLACEMENT_CONTENT="<!-- BEGIN DAILY BRIEF -->
-          $BRIEF_CONTENT
-          <!-- END DAILY BRIEF -->"
+            awk -v content="$BRIEF_CONTENT" '
+              /<!-- BEGIN DAILY BRIEF -->/ {
+                print "<!-- BEGIN DAILY BRIEF -->"
+                print content
+                print "<!-- END DAILY BRIEF -->"
+                skip=1
+                next
+              }
+              /<!-- END DAILY BRIEF -->/ {
+                skip=0
+                next
+              }
+              !skip
+            ' README.md > README.md.tmp
           fi
-          
-          # Use awk to replace content between markers
-          awk -v replacement="$REPLACEMENT_CONTENT" '
-            /<!-- BEGIN DAILY BRIEF -->/ {
-              print replacement
-              skip=1
-              next
-            }
-            /<!-- END DAILY BRIEF -->/ {
-              skip=0
-              next
-            }
-            !skip
-          ' README.md > README.md.tmp
           
           mv README.md.tmp README.md
           
-          echo "✅ README.md markers found. Ready to commit changes."
+          echo "✅ README.md updated successfully"
           
           mkdir -p daily
           
