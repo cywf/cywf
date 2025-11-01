@@ -65,7 +65,8 @@ export interface DailyBrief {
 
 export async function loadGitHubAnalytics(): Promise<GitHubAnalytics | null> {
   try {
-    const response = await fetch('/cywf/data/github-analytics.json');
+    // Use relative path since Next.js handles basePath in next.config.mjs
+    const response = await fetch('/data/github-analytics.json');
     if (!response.ok) {
       console.warn('GitHub analytics data not found');
       return null;
@@ -79,7 +80,8 @@ export async function loadGitHubAnalytics(): Promise<GitHubAnalytics | null> {
 
 export async function loadDailyBrief(): Promise<DailyBrief | null> {
   try {
-    const response = await fetch('/cywf/data/daily-brief.json');
+    // Use relative path since Next.js handles basePath in next.config.mjs
+    const response = await fetch('/data/daily-brief.json');
     if (!response.ok) {
       console.warn('Daily brief data not found');
       return null;

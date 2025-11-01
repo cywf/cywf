@@ -6,7 +6,6 @@ import Header from '@/components/Header';
 import Panel from '@/components/Panel';
 import styles from './page.module.css';
 import { getMockBrief } from '@/lib/data';
-import { prefixPath } from '@/lib/utils';
 
 export default function IntelPage() {
   const brief = getMockBrief();
@@ -29,7 +28,7 @@ export default function IntelPage() {
                 })}
               </p>
             </div>
-            <Link href={prefixPath('/')} className={styles.backLink}>
+            <Link href="/" className={styles.backLink}>
               ← Back to Dashboard
             </Link>
           </div>

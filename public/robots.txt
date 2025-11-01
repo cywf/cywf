@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://cywf.github.io/cywf/sitemap.xml

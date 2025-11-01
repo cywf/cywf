@@ -195,8 +195,10 @@ async function main() {
     try {
       const data = await fetchContributions(range.from, range.to);
       
-      // Calculate public-only contributions
-      const publicCommits = Math.max(0, data.totalCommitContributions - data.restrictedContributionsCount);
+      // Use totalCommitContributions as-is since it should already represent public contributions
+      // restrictedContributionsCount is a separate field that counts private contributions
+      // We display the public commit count directly
+      const publicCommits = data.totalCommitContributions;
       
       analytics.contributions[key] = {
         total: data.contributionCalendar.totalContributions,
