@@ -1,4 +1,4 @@
-name: AI-Powered Daily Brief (Claude)
+name: AI-Powered Daily Brief (OpenAI)
 
 on:
   schedule:
@@ -14,6 +14,9 @@ jobs:
   generate-ai-daily-brief:
     runs-on: ubuntu-latest
 
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,116 +24,193 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
 
-      - name: Generate Daily Brief with Claude
-        uses: anthropics/claude-code-action@v1
-        with:
-          # Required for Anthropic authentication
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Optional fallback token (used if OIDC unavailable)
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          prompt: |
-            You are an AI assistant (Claude) tasked with generating a comprehensive "Daily Brief" for a GitHub profile README.
-            
-            **Your Task:**
-            Generate a markdown snippet that will replace the content between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers in the README.md file.
-            
-            **Requirements:**
-            
-            1. **Structure**: The output must be a collapsible section starting with:
-               ```markdown
-               <details>
-               <summary><b>📰 Today's Intelligence Brief</b></summary>
-               ```
-               
-            2. **Header Section** (centered):
-               ```markdown
-               <div align="center">
-               
-               # 📅 Daily Brief
-               
-               **[DayOfWeek, Month DD, YYYY]**
-               
-               </div>
-               
-               ---
-               ```
-            
-            3. **Subsections** (each in its own collapsible `<details>` block):
-            
-               a. **💭 Quote of the Day**:
-                  - Fetch a random inspirational quote
-                  - Format as a blockquote with author attribution
-                  - Example format:
-                    ```markdown
-                    ### 💭 Quote of the Day
-                    
-                    > "Quote text here."
-                    >
-                    > — **Author Name**
-                    ```
-               
-               b. **🌤️ Weather Report**:
-                  - Location: San Juan, Puerto Rico
-                  - Current conditions: temperature (°F), humidity (%), wind speed (mph)
-                  - Today's forecast: High/Low temperatures, precipitation
-                  - Use appropriate weather emoji (☀️, ⛅, 🌧️, etc.)
+      - name: Generate Daily Brief with OpenAI
+        run: |
+          # Create the prompt for OpenAI
+          cat > /tmp/prompt.txt << 'PROMPT_EOF'
+          You are an AI assistant tasked with generating a comprehensive "Daily Brief" for a GitHub profile README.
+          
+          **Your Task:**
+          Generate a markdown snippet that will replace the content between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers in the README.md file.
+          
+          **Requirements:**
+          
+          1. **Structure**: The output must be a collapsible section starting with:
+             ```markdown
+             <details>
+             <summary><b>📰 Today's Intelligence Brief</b></summary>
+             ```
+             
+          2. **Header Section** (centered):
+             ```markdown
+             <div align="center">
+             
+             # 📅 Daily Brief
+             
+             **[DayOfWeek, Month DD, YYYY]**
+             
+             </div>
+             
+             ---
+             ```
+          
+          3. **Subsections** (each in its own collapsible `<details>` block):
+          
+             a. **💭 Quote of the Day**:
+                - Fetch a random inspirational quote
+                - Format as a blockquote with author attribution
+                - Example format:
+                  ```markdown
+                  ### 💭 Quote of the Day
                   
-                  **Space Weather Status** (within same section):
-                  - KP Index with status indicator (🟢 Quiet, 🟡 Unsettled, 🟠 Active, 🔴 Storm)
-                  - Recent space weather alerts (if available)
-               
-               c. **📰 Global Intelligence News**:
-                  - Fetch top 3 world news headlines
-                  - Provide 1-2 sentence summaries for each
-                  - If unavailable: "**Intel data unavailable** ⛔"
-               
-               d. **🔐 Cyber Pulse Report**:
-                  - Fetch top 3 cybersecurity news items
-                  - Provide 1-2 sentence summaries for each
-                  - If unavailable: "**CyberPulse data unavailable** ⛔"
-               
-               e. **🔥 Trending on GitHub**:
-                  - List top 3 trending repositories from past week
-                  - Use a markdown table with columns: Repo | Author | Description | Language | Stars | Forks | Link
-                  - Format: Stars with ⭐ emoji, Forks with 🔱 emoji
-                  - Include a placeholder for trending chart: `![Trending Repos Chart](assets/trending.png)`
-            
-            4. **Footer** (centered):
-               ```markdown
-               ---
-               
-               <div align="center">
-               
-               _Generated at HH:MM AM/PM UTC_
-               
-               </div>
-               ```
-            
-            5. **Closing tag**:
-               ```markdown
-               </details>
-               ```
-            
-            **Important Notes:**
-            - Use real-time data where possible, but provide graceful fallbacks if data is unavailable
-            - Maintain the exact format and emoji style shown above
-            - Each subsection should be in a `<details>` block with a `<summary><b>Title</b></summary>` header
-            - Use horizontal rules (`---`) to separate major sections
-            - Output ONLY the content from `<!-- BEGIN DAILY BRIEF -->` to `<!-- END DAILY BRIEF -->` (including these markers)
-            - Ensure all markdown is properly formatted and valid
-            - Keep descriptions concise (truncate to ~80 chars if needed)
-            
-            **Data Sources (suggestions if you can access them):**
-            - Quotes: Use a variety of inspirational, philosophical, or motivational quotes
-            - Weather: OpenMeteo API or similar (coordinates: 18.4655, -66.1057 for San Juan)
-            - Space Weather: NOAA SWPC data
-            - News: Reuters, AP News, BBC World News
-            - Cybersecurity: Recent security bulletins, breaches, or vulnerability announcements
-            - GitHub Trending: GitHub trending API or scraping (filter by stars gained in past week)
-            
-            Please generate the complete daily brief section now, including all markers and properly formatted markdown.
+                  > "Quote text here."
+                  >
+                  > — **Author Name**
+                  ```
+             
+             b. **🌤️ Weather Report**:
+                - Location: San Juan, Puerto Rico
+                - Current conditions: temperature (°F), humidity (%), wind speed (mph)
+                - Today's forecast: High/Low temperatures, precipitation
+                - Use appropriate weather emoji (☀️, ⛅, 🌧️, etc.)
+                
+                **Space Weather Status** (within same section):
+                - KP Index with status indicator (🟢 Quiet, 🟡 Unsettled, 🟠 Active, 🔴 Storm)
+                - Recent space weather alerts (if available)
+             
+             c. **📰 Global Intelligence News**:
+                - Fetch top 3 world news headlines
+                - Provide 1-2 sentence summaries for each
+                - If unavailable: "**Intel data unavailable** ⛔"
+             
+             d. **🔐 Cyber Pulse Report**:
+                - Fetch top 3 cybersecurity news items
+                - Provide 1-2 sentence summaries for each
+                - If unavailable: "**CyberPulse data unavailable** ⛔"
+             
+             e. **🔥 Trending on GitHub**:
+                - List top 3 trending repositories from past week
+                - Use a markdown table with columns: Repo | Author | Description | Language | Stars | Forks | Link
+                - Format: Stars with ⭐ emoji, Forks with 🔱 emoji
+                - Include a placeholder for trending chart: `![Trending Repos Chart](assets/trending.png)`
+          
+          4. **Footer** (centered):
+             ```markdown
+             ---
+             
+             <div align="center">
+             
+             _Generated at HH:MM AM/PM UTC_
+             
+             </div>
+             ```
+          
+          5. **Closing tag**:
+             ```markdown
+             </details>
+             ```
+          
+          **Important Notes:**
+          - Use real-time data where possible, but provide graceful fallbacks if data is unavailable
+          - Maintain the exact format and emoji style shown above
+          - Each subsection should be in a `<details>` block with a `<summary><b>Title</b></summary>` header
+          - Use horizontal rules (`---`) to separate major sections
+          - Output ONLY the content from `<!-- BEGIN DAILY BRIEF -->` to `<!-- END DAILY BRIEF -->` (including these markers)
+          - Ensure all markdown is properly formatted and valid
+          - Keep descriptions concise (truncate to ~80 chars if needed)
+          
+          **Data Sources (suggestions if you can access them):**
+          - Quotes: Use a variety of inspirational, philosophical, or motivational quotes
+          - Weather: OpenMeteo API or similar (coordinates: 18.4655, -66.1057 for San Juan)
+          - Space Weather: NOAA SWPC data
+          - News: Reuters, AP News, BBC World News
+          - Cybersecurity: Recent security bulletins, breaches, or vulnerability announcements
+          - GitHub Trending: GitHub trending API or scraping (filter by stars gained in past week)
+          
+          Please generate the complete daily brief section now, including all markers and properly formatted markdown.
+          PROMPT_EOF
 
-      - name: Update README with Claude's Output
+          # Read the prompt
+          PROMPT_TEXT=$(cat /tmp/prompt.txt)
+          
+          # Create JSON payload using jq for safe string handling
+          jq -n \
+            --arg model "gpt-4o-mini" \
+            --arg system_content "You are an AI assistant generating a Daily Brief for a GitHub profile README. Generate markdown content that is well-formatted and includes real-time data where possible." \
+            --arg prompt "$PROMPT_TEXT" \
+            '{
+              "model": $model,
+              "messages": [
+                {
+                  "role": "system",
+                  "content": $system_content
+                },
+                {
+                  "role": "user",
+                  "content": $prompt
+                }
+              ],
+              "temperature": 0.7,
+              "max_tokens": 4000
+            }' > /tmp/payload.json
+
+          echo "🚀 Calling OpenAI API..."
+          
+          # Call OpenAI API
+          HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/response.json \
+            https://api.openai.com/v1/chat/completions \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${OPENAI_API_KEY}" \
+            -d @/tmp/payload.json)
+          
+          echo "HTTP Response Code: ${HTTP_CODE}"
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ OpenAI API call successful"
+            
+            # Extract the generated content
+            jq -r '.choices[0].message.content' /tmp/response.json > /tmp/brief.md
+            
+            # Check if the brief was generated successfully
+            if [ -s /tmp/brief.md ]; then
+              echo "✅ Daily brief generated successfully"
+              cat /tmp/brief.md
+            else
+              echo "❌ ERROR: Brief file is empty"
+              exit 1
+            fi
+          else
+            echo "❌ ERROR: OpenAI API call failed with HTTP code ${HTTP_CODE}"
+            
+            # Check if it's a model availability issue (OpenAI returns 400 or 404 for model errors)
+            if [ "$HTTP_CODE" = "404" ] || [ "$HTTP_CODE" = "400" ] || \
+               grep -q "model.*not.*found\|model_not_found" /tmp/response.json 2>/dev/null; then
+              echo "⚠️ Trying fallback to gpt-4o..."
+              
+              # Update payload to use gpt-4o
+              jq '.model = "gpt-4o"' /tmp/payload.json > /tmp/payload-fallback.json
+              
+              HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/response.json \
+                https://api.openai.com/v1/chat/completions \
+                -H "Content-Type: application/json" \
+                -H "Authorization: Bearer ${OPENAI_API_KEY}" \
+                -d @/tmp/payload-fallback.json)
+              
+              if [ "$HTTP_CODE" = "200" ]; then
+                echo "✅ Fallback to gpt-4o successful"
+                jq -r '.choices[0].message.content' /tmp/response.json > /tmp/brief.md
+              else
+                echo "❌ ERROR: Fallback also failed with HTTP code ${HTTP_CODE}"
+                cat /tmp/response.json
+                exit 1
+              fi
+            else
+              cat /tmp/response.json
+              exit 1
+            fi
+          fi
+
+      - name: Update README with OpenAI Output
         env:
           GH_PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
@@ -150,10 +230,52 @@ jobs:
             exit 1
           fi
           
-          echo "✅ README.md markers found. Ready to commit changes."
+          # Extract the content between markers from the generated brief
+          BRIEF_CONTENT=$(cat /tmp/brief.md)
+          
+          # Check if the generated content already includes the markers
+          if echo "$BRIEF_CONTENT" | grep -q "<!-- BEGIN DAILY BRIEF -->"; then
+            # Content includes markers, use as-is
+            echo "✅ Content includes markers, using as-is"
+            # Use awk to replace content between markers
+            awk -v replacement="$BRIEF_CONTENT" '
+              /<!-- BEGIN DAILY BRIEF -->/ {
+                print replacement
+                skip=1
+                next
+              }
+              /<!-- END DAILY BRIEF -->/ {
+                skip=0
+                next
+              }
+              !skip
+            ' README.md > README.md.tmp
+          else
+            # Content doesn't include markers, wrap it and then replace
+            echo "✅ Wrapping content with markers"
+            awk -v content="$BRIEF_CONTENT" '
+              /<!-- BEGIN DAILY BRIEF -->/ {
+                print "<!-- BEGIN DAILY BRIEF -->"
+                print content
+                print "<!-- END DAILY BRIEF -->"
+                skip=1
+                next
+              }
+              /<!-- END DAILY BRIEF -->/ {
+                skip=0
+                next
+              }
+              !skip
+            ' README.md > README.md.tmp
+          fi
+          
+          mv README.md.tmp README.md
+          
+          echo "✅ README.md updated successfully"
           
           mkdir -p daily
           
+          # Save the daily archive
           sed -n '/<!-- BEGIN DAILY BRIEF -->/,/<!-- END DAILY BRIEF -->/p' README.md > "daily/${CURRENT_DATE}.md"
           
           {
@@ -191,7 +313,7 @@ jobs:
             echo "**Date:** ${CURRENT_DATE}"
             echo "**Time:** ${CURRENT_TIME}"
             echo ""
-            echo "✅ Daily brief has been generated by Claude AI and committed."
+            echo "✅ Daily brief has been generated by OpenAI GPT-4o-mini and committed."
             echo ""
             echo "📁 Archive: \`daily/${CURRENT_DATE}.md\`"
             echo ""
