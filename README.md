@@ -262,44 +262,12 @@ _README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2
 
 **Stay curious, secure, and ready for adventure** 🚀
 
-</div>
-
----
-
-## 🚢 Deployment
-
-This site is built as a **Next.js static export** (`output: "export"`) and deployed to GitHub Pages.
-
-### How it works
-
-- **Static Export**: The site is pre-rendered to static HTML/CSS/JS at build time using `next build`, which generates the `out/` directory.
-- **GitHub Actions**: The `.github/workflows/pages-deploy.yml` workflow automatically builds and deploys to GitHub Pages on every push to `main`.
-- **Project Pages Path**: The `basePath` and `assetPrefix` are automatically derived from the `$GITHUB_REPOSITORY` environment variable during the build, ensuring all assets load correctly from the subpath (e.g., `/cywf/`).
-
-### Key Configuration
-
-In `next.config.mjs`:
-```js
-{
-  output: 'export',
-  basePath: process.env.GITHUB_PAGES === 'true' 
-    ? `/${((process.env.GITHUB_REPOSITORY || 'cywf/cywf').split('/')[1]) || 'cywf'}` 
-    : '',
-  assetPrefix: process.env.GITHUB_PAGES === 'true'
-    ? `/${((process.env.GITHUB_REPOSITORY || 'cywf/cywf').split('/')[1]) || 'cywf'}/`
-    : undefined,
-  images: { unoptimized: true },
-  trailingSlash: true,
-}
-```
-
-### Relevant Documentation
-
-- [Next.js Static Exports](https://nextjs.org/docs/app/building-your-application/deploying/static-exports)
-- [Next.js basePath](https://nextjs.org/docs/app/api-reference/next-config-js/basePath)
-- [Next.js assetPrefix](https://nextjs.org/docs/app/api-reference/next-config-js/assetPrefix)
-- [GitHub Pages Deployment](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages)
-
 ### Live Site
 
 🌐 **https://cywf.github.io/cywf/**
+
+</div>
+
+
+
+
