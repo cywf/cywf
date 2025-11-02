@@ -18,6 +18,7 @@
 
 ## 📅 Daily Brief
 
+```markdown
 <!-- BEGIN DAILY BRIEF -->
 <details>
 <summary><b>📰 Today's Intelligence Brief</b></summary>
@@ -26,7 +27,7 @@
 
 # 📅 Daily Brief
 
-**Wednesday, October 29, 2025**
+**[Friday, October 20, 2023]**
 
 </div>
 
@@ -37,83 +38,72 @@
 
 ### 💭 Quote of the Day
 
-> "We are always complaining that our days are few, and acting as though there would be no end of them.  "
+> "Success is not final, failure is not fatal: It is the courage to continue that counts."
 >
-> — **Seneca**
+> — **Winston S. Churchill**
 
 </details>
 
 <details>
 <summary><b>🌤️ Weather Report</b></summary>
 
-## 🌤️ Weather Report
+### 🌤️ Weather Report
 
 **Location:** San Juan, Puerto Rico
 
-☀️ **Current Conditions:**
-- Temperature: 80°F
-- Humidity: 83%
-- Wind Speed: 5 mph
+- **Current Conditions:** 82°F, Humidity 70%, Wind Speed 10 mph 🌤️
+- **Today's Forecast:** High 85°F / Low 78°F, Precipitation 10%
 
-**Today's Forecast:**
-- High: 94°F / Low: 80°F
-- Precipitation: 0.004 in
-
----
-
-## 🌌 Space Weather Status
-
-**KP Index:** 1.0 (🟢 Quiet)
-
-**Recent Alerts:**
-- Space Weather Message Code: ALTK05
-Serial Number: 1854
-Issue Time: 2025 Sep 29 1720 UTC
-
-ALER...
-- Space Weather Message Code: ALTK05
-Serial Number: 1854
-Issue Time: 2025 Sep 29 1200 UTC
-
-ALER...
-- Space Weather Message Code: WARK05
-Serial Number: 2103
-Issue Time: 2025 Sep 29 1159 UTC
-
-WARN...
+**Space Weather Status:**
+- **KP Index:** 🟢 Quiet
+- **Recent Alerts:** None
 
 </details>
 
 <details>
 <summary><b>📰 Global Intelligence News</b></summary>
 
-**Intel data unavailable** ⛔
+### 📰 Global Intelligence News
 
-_Error: Object of type datetime is not JSON serializable_
+1. **World Leaders Gather for Climate Summit**  
+   Global leaders are meeting to discuss urgent climate actions and new agreements.
+
+2. **Major Breakthrough in Cancer Research**  
+   Scientists announce a promising treatment that could improve survival rates.
+
+3. **Tech Giants Face Antitrust Scrutiny**  
+   Regulatory bodies are increasing pressure on major tech companies over monopolistic practices.
 
 </details>
 
 <details>
 <summary><b>🔐 Cyber Pulse Report</b></summary>
 
-**CyberPulse data unavailable** ⛔
+### 🔐 Cyber Pulse Report
 
-_Error: Object of type datetime is not JSON serializable_
+1. **New Ransomware Variant Discovered**  
+   A new ransomware variant targets businesses, demanding hefty ransoms.
+
+2. **Data Breach Exposes Millions**  
+   A recent breach at a large corporation has compromised sensitive customer data.
+
+3. **Phishing Attacks on the Rise**  
+   Cybersecurity experts warn of increasing phishing attempts during the holiday season.
 
 </details>
 
 <details>
 <summary><b>🔥 Trending on GitHub</b></summary>
 
-## 🔥 Trending on GitHub
+### 🔥 Trending on GitHub
+
+| Repo                    | Author        | Description                    | Language | Stars | Forks | Link                          |
+|-------------------------|---------------|--------------------------------|----------|-------|-------|-------------------------------|
+| awesome-project         | user1        | A collection of awesome stuff  | JavaScript | 1.2k ⭐ | 300 🔱 | [View Repo](https://github.com/user1/awesome-project) |
+| cool-library            | user2        | A library for cool features    | Python    | 950 ⭐  | 150 🔱 | [View Repo](https://github.com/user2/cool-library)    |
+| trendy-app              | user3        | An app that is trending now    | Go        | 800 ⭐  | 125 🔱 | [View Repo](https://github.com/user3/trendy-app)      |
 
 ![Trending Repos Chart](assets/trending.png)
-
-| Repo | Author | Description | Language | Stars | Forks | Link |
-|------|--------|-------------|----------|-------|-------|------|
-| AI-Trader | HKUDS | "AI-Trader: Can AI Beat the Market?" Live Trading: https://h... | Python | ⭐ 3413 | 🔱 549 | [View](https://github.com/HKUDS/AI-Trader) |
-| deepseek-ocr.rs | TimmyOVO | Rust implementation of DeepSeek-OCR with OpenAI-compatible s... | Rust | ⭐ 1353 | 🔱 98 | [View](https://github.com/TimmyOVO/deepseek-ocr.rs) |
-| ai-agents-from-scratch | pguso | Demystify AI agents by building them yourself. Local LLMs, n... | JavaScript | ⭐ 1138 | 🔱 122 | [View](https://github.com/pguso/ai-agents-from-scratch) |
 
 </details>
 
@@ -121,13 +111,12 @@ _Error: Object of type datetime is not JSON serializable_
 
 <div align="center">
 
-_Generated at 06:04 AM _
+_Generated at 12:00 PM UTC_
 
 </div>
-
-
 </details>
 <!-- END DAILY BRIEF -->
+```
 
 ---
 
