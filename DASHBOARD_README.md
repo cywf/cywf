@@ -1,15 +1,30 @@
 # CYWF Analytics Dashboard
 
-A Grafana-style analytics dashboard built with Next.js 14+ that displays GitHub activity metrics and daily intelligence briefs. Deployed to GitHub Pages with automated daily data refreshes.
+A Grafana-style analytics dashboard built with Next.js 14+ that displays GitHub activity metrics and daily intelligence briefs. Deployed to GitHub Pages with automated data refreshes.
 
 ## 🚀 Features
 
+### Analytics & Visualizations
 - **Grafana-Style UI**: Dark neon-green cyber aesthetic with high-contrast, WCAG AA compliant design
 - **GitHub Analytics**: Real-time visualization of contributions, repositories, languages, and activity patterns
-- **Daily Intelligence Briefs**: Aggregated RSS feeds from tech news, security, and developer communities
+- **Public Contributions**: Tracks contributions to both owned AND other public repositories
+- **Activity Ratio Chart**: Donut chart showing PRs vs Issues vs Commits distribution
+- **Monthly Trends**: Stacked bar chart displaying activity over the last 12 months
+- **Activity by Hour**: Enhanced chart with alternating bar shades for better readability
+- **Language Distribution**: Color-coded by language using GitHub Linguist colors
+
+### Interactive Features
+- **Mermaid Playground**: Create and render diagrams (Flowchart, Mind Map, ER, C4)
+- **Latest Gists**: Scrollable panel with modal preview of your public gists
+- **Daily Brief**: Configurable panel for custom Markdown/HTML content
+- **Quote of the Day**: Inspirational quotes from ZenQuotes or Quotable API
+
+### Technical Features
 - **Responsive Design**: Mobile-friendly layout with adaptive grid system
 - **Static Export**: Full static site generation for GitHub Pages deployment
-- **Automated Refresh**: Daily data updates at 05:30 ET with DST handling
+- **Automated Refresh**: Metrics update every ~30 minutes via GitHub Actions
+- **No Tokens in Browser**: All API calls are server-side; static JSON files served to client
+- **Stale-While-Revalidate**: Smart caching for better performance
 
 ## 🛠️ Tech Stack
 
@@ -17,6 +32,7 @@ A Grafana-style analytics dashboard built with Next.js 14+ that displays GitHub 
 - **Language**: TypeScript
 - **Charts**: Apache ECharts via echarts-for-react
 - **Data**: GitHub GraphQL API, RSS Parser
+- **Diagrams**: Mermaid (loaded from CDN)
 - **Styling**: CSS Modules with custom properties
 - **Deployment**: GitHub Pages via GitHub Actions
 
@@ -269,6 +285,70 @@ npm run fetch:analytics  # Fetch GitHub analytics
 npm run fetch:rss    # Fetch RSS briefs
 npm run fetch:all    # Fetch all data
 ```
+
+## 🔄 Data Build Pipeline
+
+The dashboard includes a scheduled GitHub Action that automatically fetches and updates metrics data every 30 minutes (at :17 and :47 past each hour).
+
+### Metrics Workflow
+
+Located at `.github/workflows/metrics.yml`, this workflow:
+
+1. Runs on a schedule: `17,47 * * * *` (every 30 minutes)
+2. Can be manually triggered via `workflow_dispatch`
+3. Executes `scripts/fetchMetrics.mjs` to fetch GitHub data
+4. Commits and pushes updated JSON files to `public/data/`
+5. Triggers a rebuild of the static site
+
+### Configuration
+
+Set these environment variables and secrets in your repository settings:
+
+| Variable/Secret | Type | Description | Required |
+|----------------|------|-------------|----------|
+| `GH_LOGIN` | Variable | Your GitHub username (e.g., "cywf") | Yes |
+| `METRICS_TOKEN` | Secret | GitHub Personal Access Token with `read:user`, `read:gist`, `public_repo` scopes | Yes |
+| `DAILY_BRIEF_URL` | Variable | URL to a Markdown/HTML file for the Daily Brief section (optional) | No |
+| `QOTD_SOURCE` | Variable | Quote source: `"zenquotes"` (default) or `"quotable"` | No |
+
+### Generated Data Files
+
+The workflow generates the following files in `public/data/`:
+
+- **`metrics.json`** - GitHub activity metrics including:
+  - Tallies (commits, PRs, issues, reviews)
+  - Top repositories by stars (owned + public contributions)
+  - Monthly time series data
+  - Activity by hour
+  - Language distribution
+  - Contribution calendar
+
+- **`gists.json`** - Latest public gists with previews
+
+- **`qotd.json`** - Quote of the Day from ZenQuotes or Quotable API
+
+- **`daily-brief.html`** or **`daily-brief.md`** - Custom daily brief content (if configured)
+
+## 🔒 Privacy & Security Notes
+
+### Public Data Only
+
+- **Owned Repositories**: Only PUBLIC repositories are included in analytics
+- **Contributed Repositories**: Only PUBLIC repositories you've contributed to are shown
+- **Private Contributions**: The API may return `restrictedContributionsCount` for private activity, but NO DETAILS are displayed
+- **Gists**: Only PUBLIC gists are fetched and displayed
+
+### No Tokens in Browser
+
+- All API calls with authentication are made server-side via GitHub Actions
+- The browser only fetches static JSON files from `public/data/`
+- No GitHub tokens or secrets are exposed to the client
+
+### Data Freshness
+
+- Metrics are refreshed every ~30 minutes via the scheduled workflow
+- The dashboard displays a "Last updated" timestamp from `generatedAt` field
+- Stale data may be shown if the workflow fails; check Actions tab for errors
 
 ## 🤝 Contributing
 

@@ -54,11 +54,20 @@ export default function Home() {
   }));
   const timeseriesMonthly = metrics?.timeseriesMonthly || [];
   
+  // Helper function to get star count (handles both data structures)
+  const getStarCount = (repo: any): number => {
+    return repo.stargazerCount ?? repo.stars ?? 0;
+  };
+
+  const getRepoName = (repo: any): string => {
+    return repo.nameWithOwner ?? repo.name ?? 'Unknown';
+  };
+  
   // Prepare KPI data
   const kpis = [
     { 
       title: 'Total Stars', 
-      value: topReposByStars.reduce((sum, r) => sum + r.stargazerCount, 0).toLocaleString(), 
+      value: topReposByStars.reduce((sum, r) => sum + getStarCount(r), 0).toLocaleString(), 
       delta: 15,
     },
     { 
@@ -81,7 +90,7 @@ export default function Home() {
   // Prepare chart data
   const topRepos = topReposByStars
     .slice(0, 10)
-    .map(repo => ({ name: repo.nameWithOwner, value: repo.stargazerCount }));
+    .map(repo => ({ name: getRepoName(repo), value: getStarCount(repo) }));
 
   const languages = languageData
     .sort((a, b) => b.kb - a.kb)
