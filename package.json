@@ -14,6 +14,7 @@
     "fetch:analytics": "tsx scripts/github/fetch-analytics.mts",
     "fetch:rss": "tsx scripts/briefs/fetch-rss.mts",
     "fetch:all": "npm run fetch:analytics && npm run fetch:rss",
+    "metrics": "node scripts/fetchMetrics.mjs",
     "test": "node scripts/daily/test-daily-brief.js",
     "generate": "node scripts/daily/generate-daily-brief.js"
   },
