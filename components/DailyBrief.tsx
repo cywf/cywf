@@ -36,6 +36,9 @@ export default function DailyBrief() {
       });
   }, []);
 
+  // NOTE: For production use, consider using SRI (Subresource Integrity) hashes
+  // or bundling these libraries locally to prevent supply chain attacks.
+  // Current approach prioritizes bundle-free setup as per requirements.
   const loadMarkdownLibraries = () => {
     // Load marked
     if (!(window as any).marked) {

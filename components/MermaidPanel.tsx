@@ -87,6 +87,9 @@ export default function MermaidPanel() {
   const mermaidLoadedRef = useRef(false);
 
   // Load Mermaid from CDN
+  // NOTE: For production use, consider using SRI (Subresource Integrity) hashes
+  // or bundling the library locally to prevent supply chain attacks.
+  // Current approach prioritizes bundle-free setup as per requirements.
   useEffect(() => {
     if (mermaidLoadedRef.current) return;
 
