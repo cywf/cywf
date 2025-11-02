@@ -13,10 +13,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
       - run: node scripts/fetchMetrics.mjs
         env:
           GH_LOGIN: ${{ vars.GH_LOGIN }}
           METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DAILY_BRIEF_URL: ${{ vars.DAILY_BRIEF_URL }}
           QOTD_SOURCE: ${{ vars.QOTD_SOURCE }}
       - name: Commit data artifacts
