@@ -73,12 +73,13 @@ export async function languageColor(name: string): Promise<string> {
 /**
  * Generate distinct colors for chart datasets
  */
+const GOLDEN_ANGLE = 137.508; // Golden angle for better distribution
+
 export function generateChartColors(count: number, baseHue = 150): string[] {
   const colors: string[] = [];
-  const goldenAngle = 137.508; // Golden angle for better distribution
 
   for (let i = 0; i < count; i++) {
-    const hue = (baseHue + i * goldenAngle) % 360;
+    const hue = (baseHue + i * GOLDEN_ANGLE) % 360;
     colors.push(`hsl(${Math.round(hue)}, 65%, 60%)`);
   }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { loadGists, type GistsData } from '@/lib/utils/dataClient';
 import styles from './GistsPanel.module.css';
 
@@ -9,6 +9,8 @@ export default function GistsPanel() {
   const [loading, setLoading] = useState(true);
   const [selectedGist, setSelectedGist] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     loadGists()
@@ -21,6 +23,29 @@ export default function GistsPanel() {
         setLoading(false);
       });
   }, []);
+
+  // Handle focus management when modal opens/closes
+  useEffect(() => {
+    if (showModal) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      modalRef.current?.focus();
+    } else if (previousFocusRef.current) {
+      previousFocusRef.current.focus();
+      previousFocusRef.current = null;
+    }
+  }, [showModal]);
+
+  // Handle keyboard events for modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (showModal && e.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [showModal]);
 
   const handlePreview = (gist: any) => {
     setSelectedGist(gist);
@@ -105,8 +130,10 @@ export default function GistsPanel() {
           aria-labelledby="modal-title"
         >
           <div 
+            ref={modalRef}
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
+            tabIndex={-1}
           >
             <div className={styles.modalHeader}>
               <h2 id="modal-title" className={styles.modalTitle}>

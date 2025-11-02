@@ -181,6 +181,10 @@ function monthKey(d) {
     );
 
     // Build monthly timeseries (approximate from contribution calendar)
+    // Since the calendar doesn't distinguish between commits/PRs/issues, we use typical ratios
+    const COMMIT_RATIO = 0.5;  // ~50% of contributions are commits
+    const PR_RATIO = 0.3;      // ~30% of contributions are PRs
+    
     const months = new Map();
     for (const w of user.contributionsCollection.contributionCalendar.weeks) {
       for (const d of w.contributionDays) {
@@ -193,23 +197,25 @@ function monthKey(d) {
       .sort()
       .map(([month, total]) => ({
         month,
-        commits: Math.round(total * 0.5),
-        prs: Math.round(total * 0.3),
-        issues: Math.max(0, total - Math.round(total * 0.5) - Math.round(total * 0.3)),
+        commits: Math.round(total * COMMIT_RATIO),
+        prs: Math.round(total * PR_RATIO),
+        issues: Math.max(0, total - Math.round(total * COMMIT_RATIO) - Math.round(total * PR_RATIO)),
       }));
 
     console.log(`Generated ${timeseriesMonthly.length} months of timeseries data`);
 
     // Calculate activity by hour (approximate from calendar data)
     const activityByHour = Array.from({ length: 24 }, (_, i) => ({ hour: i, count: 0 }));
-    // For now, distribute evenly; in production this would need actual commit timestamps
+    // NOTE: This is an approximation. Real commit timestamps would require REST API calls.
+    // We distribute contributions evenly across hours with slight variation.
     const totalContributions = user.contributionsCollection.contributionCalendar.weeks
       .flatMap((w) => w.contributionDays)
       .reduce((sum, d) => sum + d.contributionCount, 0);
     const avgPerHour = Math.floor(totalContributions / 24);
+    const VARIATION_RANGE = 10; // ±10 contributions per hour
     for (let i = 0; i < 24; i++) {
-      // Add some variation to make it look realistic
-      activityByHour[i].count = Math.max(0, avgPerHour + Math.floor(Math.random() * 20 - 10));
+      // Add small variation for visualization purposes
+      activityByHour[i].count = Math.max(0, avgPerHour + Math.floor(Math.random() * VARIATION_RANGE * 2 - VARIATION_RANGE));
     }
 
     // Calculate language distribution

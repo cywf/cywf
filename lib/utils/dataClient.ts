@@ -9,6 +9,33 @@ interface CacheEntry<T> {
 
 const cache = new Map<string, CacheEntry<any>>();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const MAX_CACHE_SIZE = 50; // Maximum number of cached items
+
+/**
+ * Clean up old cache entries when cache grows too large
+ */
+function cleanupCache() {
+  if (cache.size > MAX_CACHE_SIZE) {
+    const now = Date.now();
+    const entries = Array.from(cache.entries());
+    
+    // Remove expired entries first
+    for (const [key, entry] of entries) {
+      if (now - entry.timestamp > CACHE_TTL) {
+        cache.delete(key);
+      }
+    }
+    
+    // If still too large, remove oldest entries
+    if (cache.size > MAX_CACHE_SIZE) {
+      const sorted = entries.sort((a, b) => a[1].timestamp - b[1].timestamp);
+      const toRemove = sorted.slice(0, cache.size - MAX_CACHE_SIZE);
+      for (const [key] of toRemove) {
+        cache.delete(key);
+      }
+    }
+  }
+}
 
 /**
  * Fetch JSON with cache-busting and stale-while-revalidate
@@ -33,11 +60,12 @@ export async function getJSON<T>(url: string, bustCache = false): Promise<T> {
 
     const data = await response.json();
 
-    // Update cache
+    // Update cache and clean up if needed
     cache.set(cacheKey, {
       data,
       timestamp: Date.now(),
     });
+    cleanupCache();
 
     return data;
   } catch (error) {
