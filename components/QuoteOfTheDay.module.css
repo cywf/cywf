@@ -1,0 +1,44 @@
+.container {
+  padding: 1.5rem;
+}
+
+.loading {
+  text-align: center;
+  color: var(--fg-muted, #a6cbb7);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.quote {
+  margin: 0;
+  padding: 0;
+  border-left: 4px solid var(--acc-1, #2AFD7B);
+  padding-left: 1.5rem;
+}
+
+.text {
+  color: var(--fg, #e7f7ee);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-style: italic;
+  margin: 0 0 1rem 0;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.author {
+  color: var(--acc-1, #2AFD7B);
+  font-size: 0.95rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.source {
+  color: var(--fg-muted, #a6cbb7);
+  font-size: 0.8rem;
+  font-style: normal;
+}

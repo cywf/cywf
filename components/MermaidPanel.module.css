@@ -1,0 +1,144 @@
+.container {
+  padding: 1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.controlGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label {
+  color: var(--fg, #e7f7ee);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.select {
+  background: var(--bg-panel, hsl(165, 20%, 8%));
+  border: 1px solid rgba(58, 255, 129, 0.20);
+  color: var(--fg, #e7f7ee);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.select:hover {
+  border-color: rgba(58, 255, 129, 0.40);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--acc-1, #2AFD7B);
+  box-shadow: 0 0 0 2px rgba(42, 253, 123, 0.2);
+}
+
+.renderButton {
+  background: var(--acc-1, #2AFD7B);
+  color: var(--bg-0, hsl(200, 20%, 3%));
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.renderButton:hover:not(:disabled) {
+  background: var(--acc-2, #9CFFBF);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(42, 253, 123, 0.3);
+}
+
+.renderButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.renderButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editorSection {
+  margin-bottom: 1rem;
+}
+
+.textarea {
+  width: 100%;
+  background: var(--bg-panel, hsl(165, 20%, 8%));
+  border: 1px solid rgba(58, 255, 129, 0.20);
+  color: var(--fg, #e7f7ee);
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--acc-1, #2AFD7B);
+  box-shadow: 0 0 0 2px rgba(42, 253, 123, 0.2);
+}
+
+.error {
+  background: rgba(255, 82, 82, 0.1);
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  color: #ff9999;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.outputSection {
+  margin-top: 1.5rem;
+}
+
+.outputLabel {
+  color: var(--fg, #e7f7ee);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.output {
+  background: var(--bg-panel, hsl(165, 20%, 8%));
+  border: 1px solid rgba(58, 255, 129, 0.20);
+  border-radius: 4px;
+  padding: 1.5rem;
+  min-height: 200px;
+  overflow: auto;
+}
+
+.output svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Dark theme for mermaid diagrams */
+.output :global(.node rect),
+.output :global(.node circle),
+.output :global(.node ellipse),
+.output :global(.node polygon) {
+  fill: hsl(165, 20%, 12%) !important;
+  stroke: var(--acc-1, #2AFD7B) !important;
+}
+
+.output :global(.node .label),
+.output :global(.edgeLabel) {
+  color: var(--fg, #e7f7ee) !important;
+}
