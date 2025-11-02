@@ -16,7 +16,9 @@
     "fetch:all": "npm run fetch:analytics && npm run fetch:rss",
     "metrics": "node scripts/fetchMetrics.mjs",
     "test": "node scripts/daily/test-daily-brief.js",
-    "generate": "node scripts/daily/generate-daily-brief.js"
+    "generate": "node scripts/daily/generate-daily-brief.js",
+    "profile:update": "node scripts/updateGists.mjs && node scripts/updateProjectMatrix.mjs && node scripts/buildRepoMermaid.mjs && node scripts/updateLearning.mjs && node scripts/updateTrending.mjs",
+    "profile:validate": "node scripts/validateReadme.mjs"
   },
   "keywords": [
     "automation",
@@ -30,33 +32,34 @@
   "author": "cywf",
   "license": "MIT",
   "dependencies": {
-    "next": "^14.2.15",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "@octokit/graphql": "^8.1.1",
-    "echarts": "^5.5.1",
-    "echarts-for-react": "^3.0.2",
-    "rss-parser": "^3.13.0",
-    "zod": "^3.23.8",
+    "@octokit/rest": "^21.1.1",
+    "cheerio": "^1.0.0-rc.12",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
-    "clsx": "^2.1.1",
+    "echarts": "^5.5.1",
+    "echarts-for-react": "^3.0.2",
+    "js-yaml": "^4.1.0",
+    "next": "^14.2.15",
     "node-fetch": "^3.3.2",
-    "cheerio": "^1.0.0-rc.12",
-    "js-yaml": "^4.1.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rss-parser": "^3.13.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.8.6",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@types/js-yaml": "^4.0.9",
-    "typescript": "^5.6.3",
-    "tsx": "^4.19.1",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.15",
     "prettier": "^3.3.3",
-    "@typescript-eslint/eslint-plugin": "^8.11.0",
-    "@typescript-eslint/parser": "^8.11.0"
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
   },
   "engines": {
     "node": ">=20.0.0"

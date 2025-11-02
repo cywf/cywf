@@ -18,14 +18,11 @@
 
 ## 📅 Daily Brief
 
-```markdown
-<!-- BEGIN DAILY BRIEF -->
+<!-- START: DAILY_BRIEF -->
 <details>
 <summary><b>📰 Today's Intelligence Brief</b></summary>
 
 <div align="center">
-
-# 📅 Daily Brief
 
 **[Friday, October 20, 2023]**
 
@@ -115,8 +112,7 @@ _Generated at 12:00 PM UTC_
 
 </div>
 </details>
-<!-- END DAILY BRIEF -->
-```
+<!-- END: DAILY_BRIEF -->
 
 ---
 
@@ -125,14 +121,14 @@ _Generated at 12:00 PM UTC_
 <details>
 <summary><b>Click to view recent Gists & Posts</b></summary>
 
-<!-- GISTS_START -->
+<!-- START: LATEST_POSTS -->
 | Date | Title | Summary | Source |
 |------|-------|---------|--------|
 | 2025-09-23 | PR‑CYBR: WatchDog's Veteran Transition Program | A glimpse into our WatchDog transition program | [View Gist](https://gist.github.com/cywf/db19af3af790469e2715777c5f19250c) |
 | 2025-06-19 | Cursor AI – Rules for AI – General Settings | Outlining general settings for responsible AI interactions | [View Gist](https://gist.github.com/cywf/a620a43424d47f1fb746638a11924cae) |
 | 2025-06-17 | General use template for the .cursorrules file | A template for customizing Cursor AI behavior | [View Gist](https://gist.github.com/cywf/601a521551f659ab75b5a6146d4d8e72) |
 | 2025-02-06 | Guide for maintaining and configuring Proxmox | Tips on keeping your Proxmox infrastructure running smoothly | [View Gist](https://gist.github.com/cywf/973f9180ae6036e5bcd06eb85aac7c2c) |
-<!-- GISTS_END -->
+<!-- END: LATEST_POSTS -->
 
 _This section auto-updates nightly via automation._
 
@@ -145,7 +141,7 @@ _This section auto-updates nightly via automation._
 <details>
 <summary><b>Click to view CI/CD Metrics & Status</b></summary>
 
-<!-- PROJECT_MATRIX_START -->
+<!-- START: PROJECT_MATRIX -->
 | Project | Description | Test | Link |
 |---------|-------------|------|------|
 | **FortiPath** | Advanced network path analysis with ML | ![Test](https://github.com/cywf/FortiPath/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/FortiPath) |
@@ -161,7 +157,7 @@ _This section auto-updates nightly via automation._
 | **Boilerplates** | Project templates & scaffolding | ![Test](https://github.com/cywf/Boilerplates/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/Boilerplates) |
 | **CTF-Kit** | Capture The Flag tools & utilities | ![Test](https://github.com/cywf/CTF-Kit/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/CTF-Kit) |
 | **cywf.github.io** | Personal website & portfolio | ![Test](https://github.com/cywf/cywf.github.io/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/cywf.github.io) |
-<!-- PROJECT_MATRIX_END -->
+<!-- END: PROJECT_MATRIX -->
 
 _This table updates nightly via automation._
 
@@ -200,6 +196,19 @@ _This table updates nightly via automation._
 ![Productive Time](https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=cywf&theme=github_dark)
 
 </div>
+
+<!-- START: REPO_MERMAID -->
+<details>
+<summary><b>🧭 Repository Map (Mermaid)</b></summary>
+
+```mermaid
+mindmap
+  root((cywf repos))
+    FortiPath[Advanced network path analysis with ML]
+    sentinel-project[Autonomous threat detection system]
+```
+</details>
+<!-- END: REPO_MERMAID -->
 
 </details>
 
@@ -240,6 +249,27 @@ I'm constantly exploring new horizons across multiple domains:
 - Human potential exploration
 - Consciousness research
 - Mind-body integration
+
+---
+
+### 📈 Recent Activity (Last 24h)
+
+<!-- START: LEARNING_DYNAMIC -->
+_No recent activity detected in the last 24 hours._
+<!-- END: LEARNING_DYNAMIC -->
+
+</details>
+
+---
+
+## 🌟 GitHub Showcase
+
+<details>
+<summary><b>Click to view today's trending repositories</b></summary>
+
+<!-- START: GH_SHOWCASE -->
+_Trending repositories will be displayed here._
+<!-- END: GH_SHOWCASE -->
 
 </details>
 
