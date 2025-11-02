@@ -17,7 +17,8 @@
     "metrics": "node scripts/fetchMetrics.mjs",
     "test": "node scripts/daily/test-daily-brief.js",
     "generate": "node scripts/daily/generate-daily-brief.js",
-    "profile:update": "node scripts/updateGists.mjs && node scripts/updateProjectMatrix.mjs && node scripts/buildRepoMermaid.mjs && node scripts/updateLearning.mjs && node scripts/updateTrending.mjs"
+    "profile:update": "node scripts/updateGists.mjs && node scripts/updateProjectMatrix.mjs && node scripts/buildRepoMermaid.mjs && node scripts/updateLearning.mjs && node scripts/updateTrending.mjs",
+    "profile:validate": "node scripts/validateReadme.mjs"
   },
   "keywords": [
     "automation",
