@@ -1,0 +1,67 @@
+[
+  {
+    "owner": "cywf",
+    "repo": "FortiPath",
+    "desc": "Advanced network path analysis with ML"
+  },
+  {
+    "owner": "cywf",
+    "repo": "sentinel-project",
+    "desc": "Autonomous threat detection system"
+  },
+  {
+    "owner": "cywf",
+    "repo": "AegisNet",
+    "desc": "AI-driven secure network architecture"
+  },
+  {
+    "owner": "cywf",
+    "repo": "AirwayAtlas",
+    "desc": "Airway network visualization with GIS"
+  },
+  {
+    "owner": "cywf",
+    "repo": "willow",
+    "desc": "Multi-agent orchestration framework"
+  },
+  {
+    "owner": "cywf",
+    "repo": "OTG-TAK",
+    "desc": "Tactical awareness kit for operations"
+  },
+  {
+    "owner": "cywf",
+    "repo": "InfraGuard",
+    "desc": "Infrastructure monitoring & hardening"
+  },
+  {
+    "owner": "cywf",
+    "repo": "NetNinja",
+    "desc": "Network reconnaissance & automation"
+  },
+  {
+    "owner": "cywf",
+    "repo": "ZeroTier-Toolkit",
+    "desc": "ZeroTier network management tools"
+  },
+  {
+    "owner": "cywf",
+    "repo": "AlphaNest",
+    "desc": "Secure collaboration platform"
+  },
+  {
+    "owner": "cywf",
+    "repo": "Boilerplates",
+    "desc": "Project templates & scaffolding"
+  },
+  {
+    "owner": "cywf",
+    "repo": "CTF-Kit",
+    "desc": "Capture The Flag tools & utilities"
+  },
+  {
+    "owner": "cywf",
+    "repo": "cywf.github.io",
+    "desc": "Personal website & portfolio"
+  }
+]
