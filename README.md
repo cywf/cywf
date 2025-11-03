@@ -18,7 +18,7 @@
 
 ## 📅 Daily Brief
 
-<!-- START: DAILY_BRIEF -->
+<!-- BEGIN DAILY BRIEF -->
 <details>
 <summary><b>📰 Today's Intelligence Brief</b></summary>
 
@@ -112,7 +112,7 @@ _Generated at 12:00 PM UTC_
 
 </div>
 </details>
-<!-- END: DAILY_BRIEF -->
+<!-- END DAILY BRIEF -->
 
 ---
 
