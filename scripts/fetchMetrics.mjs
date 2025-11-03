@@ -3,12 +3,12 @@ import { join } from 'node:path';
 import { graphql } from '@octokit/graphql';
 
 const GH_LOGIN = process.env.GH_LOGIN || 'cywf';
-const TOKEN = process.env.METRICS_TOKEN || process.env.GITHUB_TOKEN;
+const TOKEN = process.env.METRICS_TOKEN;
 const QOTD = process.env.QOTD_SOURCE || 'zenquotes';
 const BRIEF = process.env.DAILY_BRIEF_URL || '';
 
 if (!TOKEN) {
-  console.error('Missing METRICS_TOKEN or GITHUB_TOKEN environment variable');
+  console.error('Missing METRICS_TOKEN environment variable');
   process.exit(1);
 }
 
@@ -182,9 +182,9 @@ function monthKey(d) {
 
     // Build monthly timeseries (approximate from contribution calendar)
     // Since the calendar doesn't distinguish between commits/PRs/issues, we use typical ratios
-    const COMMIT_RATIO = 0.5;  // ~50% of contributions are commits
-    const PR_RATIO = 0.3;      // ~30% of contributions are PRs
-    
+    const COMMIT_RATIO = 0.5; // ~50% of contributions are commits
+    const PR_RATIO = 0.3; // ~30% of contributions are PRs
+
     const months = new Map();
     for (const w of user.contributionsCollection.contributionCalendar.weeks) {
       for (const d of w.contributionDays) {
@@ -193,14 +193,12 @@ function monthKey(d) {
       }
     }
 
-    const timeseriesMonthly = [...months.entries()]
-      .sort()
-      .map(([month, total]) => ({
-        month,
-        commits: Math.round(total * COMMIT_RATIO),
-        prs: Math.round(total * PR_RATIO),
-        issues: Math.max(0, total - Math.round(total * COMMIT_RATIO) - Math.round(total * PR_RATIO)),
-      }));
+    const timeseriesMonthly = [...months.entries()].sort().map(([month, total]) => ({
+      month,
+      commits: Math.round(total * COMMIT_RATIO),
+      prs: Math.round(total * PR_RATIO),
+      issues: Math.max(0, total - Math.round(total * COMMIT_RATIO) - Math.round(total * PR_RATIO)),
+    }));
 
     console.log(`Generated ${timeseriesMonthly.length} months of timeseries data`);
 
@@ -215,7 +213,10 @@ function monthKey(d) {
     const VARIATION_RANGE = 10; // ±10 contributions per hour
     for (let i = 0; i < 24; i++) {
       // Add small variation for visualization purposes
-      activityByHour[i].count = Math.max(0, avgPerHour + Math.floor(Math.random() * VARIATION_RANGE * 2 - VARIATION_RANGE));
+      activityByHour[i].count = Math.max(
+        0,
+        avgPerHour + Math.floor(Math.random() * VARIATION_RANGE * 2 - VARIATION_RANGE)
+      );
     }
 
     // Calculate language distribution
@@ -289,9 +290,7 @@ function monthKey(d) {
     try {
       console.log(`Fetching QOTD from ${QOTD}...`);
       const qotdUrl =
-        QOTD === 'quotable'
-          ? 'https://api.quotable.io/random'
-          : 'https://zenquotes.io/api/today';
+        QOTD === 'quotable' ? 'https://api.quotable.io/random' : 'https://zenquotes.io/api/today';
       const res = await fetch(qotdUrl);
       const data = await res.json();
       await writeFile(
