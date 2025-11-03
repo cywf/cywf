@@ -227,9 +227,28 @@ jobs:
             exit 1
           fi
           
+          # Check if markers exist, if not, create them
           if ! grep -q "<!-- BEGIN DAILY BRIEF -->" README.md || ! grep -q "<!-- END DAILY BRIEF -->" README.md; then
             echo "⚠️ WARNING: Daily brief markers not found in README.md"
-            exit 1
+            echo "📝 Auto-creating markers at the end of README.md..."
+            
+            # Append markers to the end of README.md
+            cat >> README.md << 'EOF'
+
+## 📅 Daily Brief
+
+<!-- BEGIN DAILY BRIEF -->
+<details>
+<summary><b>📰 Today's Intelligence Brief</b></summary>
+
+Daily Brief content will be inserted here automatically.
+
+</details>
+<!-- END DAILY BRIEF -->
+
+---
+EOF
+            echo "✅ Markers created successfully"
           fi
           
           # Extract the content between markers from the generated brief
