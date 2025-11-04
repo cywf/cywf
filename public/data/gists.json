@@ -1,6 +1,13 @@
 {
-  "generatedAt": "2025-11-04T21:25:51.307Z",
+  "generatedAt": "2025-11-04T21:51:15.473Z",
   "items": [
+    {
+      "name": "a267309523db3b2e3eaeed4280f03249",
+      "description": "",
+      "url": "https://gist.github.com/a267309523db3b2e3eaeed4280f03249",
+      "updatedAt": "2025-11-04T21:41:38Z",
+      "preview": "You are a Raspberry Pi setup agent. Target: Reticulum TN + Direwolf KISS + NomadNet in containers.\nAssume Raspberry Pi OS (Debian 12). Fail fast on error.\n\nset -euo pipefail\nsudo apt-get update\nsudo apt-get install -y git docker.io docker-compose-plugin\n\n# 1) Audio modem: Direwolf container + config (uses default KISSPORT 8001)\nmkdir -p ~/rfstack/direwolf\ncat >~/rfstack/direwolf/direwolf.conf <<'EOF'\nADEVICE plughw:1,0        # set to your USB sound card; run 'arecord -l' to confirm\nACHANNELS 1\nCHANNEL 0\nMODEM 1200\nPTT VOX                   # TD-H3 VOX preferred; else wire GPIO/PTT solution\nMYCALL NOCALL\nKISSPORT 8001\nEOF\n\ncat >~/rfstack/compose.yml <<'EOF'\nversion: \"3.9\"\nservices:\n  direwolf:\n    image: ghcr.io/wb2osz/direwolf:latest\n    network_mode: host\n    volumes:\n      - ./direwolf:/cfg\n    command: [\"-c\",\"/cfg/direwolf.conf\",\"-t\",\"0\"]\n    devices:\n      - \"/dev/snd:/dev/snd\"  # ALSA pass-through\n\n  reticulum:\n    image: ghcr.io/markqvist/rns:latest\n    container_name: rns\n    restart: unless-stopped\n    network_mode: host\n    volumes:\n      - ./reticulum:/root/.reticulum\n\n  nomadnet:\n    image: ghcr.io/markqvist/nomadnet:master\n    restart: unless-stopped\n    network_mode: host\n    volumes:\n      - ./nomadnet:/root/.nomadnetwork\n      - ./reticulum:/root/.reticulum\n    command: [\"--daemon\",\"--console\"]\nEOF\n\nmkdir -p ~/rfstack/reticulum ~/rfstack/nomadnet\n\n# 2) Reticulum config: enable transport; KISS over TCP->Direwolf; TCP server for clients\ncat >~/rfstack/reticulum/"
+    },
     {
       "name": "db19af1524556eaeadcc2241dd697a29",
       "description": "PR-CYBR: WatchDog's Veteran Transition Program - Introduction",
@@ -133,13 +140,6 @@
       "url": "https://gist.github.com/46bc012810c0c09bcb6a8d05f878e5fe",
       "updatedAt": "2024-02-14T16:10:15Z",
       "preview": "# Setting up ProtonVPN on iOS and Android Devices\n\n## Introduction\n\nProtonVPN is a highly secure VPN service that prioritizes privacy and security for its users. Using a VPN like ProtonVPN is essential for protecting your online activities from eavesdropping, especially on unsecured Wi-Fi networks, and for bypassing geo-restrictions.\n\n## Installation\n\n### iOS\n\n1. Open the App Store on your iOS device.\n2. Search for \"ProtonVPN\" using the search bar.\n3. Find the ProtonVPN app developed by Proton Technologies AG.\n4. Tap \"Get\" to download and install the app on your device.\n\n### Android\n\n1. Open the Google Play Store on your Android device.\n2. Use the search function to find \"ProtonVPN\".\n3. Choose the official ProtonVPN app by Proton Technologies AG.\n4. Click \"Install\" to begin the download and installation process.\n\n## Creating a ProtonVPN Account\n\nBefore using ProtonVPN, you'll need to create an account:\n\n1. Open the ProtonVPN app after installation.\n2. Select \"Sign Up\" to create a new account.\n3. Follow the on-screen instructions to complete the registration process, including verifying your email address.\n\n## Initial Setup\n\nOnce your account is ready, log in to the ProtonVPN app:\n\n1. Enter your ProtonVPN username and password.\n2. Upon logging in, you'll be prompted to select a server. Choose a server based on your desired location or let ProtonVPN select the fastest server automatically.\n\n## Configuring VPN Settings\n\nTo enhance your VPN experience, consider adjusting these se"
-    },
-    {
-      "name": "9e9c3f8c6367c4cb22eec14e39af32c9",
-      "description": "A gist guide on how to properly setup Brave Browser securely on iOS & Android",
-      "url": "https://gist.github.com/9e9c3f8c6367c4cb22eec14e39af32c9",
-      "updatedAt": "2024-02-14T16:02:12Z",
-      "preview": "# Setting up Brave Browser on iOS & Android\n\n## Introduction\n\nBrave Browser is a fast, private, and secure web browser for iOS and Android. It comes with built-in features to block ads and trackers, making your browsing experience more secure and private. This guide will walk you through setting up Brave Browser on your mobile devices, ensuring you're browsing securely from the start.\n\n## Installation\n\n### iOS\n\n1. Open the App Store on your iOS device.\n2. Tap the search bar and type \"Brave Browser\".\n3. Look for the Brave Browser app published by Brave Software.\n4. Tap \"Get\" to download and install Brave Browser on your device.\n\n### Android\n\n1. Open the Google Play Store on your Android device.\n2. Use the search bar to find \"Brave Browser\".\n3. Choose the Brave Browser app made by Brave Software.\n4. Click \"Install\" to download and install Brave Browser on your device.\n\n## Initial Setup\n\nAfter installing Brave Browser, open the app to configure some initial settings:\n\n- **Set Brave as your default browser:** Navigate to your device's settings, find Brave Browser, and select it as your default browser.\n- **Key Settings for Enhanced Security and Privacy:** Visit the settings menu in Brave to customize your experience. Here, you can enable or disable various features to suit your privacy needs.\n\n## Privacy Settings\n\nBrave Browser offers several settings to enhance your privacy:\n\n- **Enable Brave Shields:** This feature blocks trackers and ads. To enable, tap the lion icon on the to"
     }
   ]
 }
