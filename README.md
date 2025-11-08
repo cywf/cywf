@@ -281,7 +281,7 @@ _README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2
 
 **Stay curious, secure, and ready for adventure** 🚀
 
-🌐 **https://cywf.github.io/cywf/**
+🌐 **[https://cywf.github.io/cywf/](https://cywf.github.io)**
 
 </div>
 
