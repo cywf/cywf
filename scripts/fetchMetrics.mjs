@@ -3,12 +3,12 @@ import { join } from 'node:path';
 import { graphql } from '@octokit/graphql';
 
 const GH_LOGIN = process.env.GH_LOGIN || 'cywf';
-const TOKEN = process.env.METRICS_TOKEN;
+const TOKEN = process.env.METRICS_TOKEN || process.env.GITHUB_TOKEN;
 const QOTD = process.env.QOTD_SOURCE || 'zenquotes';
 const BRIEF = process.env.DAILY_BRIEF_URL || '';
 
 if (!TOKEN) {
-  console.error('Missing METRICS_TOKEN environment variable');
+  console.error('Missing METRICS_TOKEN or GITHUB_TOKEN environment variable');
   process.exit(1);
 }
 
