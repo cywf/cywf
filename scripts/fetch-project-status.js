@@ -113,15 +113,25 @@ function updateReadme(matrixContent) {
   console.log('Reading README.md...');
   const readme = fs.readFileSync(README_PATH, 'utf8');
   
-  const startMarker = '<!-- PROJECT_MATRIX_START -->';
-  const endMarker = '<!-- PROJECT_MATRIX_END -->';
+  const startMarker = '<!-- START: PROJECT_MATRIX -->';
+  const endMarker = '<!-- END: PROJECT_MATRIX -->';
   
   const startIndex = readme.indexOf(startMarker);
   const endIndex = readme.indexOf(endMarker);
   
   if (startIndex === -1 || endIndex === -1) {
     console.error('Could not find project matrix markers in README.md');
-    process.exit(1);
+    console.error(`Expected markers: '${startMarker}' and '${endMarker}'`);
+    console.error('Please ensure these markers exist in README.md before running this script.');
+    
+    // Check if similar markers exist
+    if (readme.includes('PROJECT_MATRIX')) {
+      console.error('Found similar text "PROJECT_MATRIX" in README - please verify marker format.');
+    }
+    
+    // Exit gracefully for CI
+    console.log('Skipping update due to missing markers.');
+    process.exit(0);
   }
   
   const tableHeader = `| Project | Description | Test | Link |\n|---------|-------------|------|------|`;

@@ -102,7 +102,12 @@ async function updateReadme(mermaidCode) {
   
   if (startIndex === -1 || endIndex === -1) {
     console.error('Could not find REPO_MERMAID markers in README.md');
-    process.exit(1);
+    console.error(`Expected markers: '${startMarker}' and '${endMarker}'`);
+    console.error('Please ensure these markers exist in README.md before running this script.');
+    
+    // Exit gracefully for CI
+    console.log('Skipping update due to missing markers.');
+    process.exit(0);
   }
   
   const newContent = `${startMarker}

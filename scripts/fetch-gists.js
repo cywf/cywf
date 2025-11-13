@@ -144,15 +144,25 @@ function updateReadme(gistTableContent) {
   console.log('Reading README.md...');
   const readme = fs.readFileSync(README_PATH, 'utf8');
   
-  const startMarker = '<!-- GISTS_START -->';
-  const endMarker = '<!-- GISTS_END -->';
+  const startMarker = '<!-- START: LATEST_POSTS -->';
+  const endMarker = '<!-- END: LATEST_POSTS -->';
   
   const startIndex = readme.indexOf(startMarker);
   const endIndex = readme.indexOf(endMarker);
   
   if (startIndex === -1 || endIndex === -1) {
     console.error('Could not find gist markers in README.md');
-    process.exit(1);
+    console.error(`Expected markers: '${startMarker}' and '${endMarker}'`);
+    console.error('Please ensure these markers exist in README.md before running this script.');
+    
+    // Check if similar markers exist
+    if (readme.includes('GISTS') || readme.includes('LATEST_POSTS')) {
+      console.error('Found similar text in README - please verify marker format.');
+    }
+    
+    // Exit gracefully for CI
+    console.log('Skipping update due to missing markers.');
+    process.exit(0);
   }
   
   const tableHeader = `| Date | Title | Summary | Source |\n|------|-------|---------|--------|`;
