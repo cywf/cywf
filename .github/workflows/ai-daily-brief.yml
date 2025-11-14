@@ -28,76 +28,129 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
 
-      - name: Generate Daily Brief with OpenAI
+      - name: Generate Daily Brief with OpenAI (with retries and fallback)
+        id: openai
         run: |
+          set -euo pipefail
+
+          if [ -z "${OPENAI_API_KEY:-}" ]; then
+            echo "❌ ERROR: OPENAI_API_KEY is not set."
+            exit 1
+          fi
+
           # Create the prompt for OpenAI
           cat > /tmp/prompt.txt << 'PROMPT_EOF'
           You are an AI assistant tasked with generating a comprehensive "Daily Brief" for a GitHub profile README.
-          
+
           **Your Task:**
           Generate a markdown snippet that will replace the content between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers in the README.md file.
-          
+
+          **CRITICAL FORMAT REQUIREMENTS (DO NOT VIOLATE):**
+          - Your ENTIRE output must start with the line:
+            <!-- BEGIN DAILY BRIEF -->
+          - Your ENTIRE output must end with the line:
+            <!-- END DAILY BRIEF -->
+          - Between those markers, you MUST:
+            - Use literal `<details>` and `<summary>` tags. Do **NOT** use HTML-escaped tags like `&lt;details&gt;` or `&lt;summary&gt;`.
+            - Start with a top-level collapsible section:
+              ```markdown
+              <details>
+              <summary><b>📰 Today's Intelligence Brief</b></summary>
+              ```
+            - Include a centered header section:
+              ```markdown
+              <div align="center">
+
+              # 📅 Daily Brief
+
+              **[DayOfWeek, Month DD, YYYY]**
+
+              </div>
+
+              ---
+              ```
+            - Provide each of the following subsections in its own `<details>` block with a `<summary><b>...</b></summary>`:
+              1. 💭 Quote of the Day
+              2. 🌤️ Weather Report (including Space Weather status)
+              3. 📰 Global Intelligence News
+              4. 🔐 Cyber Pulse Report
+              5. 🔥 Trending on GitHub (with table and chart placeholder)
+            - End with a footer:
+              ```markdown
+              ---
+              
+              <div align="center">
+              
+              _Generated at HH:MM AM/PM UTC_
+              
+              </div>
+              ```
+            - Close the top-level collapsible with:
+              ```markdown
+              </details>
+              ```
+
           **Requirements:**
-          
+
           1. **Structure**: The output must be a collapsible section starting with:
              ```markdown
              <details>
              <summary><b>📰 Today's Intelligence Brief</b></summary>
              ```
-             
+
           2. **Header Section** (centered):
              ```markdown
              <div align="center">
-             
+
              # 📅 Daily Brief
-             
+
              **[DayOfWeek, Month DD, YYYY]**
-             
+
              </div>
-             
+
              ---
              ```
-          
+
           3. **Subsections** (each in its own collapsible `<details>` block):
-          
+
              a. **💭 Quote of the Day**:
                 - Fetch a random inspirational quote
                 - Format as a blockquote with author attribution
                 - Example format:
                   ```markdown
                   ### 💭 Quote of the Day
-                  
+
                   > "Quote text here."
                   >
                   > — **Author Name**
                   ```
-             
+
              b. **🌤️ Weather Report**:
                 - Location: San Juan, Puerto Rico
                 - Current conditions: temperature (°F), humidity (%), wind speed (mph)
                 - Today's forecast: High/Low temperatures, precipitation
                 - Use appropriate weather emoji (☀️, ⛅, 🌧️, etc.)
-                
+
                 **Space Weather Status** (within same section):
                 - KP Index with status indicator (🟢 Quiet, 🟡 Unsettled, 🟠 Active, 🔴 Storm)
                 - Recent space weather alerts (if available)
-             
+
              c. **📰 Global Intelligence News**:
                 - Fetch top 3 world news headlines
                 - Provide 1-2 sentence summaries for each
                 - If unavailable: "**Intel data unavailable** ⛔"
-             
+
              d. **🔐 Cyber Pulse Report**:
                 - Fetch top 3 cybersecurity news items
                 - Provide 1-2 sentence summaries for each
                 - If unavailable: "**CyberPulse data unavailable** ⛔"
-             
+
              e. **🔥 Trending on GitHub**:
                 - List top 3 trending repositories from past week
                 - Use a markdown table with columns: Repo | Author | Description | Language | Stars | Forks | Link
                 - Format: Stars with ⭐ emoji, Forks with 🔱 emoji
                 - Include a placeholder for trending chart: `![Trending Repos Chart](assets/trending.png)`
-          
+
           4. **Footer** (centered):
              ```markdown
              ---
@@ -108,53 +161,29 @@ jobs:
              
              </div>
              ```
-          
+
           5. **Closing tag**:
              ```markdown
              </details>
              ```
-          
+
           **Important Notes:**
-          - Use real-time data where possible, but provide graceful fallbacks if data is unavailable
-          - Maintain the exact format and emoji style shown above
-          - Each subsection should be in a `<details>` block with a `<summary><b>Title</b></summary>` header
-          - Use horizontal rules (`---`) to separate major sections
-          - **CRITICAL**: Your entire response MUST start with `<!-- BEGIN DAILY BRIEF -->` and end with `<!-- END DAILY BRIEF -->`
-          - Output ONLY the content from `<!-- BEGIN DAILY BRIEF -->` to `<!-- END DAILY BRIEF -->` (including these markers)
-          - Do NOT use HTML-escaped tags like `&lt;details&gt;` - use literal `<details>` tags
-          - Ensure all markdown is properly formatted and valid
-          - Keep descriptions concise (truncate to ~80 chars if needed)
-          
-          **Output Format (REQUIRED):**
-          ```
-          <!-- BEGIN DAILY BRIEF -->
-          <details>
-          <summary><b>📰 Today's Intelligence Brief</b></summary>
-          
-          [... all daily brief content here ...]
-          
-          </details>
-          <!-- END DAILY BRIEF -->
-          ```
-          
-          **Data Sources (suggestions if you can access them):**
-          - Quotes: Use a variety of inspirational, philosophical, or motivational quotes
-          - Weather: OpenMeteo API or similar (coordinates: 18.4655, -66.1057 for San Juan)
-          - Space Weather: NOAA SWPC data
-          - News: Reuters, AP News, BBC World News
-          - Cybersecurity: Recent security bulletins, breaches, or vulnerability announcements
-          - GitHub Trending: GitHub trending API or scraping (filter by stars gained in past week)
-          
-          Please generate the complete daily brief section now, including all markers and properly formatted markdown.
+          - Use real-time data where possible, but provide graceful fallbacks if data is unavailable.
+          - Maintain the exact format and emoji style shown above.
+          - Each subsection should be in a `<details>` block with a `<summary><b>Title</b></summary>` header.
+          - Use horizontal rules (`---`) to separate major sections.
+          - Output ONLY the content from `<!-- BEGIN DAILY BRIEF -->` to `<!-- END DAILY BRIEF -->` (including these markers).
+          - Ensure all markdown is properly formatted and valid.
+          - Keep descriptions concise (truncate to ~80 chars if needed).
+
           PROMPT_EOF
 
-          # Read the prompt
           PROMPT_TEXT=$(cat /tmp/prompt.txt)
-          
-          # Create JSON payload using jq for safe string handling
+
+          # Prepare base payload
           jq -n \
             --arg model "gpt-4o-mini" \
-            --arg system_content "You are an AI assistant generating a Daily Brief for a GitHub profile README. Generate markdown content that is well-formatted and includes real-time data where possible." \
+            --arg system_content "You are an AI assistant generating a Daily Brief for a GitHub profile README. Generate markdown content that strictly follows the given format and markers, using real-time style data where possible." \
             --arg prompt "$PROMPT_TEXT" \
             '{
               "model": $model,
@@ -172,335 +201,373 @@ jobs:
               "max_tokens": 4000
             }' > /tmp/payload.json
 
-          echo "🚀 Calling OpenAI API..."
-          
-          # Call OpenAI API
-          HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/response.json \
-            https://api.openai.com/v1/chat/completions \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer ${OPENAI_API_KEY}" \
-            -d @/tmp/payload.json)
-          
-          echo "HTTP Response Code: ${HTTP_CODE}"
-          
-          if [ "$HTTP_CODE" = "200" ]; then
-            echo "✅ OpenAI API call successful"
-            
-            # Extract the generated content
-            jq -r '.choices[0].message.content' /tmp/response.json > /tmp/brief.md
-            
-            # Check if the brief was generated successfully
-            if [ -s /tmp/brief.md ]; then
-              echo "✅ Daily brief generated successfully"
-              cat /tmp/brief.md
-            else
-              echo "❌ ERROR: Brief file is empty"
-              exit 1
-            fi
-          else
-            echo "❌ ERROR: OpenAI API call failed with HTTP code ${HTTP_CODE}"
-            
-            # Check if it's a model availability issue (OpenAI returns 400 or 404 for model errors)
-            if [ "$HTTP_CODE" = "404" ] || [ "$HTTP_CODE" = "400" ] || \
-               grep -q "model.*not.*found\|model_not_found" /tmp/response.json 2>/dev/null; then
-              echo "⚠️ Trying fallback to gpt-4o..."
-              
-              # Update payload to use gpt-4o
-              jq '.model = "gpt-4o"' /tmp/payload.json > /tmp/payload-fallback.json
-              
-              HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/response.json \
-                https://api.openai.com/v1/chat/completions \
-                -H "Content-Type: application/json" \
-                -H "Authorization: Bearer ${OPENAI_API_KEY}" \
-                -d @/tmp/payload-fallback.json)
-              
-              if [ "$HTTP_CODE" = "200" ]; then
-                echo "✅ Fallback to gpt-4o successful"
-                jq -r '.choices[0].message.content' /tmp/response.json > /tmp/brief.md
+          echo "ℹ️ OpenAI payload prepared (model: gpt-4o-mini)."
+
+          call_openai() {
+            local payload_file=$1
+            local attempt=$2
+            local model_name
+            model_name=$(jq -r '.model' "$payload_file" || echo "unknown")
+            echo "🚀 Calling OpenAI API (model=${model_name}, attempt=${attempt})..."
+
+            HTTP_CODE=$(curl -s -w "%{http_code}" -o /tmp/response.json \
+              https://api.openai.com/v1/chat/completions \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer ${OPENAI_API_KEY}" \
+              -d @"${payload_file}")
+
+            echo "ℹ️ HTTP Response Code: ${HTTP_CODE}"
+
+            if [ "${HTTP_CODE}" = "200" ]; then
+              echo "✅ OpenAI API call successful (model=${model_name})"
+              jq -r '.choices[0].message.content' /tmp/response.json > /tmp/brief.md
+              if [ -s /tmp/brief.md ]; then
+                echo "✅ Daily brief content written to /tmp/brief.md"
+                return 0
               else
-                echo "❌ ERROR: Fallback also failed with HTTP code ${HTTP_CODE}"
-                cat /tmp/response.json
-                exit 1
+                echo "❌ ERROR: /tmp/brief.md is empty after successful response."
+                cat /tmp/response.json || true
+                return 1
               fi
             else
-              cat /tmp/response.json
+              echo "❌ ERROR: OpenAI API call failed (model=${model_name}) with HTTP code ${HTTP_CODE}"
+              echo "🔍 Full response from OpenAI:"
+              cat /tmp/response.json || echo "(no response body)"
+              return 1
+            fi
+          }
+
+          # Try primary model with retries (up to 3 attempts)
+          MAX_ATTEMPTS=3
+          ATTEMPT=1
+          PRIMARY_OK=0
+
+          while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
+            if call_openai /tmp/payload.json "$ATTEMPT"; then
+              PRIMARY_OK=1
+              break
+            fi
+            echo "⚠️ Primary model attempt ${ATTEMPT} failed."
+            ATTEMPT=$((ATTEMPT + 1))
+            if [ $ATTEMPT -le $MAX_ATTEMPTS ]; then
+              echo "⏳ Retrying primary model in 5 seconds..."
+              sleep 5
+            fi
+          done
+
+          if [ $PRIMARY_OK -ne 1 ]; then
+            echo "⚠️ Primary model gpt-4o-mini failed after ${MAX_ATTEMPTS} attempts. Trying fallback model gpt-4o..."
+
+            jq '.model = "gpt-4o"' /tmp/payload.json > /tmp/payload-fallback.json
+
+            ATTEMPT=1
+            FALLBACK_OK=0
+            while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
+              if call_openai /tmp/payload-fallback.json "$ATTEMPT"; then
+                FALLBACK_OK=1
+                break
+              fi
+              echo "⚠️ Fallback model attempt ${ATTEMPT} failed."
+              ATTEMPT=$((ATTEMPT + 1))
+              if [ $ATTEMPT -le $MAX_ATTEMPTS ]; then
+                echo "⏳ Retrying fallback model in 5 seconds..."
+                sleep 5
+              fi
+            done
+
+            if [ $FALLBACK_OK -ne 1 ]; then
+              echo "❌ ERROR: All attempts (primary and fallback models) failed."
+              echo "🔍 Showing last OpenAI response:"
+              cat /tmp/response.json || echo "(no response body)"
               exit 1
             fi
           fi
 
-      - name: Validate OpenAI Response
-        run: |
-          echo "🔍 Validating generated Daily Brief content..."
-          
-          python3 << 'VALIDATION_EOF'
-          import sys
-          import re
-          
-          def validate_brief(filepath):
-              """Validate the generated brief content before inserting into README"""
-              
-              print(f"📂 Reading file: {filepath}")
-              
-              try:
-                  with open(filepath, 'r', encoding='utf-8') as f:
-                      content = f.read()
-              except FileNotFoundError:
-                  print(f"❌ VALIDATION FAILED: File '{filepath}' not found")
-                  return False
-              except Exception as e:
-                  print(f"❌ VALIDATION FAILED: Error reading file: {e}")
-                  return False
-              
-              # Check 1: File is not empty
-              if not content or len(content.strip()) == 0:
-                  print("❌ VALIDATION FAILED: Brief file is empty")
-                  return False
-              print("✅ Check 1: File is not empty")
-              
-              # Check 2: Contains <details> block
-              if '<details>' not in content:
-                  print("❌ VALIDATION FAILED: Missing <details> block")
-                  return False
-              print("✅ Check 2: Contains <details> block")
-              
-              # Check 3: Contains date header
-              if '# 📅 Daily Brief' not in content and '📅 Daily Brief' not in content:
-                  print("❌ VALIDATION FAILED: Missing date header (# 📅 Daily Brief)")
-                  return False
-              print("✅ Check 3: Contains date header")
-              
-              # Check 4: Has real content (more than 10 non-empty lines)
-              non_empty_lines = [line for line in content.split('\n') if line.strip()]
-              if len(non_empty_lines) < 10:
-                  print(f"❌ VALIDATION FAILED: Insufficient content ({len(non_empty_lines)} non-empty lines, need at least 10)")
-                  return False
-              print(f"✅ Check 4: Has sufficient content ({len(non_empty_lines)} non-empty lines)")
-              
-              # Check 5: Includes both markers
-              if '<!-- BEGIN DAILY BRIEF -->' not in content:
-                  print("❌ VALIDATION FAILED: Missing <!-- BEGIN DAILY BRIEF --> marker")
-                  return False
-              if '<!-- END DAILY BRIEF -->' not in content:
-                  print("❌ VALIDATION FAILED: Missing <!-- END DAILY BRIEF --> marker")
-                  return False
-              print("✅ Check 5: Both markers present")
-              
-              # Check 6: Uses literal HTML tags (not escaped)
-              if '&lt;details&gt;' in content or '&lt;summary&gt;' in content:
-                  print("❌ VALIDATION FAILED: HTML tags are escaped (found &lt;details&gt; or &lt;summary&gt;)")
-                  return False
-              print("✅ Check 6: HTML tags are not escaped")
-              
-              # Additional check: Verify markers are in correct order
-              begin_pos = content.find('<!-- BEGIN DAILY BRIEF -->')
-              end_pos = content.find('<!-- END DAILY BRIEF -->')
-              if begin_pos >= end_pos:
-                  print("❌ VALIDATION FAILED: Markers are in wrong order or overlapping")
-                  return False
-              print("✅ Check 7: Markers are in correct order")
-              
-              print("\n🎉 All validation checks passed!")
-              return True
-          
-          if __name__ == '__main__':
-              if not validate_brief('/tmp/brief.md'):
-                  print("\n⛔ Validation failed. README.md will NOT be modified.")
-                  sys.exit(1)
-          VALIDATION_EOF
-          
-          echo "✅ Validation complete"
+          echo "✅ OpenAI generation step completed."
 
-      - name: Update README with Python Script
+      - name: Validate generated Daily Brief
+        id: validate
         run: |
-          echo "📝 Updating README.md with validated content..."
-          
-          python3 << 'UPDATE_EOF'
-          import sys
-          import re
-          
-          def update_readme(readme_path, brief_path):
-              """Update README.md with the daily brief content using Python"""
-              
-              # Read the generated brief
-              print(f"📂 Reading brief from: {brief_path}")
-              try:
-                  with open(brief_path, 'r', encoding='utf-8') as f:
-                      brief_content = f.read()
-              except Exception as e:
-                  print(f"❌ ERROR: Failed to read brief file: {e}")
-                  return False
-              
-              # Read the README
-              print(f"📂 Reading README from: {readme_path}")
-              try:
-                  with open(readme_path, 'r', encoding='utf-8') as f:
-                      readme_content = f.read()
-              except Exception as e:
-                  print(f"❌ ERROR: Failed to read README: {e}")
-                  return False
-              
-              begin_marker = '<!-- BEGIN DAILY BRIEF -->'
-              end_marker = '<!-- END DAILY BRIEF -->'
-              
-              # Check if markers exist
-              begin_pos = readme_content.find(begin_marker)
-              end_pos = readme_content.find(end_marker)
-              
-              if begin_pos == -1 or end_pos == -1:
-                  print("⚠️  Markers not found in README. Creating new section...")
-                  
-                  # Create a new daily brief section with markers
-                  starter_block = f"\n\n## 📅 Daily Brief\n\n{brief_content}\n\n---\n"
-                  
-                  # Ensure README ends with exactly one newline
-                  readme_content = readme_content.rstrip('\n') + '\n'
-                  
-                  # Append the starter block
-                  new_readme = readme_content + starter_block
-                  
-                  print("✅ Starter block with markers appended to README")
-              else:
-                  print("✅ Markers found in README")
-                  print(f"   BEGIN marker at position: {begin_pos}")
-                  print(f"   END marker at position: {end_pos}")
-                  
-                  # Extract the brief content (with markers) from the generated file
-                  # This should already include the markers based on validation
-                  
-                  # Replace everything between and including markers
-                  before_section = readme_content[:begin_pos]
-                  after_section = readme_content[end_pos + len(end_marker):]
-                  
-                  # Insert new content (which includes the markers)
-                  new_readme = before_section + brief_content + after_section
-                  
-                  print("✅ Content between markers replaced")
-              
-              # Ensure file ends with exactly one newline
-              new_readme = new_readme.rstrip('\n') + '\n'
-              
-              # Write updated README
-              try:
-                  with open(readme_path, 'w', encoding='utf-8') as f:
-                      f.write(new_readme)
-                  print(f"✅ README.md updated successfully")
-                  return True
-              except Exception as e:
-                  print(f"❌ ERROR: Failed to write README: {e}")
-                  return False
-          
-          if __name__ == '__main__':
-              if not update_readme('README.md', '/tmp/brief.md'):
-                  print("\n⛔ Failed to update README.md")
-                  sys.exit(1)
-          UPDATE_EOF
-          
-          echo "✅ README.md update complete"
+          set -euo pipefail
 
-      - name: Create Daily Archive
+          if [ ! -s /tmp/brief.md ]; then
+            echo "❌ Validation failed: /tmp/brief.md is missing or empty."
+            exit 1
+          fi
+
+          echo "ℹ️ Running Python validation on /tmp/brief.md..."
+
+          python << 'PY'
+          import sys
+          from pathlib import Path
+
+          brief_path = Path("/tmp/brief.md")
+          content = brief_path.read_text(encoding="utf-8")
+          lines = content.splitlines()
+
+          def fail(msg: str) -> None:
+            print(f"❌ Validation error: {msg}")
+            sys.exit(1)
+
+          # Basic non-empty check already done in shell, but double-check
+          if not content.strip():
+            fail("/tmp/brief.md is empty after stripping whitespace.")
+
+          # Check markers
+          if "<!-- BEGIN DAILY BRIEF -->" not in content:
+            fail("Missing opening marker '<!-- BEGIN DAILY BRIEF -->'.")
+          if "<!-- END DAILY BRIEF -->" not in content:
+            fail("Missing closing marker '<!-- END DAILY BRIEF -->'.")
+
+          if content.strip().splitlines()[0].strip() != "<!-- BEGIN DAILY BRIEF -->":
+            fail("Content does not begin exactly with '<!-- BEGIN DAILY BRIEF -->'.")
+          if content.strip().splitlines()[-1].strip() != "<!-- END DAILY BRIEF -->":
+            fail("Content does not end exactly with '<!-- END DAILY BRIEF -->'.")
+
+          # Must contain a <details> block (literal)
+          if "<details>" not in content:
+            fail("No literal <details> tag found in content.")
+          if "<summary>" not in content:
+            fail("No literal <summary> tag found in content.")
+
+          # Disallow HTML-escaped tags
+          if "&lt;details&gt;" in content or "&lt;summary&gt;" in content:
+            fail("Found HTML-escaped tags (&lt;details&gt; or &lt;summary&gt;). Must use literal tags.")
+
+          # Date header
+          if "# 📅 Daily Brief" not in content:
+            fail("Missing '# 📅 Daily Brief' header.")
+
+          # Real content: at least > 10 non-empty lines
+          non_empty_lines = [ln for ln in lines if ln.strip()]
+          if len(non_empty_lines) <= 10:
+            fail(f"Not enough non-empty content lines: {len(non_empty_lines)} (need > 10).")
+
+          # Check subsections presence by key phrases
+          required_phrases = [
+            "💭 Quote of the Day",
+            "🌤️ Weather Report",
+            "📰 Global Intelligence News",
+            "🔐 Cyber Pulse Report",
+            "🔥 Trending on GitHub",
+            "![Trending Repos Chart](assets/trending.png)",
+          ]
+          for phrase in required_phrases:
+            if phrase not in content:
+              fail(f"Missing required subsection or element containing: {phrase!r}")
+
+          print("✅ Validation of /tmp/brief.md successful.")
+          PY
+
+          echo "✅ Generated Daily Brief passed validation."
+
+      - name: Update README with Daily Brief via Python
+        id: update_readme
         run: |
+          set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          CURRENT_DATE=$(date -u +'%Y-%m-%d')
-          CURRENT_TIME=$(date -u +'%H:%M UTC')
-          
-          echo "📁 Creating daily archive..."
-          
-          mkdir -p daily
-          
-          # Use Python to extract content between markers for archive
-          python3 << 'ARCHIVE_EOF'
+
+          if [ ! -f "README.md" ]; then
+            echo "❌ ERROR: README.md not found!"
+            exit 1
+          fi
+
+          echo "ℹ️ Updating README.md using Python (no AWK/sed replacement)..."
+
+          python << 'PY'
           import sys
-          import os
-          from datetime import datetime, timezone
-          
-          def create_archive(readme_path, archive_dir):
-              """Extract daily brief section and create archive with front matter"""
-              
-              # Read README
-              try:
-                  with open(readme_path, 'r', encoding='utf-8') as f:
-                      content = f.read()
-              except Exception as e:
-                  print(f"❌ ERROR: Failed to read README: {e}")
-                  return False
-              
-              # Extract content between markers (inclusive)
-              begin_marker = '<!-- BEGIN DAILY BRIEF -->'
-              end_marker = '<!-- END DAILY BRIEF -->'
-              
-              begin_pos = content.find(begin_marker)
-              end_pos = content.find(end_marker)
-              
-              if begin_pos == -1 or end_pos == -1:
-                  print("❌ ERROR: Markers not found in README")
-                  return False
-              
-              # Extract the section (including markers)
-              brief_section = content[begin_pos:end_pos + len(end_marker)]
-              
-              # Create archive file with front matter
-              current_date = datetime.now(timezone.utc)
-              date_str = current_date.strftime('%Y-%m-%d')
-              date_long = current_date.strftime('%A, %B %d, %Y')
-              timestamp = current_date.strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
-              
-              front_matter = f"""---
-          date: {date_str}
-          title: "Daily Brief - {date_long}"
-          generated: {timestamp}
-          ---
-          
-          """
-              
-              archive_content = front_matter + brief_section
-              
-              # Write archive file
-              archive_path = os.path.join(archive_dir, f"{date_str}.md")
-              try:
-                  with open(archive_path, 'w', encoding='utf-8') as f:
-                      f.write(archive_content)
-                  print(f"✅ Archive created: {archive_path}")
-                  return True
-              except Exception as e:
-                  print(f"❌ ERROR: Failed to write archive: {e}")
-                  return False
-          
-          if __name__ == '__main__':
-              if not create_archive('README.md', 'daily'):
-                  sys.exit(1)
-          ARCHIVE_EOF
-          
+          from pathlib import Path
+
+          readme_path = Path("README.md")
+          brief_path = Path("/tmp/brief.md")
+
+          if not readme_path.exists():
+            print("❌ ERROR: README.md not found (inside Python).")
+            sys.exit(1)
+
+          brief_content = brief_path.read_text(encoding="utf-8")
+          # Normalize to ensure trailing newline on the brief block
+          if not brief_content.endswith("\n"):
+            brief_content += "\n"
+
+          BEGIN = "<!-- BEGIN DAILY BRIEF -->"
+          END = "<!-- END DAILY BRIEF -->"
+
+          readme_text = readme_path.read_text(encoding="utf-8")
+          original_text = readme_text  # keep for comparison
+
+          # Normalize newlines to \n
+          readme_text = readme_text.replace("\r\n", "\n").replace("\r", "\n")
+
+          begin_index = readme_text.find(BEGIN)
+          end_index = readme_text.find(END)
+
+          if begin_index == -1 or end_index == -1:
+            print("⚠️ Markers not found in README.md. Appending starter block at end.")
+            # Ensure README ends with exactly one newline before appending
+            stripped = readme_text.rstrip("\n")
+            starter = (
+                "\n\n"
+                "## 📅 Daily Brief\n\n"
+                f"{brief_content}"
+            )
+            new_text = stripped + starter
+          else:
+            if end_index < begin_index:
+              print("❌ ERROR: END marker appears before BEGIN marker in README.md.")
+              sys.exit(1)
+
+            print("✅ Found existing markers in README.md. Replacing block content.")
+            # end_index points to start of END marker; we want to remove from BEGIN
+            # through END marker inclusive.
+            end_marker_end = end_index + len(END)
+            # We also want to include trailing newline(s) after END to avoid duplication.
+            # We'll detect newline after END if present.
+            while end_marker_end < len(readme_text) and readme_text[end_marker_end] in ("\n", "\r"):
+              end_marker_end += 1
+
+            # brief_content already includes markers, per validation.
+            new_text = readme_text[:begin_index] + brief_content + readme_text[end_marker_end:]
+
+          # Ensure final README ends with exactly one newline
+          new_text = new_text.rstrip("\n") + "\n"
+
+          if new_text == original_text:
+            print("ℹ️ README.md content is unchanged after update (idempotent).")
+          else:
+            print("✅ README.md content updated with new Daily Brief block.")
+
+          readme_path.write_text(new_text, encoding="utf-8")
+          PY
+
+          echo "✅ README.md update step complete."
+
+      - name: Archive Daily Brief to daily/YYYY-MM-DD.md
+        id: archive
+        run: |
+          set -euo pipefail
+
           CURRENT_DATE=$(date -u +'%Y-%m-%d')
-          
-          git add README.md "daily/${CURRENT_DATE}.md"
-          
+          CURRENT_ISO=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          CURRENT_HUMAN_DATE=$(date -u +'%A, %B %d, %Y')
+
+          mkdir -p daily
+
+          echo "ℹ️ Archiving Daily Brief for ${CURRENT_DATE} using Python."
+
+          python << 'PY'
+          import sys
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          BEGIN = "<!-- BEGIN DAILY BRIEF -->"
+          END = "<!-- END DAILY BRIEF -->"
+
+          readme_path = Path("README.md")
+          if not readme_path.exists():
+            print("❌ ERROR: README.md not found in archive step.")
+            sys.exit(1)
+
+          readme_text = readme_path.read_text(encoding="utf-8")
+          begin_index = readme_text.find(BEGIN)
+          end_index = readme_text.find(END)
+
+          if begin_index == -1 or end_index == -1 or end_index < begin_index:
+            print("❌ ERROR: Could not reliably locate Daily Brief markers in README.md during archive step.")
+            sys.exit(1)
+
+          # Extract from BEGIN through END inclusive
+          end_marker_end = end_index + len(END)
+          # include any trailing newline(s) after END
+          while end_marker_end < len(readme_text) and readme_text[end_marker_end] in ("\n", "\r"):
+            end_marker_end += 1
+
+          block = readme_text[begin_index:end_marker_end].rstrip("\n") + "\n"
+
+          now = datetime.now(timezone.utc)
+          current_date = now.strftime("%Y-%m-%d")
+          current_iso = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+          human_date = now.strftime("%A, %B %d, %Y")
+
+          archive_dir = Path("daily")
+          archive_dir.mkdir(parents=True, exist_ok=True)
+          archive_path = archive_dir / f"{current_date}.md"
+
+          frontmatter = (
+              f"---\n"
+              f"date: {current_date}\n"
+              f"title: \"Daily Brief - {human_date}\"\n"
+              f"generated: {current_iso}\n"
+              f"---\n\n"
+          )
+
+          archive_path.write_text(frontmatter + block, encoding="utf-8")
+
+          print(f"✅ Archive written to {archive_path}")
+          PY
+
+          echo "✅ Archive step completed."
+
+      - name: Commit and push changes if needed
+        id: commit
+        run: |
+          set -euo pipefail
+
+          CURRENT_DATE=$(date -u +'%Y-%m-%d')
+
+          git add README.md daily || true
+
           if git diff --cached --quiet; then
-            echo "ℹ️ No changes to commit"
+            echo "ℹ️ No changes to commit (README and archive unchanged)."
+            echo "commit_performed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          
-          git commit -m "ci: update AI-powered Daily Brief for ${CURRENT_DATE} [skip ci]"
-          git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
-          
-          echo "✅ Daily brief updated and pushed successfully!"
+
+          COMMIT_MESSAGE="ci: update AI-powered Daily Brief for ${CURRENT_DATE} [skip ci]"
+          echo "ℹ️ Changes detected. Creating commit: '${COMMIT_MESSAGE}'"
+          git commit -m "${COMMIT_MESSAGE}"
+
+          echo "ℹ️ Pushing commit to ${GITHUB_REF_NAME:-${GITHUB_REF}}"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:"${GITHUB_REF_NAME:-${GITHUB_REF##*/}}"
+
+          echo "✅ Changes committed and pushed."
+          echo "commit_performed=true" >> "$GITHUB_OUTPUT"
 
       - name: Add Job Summary
         if: always()
         run: |
+          set -euo pipefail
+
           CURRENT_DATE=$(date -u +'%Y-%m-%d')
           CURRENT_TIME=$(date -u +'%H:%M UTC')
-          
+          ARCHIVE_PATH="daily/${CURRENT_DATE}.md"
+
+          SUMMARY_STATUS="unknown"
+          if [ "${{ job.status }}" = "success" ]; then
+            SUMMARY_STATUS="✅ Success"
+          else
+            SUMMARY_STATUS="❌ Failure"
+          fi
+
+          COMMIT_PERFORMED="${{ steps.commit.outputs.commit_performed }}"
+          if [ -z "${COMMIT_PERFORMED}" ]; then
+            COMMIT_PERFORMED="false"
+          fi
+
           {
-            echo "## 🤖 AI-Powered Daily Brief Generated"
+            echo "## 🤖 AI-Powered Daily Brief Workflow Summary"
             echo ""
-            echo "**Date:** ${CURRENT_DATE}"
-            echo "**Time:** ${CURRENT_TIME}"
+            echo "- **Status:** ${SUMMARY_STATUS}"
+            echo "- **Date (UTC):** ${CURRENT_DATE}"
+            echo "- **Time (UTC):** ${CURRENT_TIME}"
+            echo "- **Commit created:** ${COMMIT_PERFORMED}"
+            echo "- **Archive path:** \`${ARCHIVE_PATH}\`"
             echo ""
-            echo "✅ Daily brief has been generated by OpenAI GPT-4o-mini and committed."
-            echo ""
-            echo "📁 Archive: \`daily/${CURRENT_DATE}.md\`"
-            echo ""
-            echo "🔗 View the updated README: [README.md](../blob/main/README.md)"
-          } >> $GITHUB_STEP_SUMMARY
+            echo "### Logs & Notes"
+            echo "- OpenAI API used with retries and fallback between \`gpt-4o-mini\` and \`gpt-4o\`."
+            echo "- Generated brief was validated for markers, structure, and content richness."
+            echo "- README was updated via a Python script that safely replaces the Daily Brief block and enforces exact markers."
+            echo "- The archive file preserves YAML frontmatter and the original markers and content."
+          } >> "$GITHUB_STEP_SUMMARY"
