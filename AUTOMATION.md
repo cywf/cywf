@@ -9,25 +9,32 @@ This repository contains automated workflows that update the README.md file dail
 ### 1a. AI-Powered Daily Brief (`ai-daily-brief.yml`) ⭐ NEW
 
 **Schedule:** Daily at 10:00 UTC / 06:00 Puerto Rico time (`cron: '0 10 * * *'`)  
-**Purpose:** Generates a comprehensive daily intelligence brief using Anthropic's Claude AI with weather, news, space weather, quotes, and GitHub trending repos.
+**Purpose:** Generates a comprehensive daily intelligence brief using OpenAI's GPT-4o-mini (with fallback to GPT-4o) with weather, news, space weather, quotes, and GitHub trending repos.
 
 **How it works:**
 1. Checks out the repository
-2. Uses `anthropics/claude-code-action@v1` to generate the daily brief
-3. Claude fetches real-time data from multiple sources and formats it as markdown
-4. Updates the README.md between `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers
-5. Creates a daily archive in `/daily/YYYY-MM-DD.md` with YAML front matter
-6. Commits and pushes changes automatically
-7. Generates job summary with date and archive path
+2. Uses OpenAI Chat Completions API to generate the daily brief
+3. **Validates** the generated content before updating README:
+   - Ensures content is not empty and has sufficient detail
+   - Verifies presence of required markers and HTML tags
+   - Checks for proper formatting (literal tags, not HTML-escaped)
+4. Updates README.md using **Python-based replacement logic** (replaced brittle AWK/sed)
+5. Handles missing markers by automatically creating a new Daily Brief section
+6. Creates a daily archive in `/daily/YYYY-MM-DD.md` with YAML front matter
+7. Commits and pushes changes automatically (with `[skip ci]` flag)
+8. Generates job summary with date and archive path
 
 **Key advantages:**
-- **No code maintenance**: Update content by editing the prompt instead of Python/JS code
-- **Intelligent summarization**: Claude provides natural language summaries
+- **Robust validation**: 7-point validation checks prevent malformed content from corrupting README
+- **Idempotent**: Can run multiple times without breaking README structure
+- **Python-based updates**: Safer and more maintainable than shell AWK/sed pipelines
+- **Auto-recovery**: Creates markers if they don't exist
+- **Intelligent summarization**: AI provides natural language summaries
 - **Adaptive**: Automatically handles API changes and finds alternative data sources
 - **Extensible**: Add new sections by simply updating the prompt
 - **Built-in fallbacks**: Graceful error handling for unavailable data
 
-**Data sources (fetched by Claude):**
+**Data sources (requested from OpenAI):**
 - **Weather:** OpenMeteo API or similar (San Juan, Puerto Rico)
 - **News:** Reuters, AP News, BBC World News (top 3 headlines)
 - **Space Weather:** NOAA SWPC alerts and KP index
@@ -38,10 +45,22 @@ This repository contains automated workflows that update the README.md file dail
 **Manual trigger:** You can manually trigger this workflow from the Actions tab.
 
 **Environment variables:**
-- `ANTHROPIC_API_KEY` (required): Get from https://console.anthropic.com/
-- `GITHUB_TOKEN` (automatic): Provided by GitHub Actions
+- `OPENAI_API_KEY` (required): Get from https://platform.openai.com/api-keys
+- `GH_TOKEN` (required): GitHub personal access token with repo write permissions
+- `OPENWEATHER_API_KEY` (optional): For weather data
+- `NOAA_API_URL` (optional): For space weather data
+- `ZENQUOTES_API_URL` (optional): For quotes
 
-**Setup:** See `.github/workflows/README-ai-daily-brief.md` for detailed setup instructions.
+**Validation Checks:**
+1. File is not empty
+2. Contains `<details>` block
+3. Contains date header (`# 📅 Daily Brief`)
+4. Has real content (>10 non-empty lines)
+5. Includes both `<!-- BEGIN DAILY BRIEF -->` and `<!-- END DAILY BRIEF -->` markers
+6. Uses literal HTML tags (not escaped like `&lt;details&gt;`)
+7. Markers are in correct order
+
+**Testing:** Run `python3 scripts/daily/test-workflow-logic.py` to test validation and update logic.
 
 ### 1b. Daily Brief Automation - Legacy Python (`daily-brief.yml`)
 
