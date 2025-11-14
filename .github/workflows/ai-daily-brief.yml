@@ -28,6 +28,28 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
 
+      - name: Validate Required Secrets
+        run: |
+          echo "🔍 Validating required secrets..."
+          
+          # Check for OPENAI_API_KEY
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "❌ ERROR: OPENAI_API_KEY secret is not set!"
+            echo "Please configure the OPENAI_API_KEY secret in repository settings."
+            exit 1
+          fi
+          echo "✅ OPENAI_API_KEY is set"
+          
+          # Check for GH_TOKEN
+          if [ -z "$GH_TOKEN" ]; then
+            echo "❌ ERROR: GH_TOKEN secret is not set!"
+            echo "Please configure the GH_TOKEN secret in repository settings."
+            exit 1
+          fi
+          echo "✅ GH_TOKEN is set"
+          
+          echo "✅ All required secrets are configured"
+
       - name: Generate Daily Brief with OpenAI
         run: |
           # Create the prompt for OpenAI
@@ -227,6 +249,22 @@ jobs:
             exit 1
           fi
           
+          # Validate that the generated brief is non-empty and valid
+          if [ ! -s "/tmp/brief.md" ]; then
+            echo "❌ ERROR: Generated brief is empty!"
+            exit 1
+          fi
+          
+          echo "📋 Validating generated content..."
+          BRIEF_SIZE=$(wc -c < /tmp/brief.md)
+          echo "✅ Brief size: ${BRIEF_SIZE} bytes"
+          
+          if [ "${BRIEF_SIZE}" -lt 100 ]; then
+            echo "⚠️ WARNING: Generated brief seems too small (< 100 bytes)"
+            echo "Content:"
+            cat /tmp/brief.md
+          fi
+          
           # Check if markers exist, if not, create them
           if ! grep -q "<!-- BEGIN DAILY BRIEF -->" README.md || ! grep -q "<!-- END DAILY BRIEF -->" README.md; then
             echo "⚠️ WARNING: Daily brief markers not found in README.md"
@@ -251,48 +289,63 @@ EOF
             echo "✅ Markers created successfully"
           fi
           
-          # Extract the content between markers from the generated brief
-          BRIEF_CONTENT=$(cat /tmp/brief.md)
+          # Use Python for reliable text replacement
+          # This approach is more predictable than AWK with multiline variables
+          python3 << 'PYTHON_EOF'
+import sys
+import re
+
+# Read the generated brief
+with open('/tmp/brief.md', 'r', encoding='utf-8') as f:
+    brief_content = f.read().strip()
+
+# Read the current README
+with open('README.md', 'r', encoding='utf-8') as f:
+    readme_content = f.read()
+
+# Check if the generated content includes markers
+has_markers = '<!-- BEGIN DAILY BRIEF -->' in brief_content and '<!-- END DAILY BRIEF -->' in brief_content
+
+if has_markers:
+    # Content includes markers - extract content between markers
+    print("✅ Content includes markers, extracting inner content only")
+    match = re.search(r'<!-- BEGIN DAILY BRIEF -->(.*?)<!-- END DAILY BRIEF -->', brief_content, re.DOTALL)
+    if match:
+        inner_content = match.group(1).strip()
+    else:
+        print("⚠️ WARNING: Could not extract content between markers, using full content")
+        inner_content = brief_content
+else:
+    # Content doesn't include markers
+    print("✅ Content doesn't include markers, will wrap it")
+    inner_content = brief_content
+
+# Replace content between markers in README
+# Pattern: match everything from BEGIN to END marker (inclusive)
+pattern = r'<!-- BEGIN DAILY BRIEF -->.*?<!-- END DAILY BRIEF -->'
+
+# Replacement: markers with new content in between
+replacement = f'<!-- BEGIN DAILY BRIEF -->\n{inner_content}\n<!-- END DAILY BRIEF -->'
+
+# Perform replacement
+new_readme = re.sub(pattern, replacement, readme_content, flags=re.DOTALL)
+
+# Verify that replacement occurred
+if new_readme == readme_content:
+    print("⚠️ WARNING: README content unchanged - replacement may have failed")
+    sys.exit(1)
+
+# Write the updated README
+with open('README.md', 'w', encoding='utf-8') as f:
+    f.write(new_readme)
+
+print("✅ README.md updated successfully")
+PYTHON_EOF
           
-          # Check if the generated content already includes the markers
-          if echo "$BRIEF_CONTENT" | grep -q "<!-- BEGIN DAILY BRIEF -->"; then
-            # Content includes markers, use as-is
-            echo "✅ Content includes markers, using as-is"
-            # Use awk to replace content between markers
-            awk -v replacement="$BRIEF_CONTENT" '
-              /<!-- BEGIN DAILY BRIEF -->/ {
-                print replacement
-                skip=1
-                next
-              }
-              /<!-- END DAILY BRIEF -->/ {
-                skip=0
-                next
-              }
-              !skip
-            ' README.md > README.md.tmp
-          else
-            # Content doesn't include markers, wrap it and then replace
-            echo "✅ Wrapping content with markers"
-            awk -v content="$BRIEF_CONTENT" '
-              /<!-- BEGIN DAILY BRIEF -->/ {
-                print "<!-- BEGIN DAILY BRIEF -->"
-                print content
-                print "<!-- END DAILY BRIEF -->"
-                skip=1
-                next
-              }
-              /<!-- END DAILY BRIEF -->/ {
-                skip=0
-                next
-              }
-              !skip
-            ' README.md > README.md.tmp
+          if [ $? -ne 0 ]; then
+            echo "❌ ERROR: Python replacement script failed"
+            exit 1
           fi
-          
-          mv README.md.tmp README.md
-          
-          echo "✅ README.md updated successfully"
           
           mkdir -p daily
           
