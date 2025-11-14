@@ -214,7 +214,176 @@ jobs:
             fi
           fi
 
-      - name: Update README with OpenAI Output
+      - name: Validate OpenAI Response
+        run: |
+          echo "🔍 Validating generated Daily Brief content..."
+          
+          python3 << 'VALIDATION_EOF'
+          import sys
+          import re
+          
+          def validate_brief(filepath):
+              """Validate the generated brief content before inserting into README"""
+              
+              print(f"📂 Reading file: {filepath}")
+              
+              try:
+                  with open(filepath, 'r', encoding='utf-8') as f:
+                      content = f.read()
+              except FileNotFoundError:
+                  print(f"❌ VALIDATION FAILED: File '{filepath}' not found")
+                  return False
+              except Exception as e:
+                  print(f"❌ VALIDATION FAILED: Error reading file: {e}")
+                  return False
+              
+              # Check 1: File is not empty
+              if not content or len(content.strip()) == 0:
+                  print("❌ VALIDATION FAILED: Brief file is empty")
+                  return False
+              print("✅ Check 1: File is not empty")
+              
+              # Check 2: Contains <details> block
+              if '<details>' not in content:
+                  print("❌ VALIDATION FAILED: Missing <details> block")
+                  return False
+              print("✅ Check 2: Contains <details> block")
+              
+              # Check 3: Contains date header
+              if '# 📅 Daily Brief' not in content and '📅 Daily Brief' not in content:
+                  print("❌ VALIDATION FAILED: Missing date header (# 📅 Daily Brief)")
+                  return False
+              print("✅ Check 3: Contains date header")
+              
+              # Check 4: Has real content (more than 10 non-empty lines)
+              non_empty_lines = [line for line in content.split('\n') if line.strip()]
+              if len(non_empty_lines) < 10:
+                  print(f"❌ VALIDATION FAILED: Insufficient content ({len(non_empty_lines)} non-empty lines, need at least 10)")
+                  return False
+              print(f"✅ Check 4: Has sufficient content ({len(non_empty_lines)} non-empty lines)")
+              
+              # Check 5: Includes both markers
+              if '<!-- BEGIN DAILY BRIEF -->' not in content:
+                  print("❌ VALIDATION FAILED: Missing <!-- BEGIN DAILY BRIEF --> marker")
+                  return False
+              if '<!-- END DAILY BRIEF -->' not in content:
+                  print("❌ VALIDATION FAILED: Missing <!-- END DAILY BRIEF --> marker")
+                  return False
+              print("✅ Check 5: Both markers present")
+              
+              # Check 6: Uses literal HTML tags (not escaped)
+              if '&lt;details&gt;' in content or '&lt;summary&gt;' in content:
+                  print("❌ VALIDATION FAILED: HTML tags are escaped (found &lt;details&gt; or &lt;summary&gt;)")
+                  return False
+              print("✅ Check 6: HTML tags are not escaped")
+              
+              # Additional check: Verify markers are in correct order
+              begin_pos = content.find('<!-- BEGIN DAILY BRIEF -->')
+              end_pos = content.find('<!-- END DAILY BRIEF -->')
+              if begin_pos >= end_pos:
+                  print("❌ VALIDATION FAILED: Markers are in wrong order or overlapping")
+                  return False
+              print("✅ Check 7: Markers are in correct order")
+              
+              print("\n🎉 All validation checks passed!")
+              return True
+          
+          if __name__ == '__main__':
+              if not validate_brief('/tmp/brief.md'):
+                  print("\n⛔ Validation failed. README.md will NOT be modified.")
+                  sys.exit(1)
+          VALIDATION_EOF
+          
+          echo "✅ Validation complete"
+
+      - name: Update README with Python Script
+        run: |
+          echo "📝 Updating README.md with validated content..."
+          
+          python3 << 'UPDATE_EOF'
+          import sys
+          import re
+          
+          def update_readme(readme_path, brief_path):
+              """Update README.md with the daily brief content using Python"""
+              
+              # Read the generated brief
+              print(f"📂 Reading brief from: {brief_path}")
+              try:
+                  with open(brief_path, 'r', encoding='utf-8') as f:
+                      brief_content = f.read()
+              except Exception as e:
+                  print(f"❌ ERROR: Failed to read brief file: {e}")
+                  return False
+              
+              # Read the README
+              print(f"📂 Reading README from: {readme_path}")
+              try:
+                  with open(readme_path, 'r', encoding='utf-8') as f:
+                      readme_content = f.read()
+              except Exception as e:
+                  print(f"❌ ERROR: Failed to read README: {e}")
+                  return False
+              
+              begin_marker = '<!-- BEGIN DAILY BRIEF -->'
+              end_marker = '<!-- END DAILY BRIEF -->'
+              
+              # Check if markers exist
+              begin_pos = readme_content.find(begin_marker)
+              end_pos = readme_content.find(end_marker)
+              
+              if begin_pos == -1 or end_pos == -1:
+                  print("⚠️  Markers not found in README. Creating new section...")
+                  
+                  # Create a new daily brief section with markers
+                  starter_block = f"\n\n## 📅 Daily Brief\n\n{brief_content}\n\n---\n"
+                  
+                  # Ensure README ends with exactly one newline
+                  readme_content = readme_content.rstrip('\n') + '\n'
+                  
+                  # Append the starter block
+                  new_readme = readme_content + starter_block
+                  
+                  print("✅ Starter block with markers appended to README")
+              else:
+                  print("✅ Markers found in README")
+                  print(f"   BEGIN marker at position: {begin_pos}")
+                  print(f"   END marker at position: {end_pos}")
+                  
+                  # Extract the brief content (with markers) from the generated file
+                  # This should already include the markers based on validation
+                  
+                  # Replace everything between and including markers
+                  before_section = readme_content[:begin_pos]
+                  after_section = readme_content[end_pos + len(end_marker):]
+                  
+                  # Insert new content (which includes the markers)
+                  new_readme = before_section + brief_content + after_section
+                  
+                  print("✅ Content between markers replaced")
+              
+              # Ensure file ends with exactly one newline
+              new_readme = new_readme.rstrip('\n') + '\n'
+              
+              # Write updated README
+              try:
+                  with open(readme_path, 'w', encoding='utf-8') as f:
+                      f.write(new_readme)
+                  print(f"✅ README.md updated successfully")
+                  return True
+              except Exception as e:
+                  print(f"❌ ERROR: Failed to write README: {e}")
+                  return False
+          
+          if __name__ == '__main__':
+              if not update_readme('README.md', '/tmp/brief.md'):
+                  print("\n⛔ Failed to update README.md")
+                  sys.exit(1)
+          UPDATE_EOF
+          
+          echo "✅ README.md update complete"
+
+      - name: Create Daily Archive
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -222,93 +391,74 @@ jobs:
           CURRENT_DATE=$(date -u +'%Y-%m-%d')
           CURRENT_TIME=$(date -u +'%H:%M UTC')
           
-          if [ ! -f "README.md" ]; then
-            echo "❌ ERROR: README.md not found!"
-            exit 1
-          fi
-          
-          # Check if markers exist, if not, create them
-          if ! grep -q "<!-- BEGIN DAILY BRIEF -->" README.md || ! grep -q "<!-- END DAILY BRIEF -->" README.md; then
-            echo "⚠️ WARNING: Daily brief markers not found in README.md"
-            echo "📝 Auto-creating markers at the end of README.md..."
-            
-            # Append markers to the end of README.md
-            cat >> README.md << 'EOF'
-
-## 📅 Daily Brief
-
-<!-- BEGIN DAILY BRIEF -->
-<details>
-<summary><b>📰 Today's Intelligence Brief</b></summary>
-
-Daily Brief content will be inserted here automatically.
-
-</details>
-<!-- END DAILY BRIEF -->
-
----
-EOF
-            echo "✅ Markers created successfully"
-          fi
-          
-          # Extract the content between markers from the generated brief
-          BRIEF_CONTENT=$(cat /tmp/brief.md)
-          
-          # Check if the generated content already includes the markers
-          if echo "$BRIEF_CONTENT" | grep -q "<!-- BEGIN DAILY BRIEF -->"; then
-            # Content includes markers, use as-is
-            echo "✅ Content includes markers, using as-is"
-            # Use awk to replace content between markers
-            awk -v replacement="$BRIEF_CONTENT" '
-              /<!-- BEGIN DAILY BRIEF -->/ {
-                print replacement
-                skip=1
-                next
-              }
-              /<!-- END DAILY BRIEF -->/ {
-                skip=0
-                next
-              }
-              !skip
-            ' README.md > README.md.tmp
-          else
-            # Content doesn't include markers, wrap it and then replace
-            echo "✅ Wrapping content with markers"
-            awk -v content="$BRIEF_CONTENT" '
-              /<!-- BEGIN DAILY BRIEF -->/ {
-                print "<!-- BEGIN DAILY BRIEF -->"
-                print content
-                print "<!-- END DAILY BRIEF -->"
-                skip=1
-                next
-              }
-              /<!-- END DAILY BRIEF -->/ {
-                skip=0
-                next
-              }
-              !skip
-            ' README.md > README.md.tmp
-          fi
-          
-          mv README.md.tmp README.md
-          
-          echo "✅ README.md updated successfully"
+          echo "📁 Creating daily archive..."
           
           mkdir -p daily
           
-          # Save the daily archive
-          sed -n '/<!-- BEGIN DAILY BRIEF -->/,/<!-- END DAILY BRIEF -->/p' README.md > "daily/${CURRENT_DATE}.md"
+          # Use Python to extract content between markers for archive
+          python3 << 'ARCHIVE_EOF'
+          import sys
+          import os
+          from datetime import datetime, timezone
           
-          {
-            echo "---"
-            echo "date: ${CURRENT_DATE}"
-            echo "title: \"Daily Brief - $(date -u +'%A, %B %d, %Y')\""
-            echo "generated: $(date -u +'%Y-%m-%dT%H:%M:%S')Z"
-            echo "---"
-            echo ""
-            cat "daily/${CURRENT_DATE}.md"
-          } > "daily/${CURRENT_DATE}.tmp.md"
-          mv "daily/${CURRENT_DATE}.tmp.md" "daily/${CURRENT_DATE}.md"
+          def create_archive(readme_path, archive_dir):
+              """Extract daily brief section and create archive with front matter"""
+              
+              # Read README
+              try:
+                  with open(readme_path, 'r', encoding='utf-8') as f:
+                      content = f.read()
+              except Exception as e:
+                  print(f"❌ ERROR: Failed to read README: {e}")
+                  return False
+              
+              # Extract content between markers (inclusive)
+              begin_marker = '<!-- BEGIN DAILY BRIEF -->'
+              end_marker = '<!-- END DAILY BRIEF -->'
+              
+              begin_pos = content.find(begin_marker)
+              end_pos = content.find(end_marker)
+              
+              if begin_pos == -1 or end_pos == -1:
+                  print("❌ ERROR: Markers not found in README")
+                  return False
+              
+              # Extract the section (including markers)
+              brief_section = content[begin_pos:end_pos + len(end_marker)]
+              
+              # Create archive file with front matter
+              current_date = datetime.now(timezone.utc)
+              date_str = current_date.strftime('%Y-%m-%d')
+              date_long = current_date.strftime('%A, %B %d, %Y')
+              timestamp = current_date.strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
+              
+              front_matter = f"""---
+          date: {date_str}
+          title: "Daily Brief - {date_long}"
+          generated: {timestamp}
+          ---
+          
+          """
+              
+              archive_content = front_matter + brief_section
+              
+              # Write archive file
+              archive_path = os.path.join(archive_dir, f"{date_str}.md")
+              try:
+                  with open(archive_path, 'w', encoding='utf-8') as f:
+                      f.write(archive_content)
+                  print(f"✅ Archive created: {archive_path}")
+                  return True
+              except Exception as e:
+                  print(f"❌ ERROR: Failed to write archive: {e}")
+                  return False
+          
+          if __name__ == '__main__':
+              if not create_archive('README.md', 'daily'):
+                  sys.exit(1)
+          ARCHIVE_EOF
+          
+          CURRENT_DATE=$(date -u +'%Y-%m-%d')
           
           git add README.md "daily/${CURRENT_DATE}.md"
           
