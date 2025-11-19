@@ -136,32 +136,121 @@ _This section auto-updates nightly via automation._
 
 ---
 
-## 🚀 Project Matrix
+## 🚀 Project M3trix
 
 <details>
-<summary><b>Click to view CI/CD Metrics & Status</b></summary>
+<summary><b> Click or Tap to view Project Analytics & Status</b></summary>
 
-<!-- START: PROJECT_MATRIX -->
-| Project | Description | Test | Link |
-|---------|-------------|------|------|
-| **FortiPath** | Advanced network path analysis with ML | ![Test](https://github.com/cywf/FortiPath/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/FortiPath) |
-| **sentinel-project** | Autonomous threat detection system | ![Test](https://github.com/cywf/sentinel-project/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/sentinel-project) |
-| **AegisNet** | AI-driven secure network architecture | ![Test](https://github.com/cywf/AegisNet/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/AegisNet) |
-| **AirwayAtlas** | Airway network visualization with GIS | ![Test](https://github.com/cywf/AirwayAtlas/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/AirwayAtlas) |
-| **willow** | Multi-agent orchestration framework | ![Test](https://github.com/cywf/willow/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/willow) |
-| **OTG-TAK** | Tactical awareness kit for operations | ![Test](https://github.com/cywf/OTG-TAK/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/OTG-TAK) |
-| **InfraGuard** | Infrastructure monitoring & hardening | ![Test](https://github.com/cywf/InfraGuard/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/InfraGuard) |
-| **NetNinja** | Network reconnaissance & automation | ![Test](https://github.com/cywf/NetNinja/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/NetNinja) |
-| **ZeroTier-Toolkit** | ZeroTier network management tools | ![Test](https://github.com/cywf/ZeroTier-Toolkit/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/ZeroTier-Toolkit) |
-| **AlphaNest** | Secure collaboration platform | ![Test](https://github.com/cywf/AlphaNest/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/AlphaNest) |
-| **Boilerplates** | Project templates & scaffolding | ![Test](https://github.com/cywf/Boilerplates/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/Boilerplates) |
-| **CTF-Kit** | Capture The Flag tools & utilities | ![Test](https://github.com/cywf/CTF-Kit/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/CTF-Kit) |
-| **cywf.github.io** | Personal website & portfolio | ![Test](https://github.com/cywf/cywf.github.io/actions/workflows/test.yml/badge.svg) | [View →](https://github.com/cywf/cywf.github.io) |
-<!-- END: PROJECT_MATRIX -->
+---
 
-_This table updates nightly via automation._
+### **FortiPath**
+  
+![Test](https://github.com/cywf/FortiPath/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/575a289185cbb7f5bd3fbcc8e137cb4aea4b8d4a.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/FortiPath
+
+---
+
+### **sentinel-project**
+ 
+![Test](https://github.com/cywf/sentinel-project/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/4aa0475277be97e3dbefc359e8484654c895e558.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/sentinel-project
+
+---
+
+### **AegisNet**
+ 
+![Test](https://github.com/cywf/AegisNet/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/4aa0475277be97e3dbefc359e8484654c895e558.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/AegisNet
+
+---
+
+### **AirwayAtlas**
+ 
+![Test](https://github.com/cywf/AirwayAtlas/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/4c4490311af91203f20d6b9b0139957ec2b79266.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/AirwayAtlas
+
+---
+
+### **willow**
+ 
+![Test](https://github.com/cywf/willow/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/2c5448aa3b1ef7455ceb47aa114ba2620030b285.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/willow
+
+---
+
+### **OTG-TAK**
+
+![Test](https://github.com/cywf/OTG-TAK/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/07b8babec63b01f90cb3984610e949926e521788.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/OTG-TAK
+
+---
+
+### **InfraGuard**
+ 
+![Test](https://github.com/cywf/InfraGuard/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/3d93eed27122c1d8da0abc3873bb99eeb9ae22c2.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/InfraGuard
+
+---
+
+### **NetNinja**
+
+![Test](https://github.com/cywf/NetNinja/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/51c2a250d7ea4776381593df7680cb86414f8aa6.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/NetNinja
+
+---
+
+### **ZeroTier-Toolkit**
+
+![Test](https://github.com/cywf/ZeroTier-Toolkit/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/865152667b53bda40db0d05bcfc7cc0aaa3d6746.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/ZeroTier-Toolkit
+
+---
+
+### **AlphaNest**
+
+![Test](https://github.com/cywf/AlphaNest/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/87cd18a30356b0cf1a4b715b75c2166078ad3d28.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/AlphaNest
+
+---
+
+### **Boilerplates**
+
+![Test](https://github.com/cywf/Boilerplates/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/ffc70712e1fe80b612b393eda62b3917d4140cd6.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/Boilerplates
+
+---
+
+### **CTF-Kit**
+
+![Test](https://github.com/cywf/CTF-Kit/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/bf2402caabb137bc4a87142399f53eba568ee2df.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/CTF-Kit
+
+---
+
+### **cywf.github.io**
+ 
+![Test](https://github.com/cywf/cywf.github.io/actions/workflows/test.yml/badge.svg)  
+![Alt](https://repobeats.axiom.co/api/embed/5feae8b13f0f986d956b7720abbf1eb2183f7e6a.svg "Repobeats analytics image")  
+🔗 https://github.com/cywf/cywf.github.io
+
+---
+
+_This section updates nightly via automation._
 
 </details>
+
 
 ---
 
