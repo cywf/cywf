@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2025-11-20T23:51:27.902Z",
+  "generatedAt": "2025-11-21T00:39:36.898Z",
   "window": {
-    "from": "2024-11-20T23:51:27.902Z",
-    "to": "2025-11-20T23:51:27.902Z"
+    "from": "2024-11-21T00:39:36.898Z",
+    "to": "2025-11-21T00:39:36.898Z"
   },
   "tallies": {
-    "commits": 1778,
+    "commits": 1723,
     "prs": 304,
     "issues": 5,
     "reviews": 211,
@@ -110,9 +110,9 @@
   "timeseriesMonthly": [
     {
       "month": "2024-11",
-      "commits": 226,
-      "prs": 135,
-      "issues": 90
+      "commits": 198,
+      "prs": 119,
+      "issues": 79
     },
     {
       "month": "2024-12",
@@ -190,51 +190,51 @@
   "activityByHour": [
     {
       "hour": 0,
-      "count": 95
+      "count": 99
     },
     {
       "hour": 1,
-      "count": 89
+      "count": 94
     },
     {
       "hour": 2,
-      "count": 97
+      "count": 89
     },
     {
       "hour": 3,
-      "count": 94
+      "count": 85
     },
     {
       "hour": 4,
-      "count": 101
+      "count": 87
     },
     {
       "hour": 5,
-      "count": 94
+      "count": 87
     },
     {
       "hour": 6,
-      "count": 97
+      "count": 96
     },
     {
       "hour": 7,
-      "count": 90
+      "count": 101
     },
     {
       "hour": 8,
-      "count": 102
+      "count": 98
     },
     {
       "hour": 9,
-      "count": 99
+      "count": 93
     },
     {
       "hour": 10,
-      "count": 99
+      "count": 100
     },
     {
       "hour": 11,
-      "count": 93
+      "count": 85
     },
     {
       "hour": 12,
@@ -242,47 +242,47 @@
     },
     {
       "hour": 13,
-      "count": 97
+      "count": 94
     },
     {
       "hour": 14,
-      "count": 90
+      "count": 96
     },
     {
       "hour": 15,
-      "count": 101
+      "count": 94
     },
     {
       "hour": 16,
-      "count": 104
+      "count": 91
     },
     {
       "hour": 17,
-      "count": 98
+      "count": 96
     },
     {
       "hour": 18,
-      "count": 99
+      "count": 87
     },
     {
       "hour": 19,
-      "count": 98
+      "count": 99
     },
     {
       "hour": 20,
-      "count": 105
+      "count": 100
     },
     {
       "hour": 21,
-      "count": 89
+      "count": 99
     },
     {
       "hour": 22,
-      "count": 103
+      "count": 97
     },
     {
       "hour": 23,
-      "count": 103
+      "count": 85
     }
   ],
   "languageKB": [
@@ -306,11 +306,6 @@
     "weeks": [
       {
         "contributionDays": [
-          {
-            "date": "2024-11-20",
-            "contributionCount": 55,
-            "weekday": 3
-          },
           {
             "date": "2024-11-21",
             "contributionCount": 13,
@@ -2343,6 +2338,11 @@
             "date": "2025-11-20",
             "contributionCount": 40,
             "weekday": 4
+          },
+          {
+            "date": "2025-11-21",
+            "contributionCount": 0,
+            "weekday": 5
           }
         ]
       }
