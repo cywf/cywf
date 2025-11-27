@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2025-11-27T14:27:37.676Z",
+  "generatedAt": "2025-11-27T14:52:31.468Z",
   "window": {
-    "from": "2024-11-27T14:27:37.676Z",
-    "to": "2025-11-27T14:27:37.676Z"
+    "from": "2024-11-27T14:52:31.468Z",
+    "to": "2025-11-27T14:52:31.468Z"
   },
   "tallies": {
-    "commits": 1379,
+    "commits": 1365,
     "prs": 304,
     "issues": 5,
     "reviews": 214,
@@ -176,15 +176,15 @@
     },
     {
       "month": "2025-10",
-      "commits": 639,
-      "prs": 383,
-      "issues": 255
+      "commits": 635,
+      "prs": 381,
+      "issues": 253
     },
     {
       "month": "2025-11",
-      "commits": 238,
-      "prs": 143,
-      "issues": 95
+      "commits": 235,
+      "prs": 141,
+      "issues": 94
     }
   ],
   "activityByHour": [
@@ -194,35 +194,35 @@
     },
     {
       "hour": 1,
-      "count": 87
+      "count": 75
     },
     {
       "hour": 2,
-      "count": 75
+      "count": 70
     },
     {
       "hour": 3,
-      "count": 75
+      "count": 86
     },
     {
       "hour": 4,
-      "count": 81
-    },
-    {
-      "hour": 5,
-      "count": 89
-    },
-    {
-      "hour": 6,
       "count": 75
     },
     {
-      "hour": 7,
+      "hour": 5,
       "count": 77
     },
     {
+      "hour": 6,
+      "count": 83
+    },
+    {
+      "hour": 7,
+      "count": 88
+    },
+    {
       "hour": 8,
-      "count": 82
+      "count": 73
     },
     {
       "hour": 9,
@@ -230,59 +230,59 @@
     },
     {
       "hour": 10,
-      "count": 74
-    },
-    {
-      "hour": 11,
-      "count": 72
-    },
-    {
-      "hour": 12,
-      "count": 74
-    },
-    {
-      "hour": 13,
-      "count": 82
-    },
-    {
-      "hour": 14,
-      "count": 75
-    },
-    {
-      "hour": 15,
       "count": 83
     },
     {
-      "hour": 16,
+      "hour": 11,
+      "count": 79
+    },
+    {
+      "hour": 12,
       "count": 88
     },
     {
-      "hour": 17,
-      "count": 86
+      "hour": 13,
+      "count": 83
     },
     {
-      "hour": 18,
-      "count": 73
-    },
-    {
-      "hour": 19,
+      "hour": 14,
       "count": 80
     },
     {
+      "hour": 15,
+      "count": 71
+    },
+    {
+      "hour": 16,
+      "count": 73
+    },
+    {
+      "hour": 17,
+      "count": 73
+    },
+    {
+      "hour": 18,
+      "count": 84
+    },
+    {
+      "hour": 19,
+      "count": 72
+    },
+    {
       "hour": 20,
-      "count": 81
+      "count": 78
     },
     {
       "hour": 21,
-      "count": 77
+      "count": 79
     },
     {
       "hour": 22,
-      "count": 76
+      "count": 83
     },
     {
       "hour": 23,
-      "count": 86
+      "count": 79
     }
   ],
   "languageKB": [
@@ -2156,7 +2156,7 @@
           },
           {
             "date": "2025-10-25",
-            "contributionCount": 149,
+            "contributionCount": 141,
             "weekday": 6
           }
         ]
@@ -2195,7 +2195,7 @@
           },
           {
             "date": "2025-11-01",
-            "contributionCount": 100,
+            "contributionCount": 96,
             "weekday": 6
           }
         ]
@@ -2204,7 +2204,7 @@
         "contributionDays": [
           {
             "date": "2025-11-02",
-            "contributionCount": 95,
+            "contributionCount": 93,
             "weekday": 0
           },
           {
