@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2025-11-30T23:51:12.147Z",
+  "generatedAt": "2025-12-01T00:48:59.962Z",
   "window": {
-    "from": "2024-11-30T23:51:12.147Z",
-    "to": "2025-11-30T23:51:12.147Z"
+    "from": "2024-12-01T00:48:59.962Z",
+    "to": "2025-12-01T00:48:59.962Z"
   },
   "tallies": {
-    "commits": 1439,
+    "commits": 1445,
     "prs": 304,
     "issues": 5,
-    "reviews": 232,
+    "reviews": 234,
     "privateRestrictedCount": 1
   },
   "topReposByStars": [
@@ -176,107 +176,113 @@
     },
     {
       "month": "2025-11",
-      "commits": 296,
-      "prs": 177,
-      "issues": 118
+      "commits": 300,
+      "prs": 180,
+      "issues": 119
+    },
+    {
+      "month": "2025-12",
+      "commits": 0,
+      "prs": 0,
+      "issues": 0
     }
   ],
   "activityByHour": [
     {
       "hour": 0,
-      "count": 92
+      "count": 74
     },
     {
       "hour": 1,
-      "count": 76
-    },
-    {
-      "hour": 2,
-      "count": 78
-    },
-    {
-      "hour": 3,
       "count": 79
     },
     {
+      "hour": 2,
+      "count": 79
+    },
+    {
+      "hour": 3,
+      "count": 84
+    },
+    {
       "hour": 4,
-      "count": 81
+      "count": 84
     },
     {
       "hour": 5,
-      "count": 89
+      "count": 80
     },
     {
       "hour": 6,
-      "count": 77
+      "count": 89
     },
     {
       "hour": 7,
-      "count": 86
+      "count": 92
     },
     {
       "hour": 8,
-      "count": 89
+      "count": 81
     },
     {
       "hour": 9,
-      "count": 78
+      "count": 83
     },
     {
       "hour": 10,
-      "count": 90
+      "count": 82
     },
     {
       "hour": 11,
-      "count": 85
+      "count": 84
     },
     {
       "hour": 12,
-      "count": 88
-    },
-    {
-      "hour": 13,
-      "count": 87
-    },
-    {
-      "hour": 14,
-      "count": 89
-    },
-    {
-      "hour": 15,
-      "count": 77
-    },
-    {
-      "hour": 16,
-      "count": 75
-    },
-    {
-      "hour": 17,
       "count": 91
     },
     {
+      "hour": 13,
+      "count": 74
+    },
+    {
+      "hour": 14,
+      "count": 75
+    },
+    {
+      "hour": 15,
+      "count": 92
+    },
+    {
+      "hour": 16,
+      "count": 91
+    },
+    {
+      "hour": 17,
+      "count": 80
+    },
+    {
       "hour": 18,
-      "count": 90
+      "count": 85
     },
     {
       "hour": 19,
-      "count": 86
+      "count": 91
     },
     {
       "hour": 20,
-      "count": 77
-    },
-    {
-      "hour": 21,
-      "count": 86
-    },
-    {
-      "hour": 22,
       "count": 90
     },
     {
+      "hour": 21,
+      "count": 78
+    },
+    {
+      "hour": 22,
+      "count": 81
+    },
+    {
       "hour": 23,
-      "count": 86
+      "count": 77
     }
   ],
   "languageKB": [
@@ -2330,8 +2336,13 @@
         "contributionDays": [
           {
             "date": "2025-11-30",
-            "contributionCount": 44,
+            "contributionCount": 52,
             "weekday": 0
+          },
+          {
+            "date": "2025-12-01",
+            "contributionCount": 0,
+            "weekday": 1
           }
         ]
       }
