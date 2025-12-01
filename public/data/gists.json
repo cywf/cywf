@@ -1,6 +1,13 @@
 {
-  "generatedAt": "2025-12-01T15:28:31.539Z",
+  "generatedAt": "2025-12-01T15:52:42.602Z",
   "items": [
+    {
+      "name": "973f9180269ad66418b392be25a5a373",
+      "description": "Guide for maintaining and configuring Proxmox ",
+      "url": "https://gist.github.com/973f9180269ad66418b392be25a5a373",
+      "updatedAt": "2025-12-01T15:48:26Z",
+      "preview": "# Proxmox Maintenance and Configuration Guide\n\n![alt-text](https://play-lh.googleusercontent.com/sIndrPMQB67N1D8Kgem3Ornny9hSIy9CLnkmk1oGEP15BET341aItT8OfOFh88n0iw=w3840-h2160-rw)\n\n## Table of Contents\n1. [Introduction](#introduction)\n2. [Configuring Updates](#configuring-updates)\n3. [Enabling Notifications](#enabling-notifications)\n4. [Setting Up Trusted TLS Certificates](#setting-up-trusted-tls-certificates)\n5. [Storage Options and Configuration](#storage-options-and-configuration)\n6. [Setting Up Backup Jobs](#setting-up-backup-jobs)\n7. [Enabling PCI Passthrough](#enabling-pci-passthrough)\n8. [VM Best Practices](#vm-best-practices)\n9. [Creating VM Templates](#creating-vm-templates)\n10. [Additional Resources](#additional-resources)\n\n---\n\n## Introduction\n\nProxmox Virtual Environment (PVE) is an open-source server virtualization management solution that combines KVM hypervisor and LXC containers on a single platform. It's highly efficient, versatile, and supports advanced features like clustering, software-defined storage, and networking.\n\nThis guide will walk you through the essential configurations, best practices, and troubleshooting tips to ensure your Proxmox environment is secure, reliable, and optimized for both personal and enterprise-level deployments.\n\n## Configuring Updates\n\nKeeping your Proxmox environment updated is crucial for security and performance.\n\n### 1. Disable Enterprise Repositories (if not subscribed):\n\n<!--\n![alt-text]()\n-->\n\n- Navigate to **Datacenter"
+    },
     {
       "name": "db19af1524556eaeadcc2241dd697a29",
       "description": "PR-CYBR: WatchDog's Veteran Transition Program - Introduction",
@@ -35,13 +42,6 @@
       "url": "https://gist.github.com/7fef8cfb00892301d771d2c9671e311a",
       "updatedAt": "2025-05-18T09:23:49Z",
       "preview": "![zt_logo](https://user-images.githubusercontent.com/100837335/213877364-0a78ab9d-0477-40a4-95d5-1d87f36c5013.png)\n# Setting up ZeroTier as a default ethernet interface\n\n\n## Step 1: Install ZeroTier\n\nInstall ZeroTier on your gateway, join your network and authorize it, and then configure it as a basic IPv4 NAT router\n\n/etc/sysctl.conf\n```\nnet.ipv4.ip_forward = 1\n```\n\n/etc/sysconfig/iptables\n```\n*nat\n:PREROUTING ACCEPT [0:0]\n:INPUT ACCEPT [0:0]\n:OUTPUT ACCEPT [0:0]\n:POSTROUTING ACCEPT [0:0]\n-A POSTROUTING -o eth0 -s 10.6.4.0/22 -j SNAT --to-source 45.32.69.220\nCOMMIT\n*filter\n:INPUT ACCEPT [0:0]\n:FORWARD DROP [0:0]\n-A FORWARD -i zt+ -s 10.6.4.0/22 -d 0.0.0.0/0 -j ACCEPT\n-A FORWARD -i eth0 -s 0.0.0.0/0 -d 10.6.4.0/0 -j ACCEPT\n:OUTPUT ACCEPT [0:0]\nCOMMIT\n```\n\nOur net is 10.6.4.0/22. You will want to change this to whatever IPv4 scheme you use. Also change 45.32.69.220 in the SNAT line to the public IP of the gateway.\n\nIf your \"router\" doesn't not have a public IP address, you may use masquerade instead of SNAT. See the end of the article. \nThe /etc/sysconfig/iptables file depends on the iptables-services package on CentOS/Fedora:\n\n```\nyum install -y iptables-services\nsystemctl enable iptables\nsystemctl start iptables\n```\n\n## Step 2: Add default route \n\nLog into ZeroTier Central and add a route to 0.0.0.0/0 via the IP address of your new virtual edge router.\n\nOn our net 10.6.4.0/22 is our network and 10.6.6.2 is our virtual edge router's internal IP address (internal to the ZeroTi"
-    },
-    {
-      "name": "973f9180269ad66418b392be25a5a373",
-      "description": "Guide for maintaining and configuring Proxmox ",
-      "url": "https://gist.github.com/973f9180269ad66418b392be25a5a373",
-      "updatedAt": "2025-02-06T14:42:40Z",
-      "preview": "# Proxmox Maintenance and Configuration Guide\n\n![alt-text](https://play-lh.googleusercontent.com/sIndrPMQB67N1D8Kgem3Ornny9hSIy9CLnkmk1oGEP15BET341aItT8OfOFh88n0iw=w3840-h2160-rw)\n\n## Table of Contents\n1. [Introduction](#introduction)\n2. [Configuring Updates](#configuring-updates)\n3. [Enabling Notifications](#enabling-notifications)\n4. [Setting Up Trusted TLS Certificates](#setting-up-trusted-tls-certificates)\n5. [Storage Options and Configuration](#storage-options-and-configuration)\n6. [Setting Up Backup Jobs](#setting-up-backup-jobs)\n7. [Enabling PCI Passthrough](#enabling-pci-passthrough)\n8. [VM Best Practices](#vm-best-practices)\n9. [Creating VM Templates](#creating-vm-templates)\n10. [Additional Resources](#additional-resources)\n\n---\n\n## Introduction\n\nProxmox Virtual Environment (PVE) is an open-source server virtualization management solution that combines KVM hypervisor and LXC containers on a single platform. It's highly efficient, versatile, and supports advanced features like clustering, software-defined storage, and networking.\n\nThis guide will walk you through the essential configurations, best practices, and troubleshooting tips to ensure your Proxmox environment is secure, reliable, and optimized for both personal and enterprise-level deployments.\n\n## Configuring Updates\n\nKeeping your Proxmox environment updated is crucial for security and performance.\n\n### 1. Disable Enterprise Repositories (if not subscribed):\n\n<!--\n![alt-text]()\n-->\n\n- Navigate to **Datacenter"
     },
     {
       "name": "a59f90a8bee7687a0a0fd9ede33a8755",
