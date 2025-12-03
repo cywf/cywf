@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2025-12-03T08:56:26.710Z",
+  "generatedAt": "2025-12-03T09:28:26.674Z",
   "window": {
-    "from": "2024-12-03T08:56:26.710Z",
-    "to": "2025-12-03T08:56:26.710Z"
+    "from": "2024-12-03T09:28:26.674Z",
+    "to": "2025-12-03T09:28:26.674Z"
   },
   "tallies": {
     "commits": 1456,
@@ -190,11 +190,11 @@
   "activityByHour": [
     {
       "hour": 0,
-      "count": 86
+      "count": 75
     },
     {
       "hour": 1,
-      "count": 80
+      "count": 85
     },
     {
       "hour": 2,
@@ -202,23 +202,23 @@
     },
     {
       "hour": 3,
-      "count": 89
-    },
-    {
-      "hour": 4,
-      "count": 88
-    },
-    {
-      "hour": 5,
-      "count": 81
-    },
-    {
-      "hour": 6,
       "count": 85
     },
     {
+      "hour": 4,
+      "count": 89
+    },
+    {
+      "hour": 5,
+      "count": 87
+    },
+    {
+      "hour": 6,
+      "count": 83
+    },
+    {
       "hour": 7,
-      "count": 82
+      "count": 79
     },
     {
       "hour": 8,
@@ -226,43 +226,43 @@
     },
     {
       "hour": 9,
-      "count": 77
+      "count": 84
     },
     {
       "hour": 10,
-      "count": 83
+      "count": 76
     },
     {
       "hour": 11,
-      "count": 78
+      "count": 74
     },
     {
       "hour": 12,
-      "count": 81
+      "count": 74
     },
     {
       "hour": 13,
-      "count": 92
+      "count": 77
     },
     {
       "hour": 14,
-      "count": 79
+      "count": 75
     },
     {
       "hour": 15,
-      "count": 78
+      "count": 76
     },
     {
       "hour": 16,
-      "count": 91
+      "count": 84
     },
     {
       "hour": 17,
-      "count": 92
+      "count": 79
     },
     {
       "hour": 18,
-      "count": 90
+      "count": 82
     },
     {
       "hour": 19,
@@ -270,19 +270,19 @@
     },
     {
       "hour": 20,
-      "count": 90
+      "count": 87
     },
     {
       "hour": 21,
-      "count": 83
+      "count": 75
     },
     {
       "hour": 22,
-      "count": 77
+      "count": 85
     },
     {
       "hour": 23,
-      "count": 74
+      "count": 76
     }
   ],
   "languageKB": [
