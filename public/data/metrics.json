@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2025-12-07T02:31:41.430Z",
+  "generatedAt": "2025-12-07T03:18:25.313Z",
   "window": {
-    "from": "2024-12-07T02:31:41.430Z",
-    "to": "2025-12-07T02:31:41.430Z"
+    "from": "2024-12-07T03:18:25.313Z",
+    "to": "2025-12-07T03:18:25.313Z"
   },
   "tallies": {
     "commits": 1460,
@@ -190,31 +190,31 @@
   "activityByHour": [
     {
       "hour": 0,
-      "count": 91
+      "count": 81
     },
     {
       "hour": 1,
-      "count": 79
+      "count": 87
     },
     {
       "hour": 2,
-      "count": 88
+      "count": 85
     },
     {
       "hour": 3,
-      "count": 85
+      "count": 90
     },
     {
       "hour": 4,
-      "count": 77
+      "count": 87
     },
     {
       "hour": 5,
-      "count": 85
+      "count": 86
     },
     {
       "hour": 6,
-      "count": 84
+      "count": 89
     },
     {
       "hour": 7,
@@ -222,19 +222,19 @@
     },
     {
       "hour": 8,
-      "count": 77
+      "count": 79
     },
     {
       "hour": 9,
-      "count": 84
+      "count": 77
     },
     {
       "hour": 10,
-      "count": 90
+      "count": 76
     },
     {
       "hour": 11,
-      "count": 76
+      "count": 86
     },
     {
       "hour": 12,
@@ -242,35 +242,35 @@
     },
     {
       "hour": 13,
-      "count": 90
+      "count": 93
     },
     {
       "hour": 14,
-      "count": 82
+      "count": 76
     },
     {
       "hour": 15,
-      "count": 84
+      "count": 87
     },
     {
       "hour": 16,
-      "count": 88
+      "count": 79
     },
     {
       "hour": 17,
-      "count": 91
+      "count": 86
     },
     {
       "hour": 18,
-      "count": 78
+      "count": 85
     },
     {
       "hour": 19,
-      "count": 89
+      "count": 76
     },
     {
       "hour": 20,
-      "count": 87
+      "count": 76
     },
     {
       "hour": 21,
@@ -278,11 +278,11 @@
     },
     {
       "hour": 22,
-      "count": 86
+      "count": 83
     },
     {
       "hour": 23,
-      "count": 74
+      "count": 78
     }
   ],
   "languageKB": [
