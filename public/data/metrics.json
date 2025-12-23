@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2025-12-23T16:28:58.764Z",
+  "generatedAt": "2025-12-23T16:55:23.289Z",
   "window": {
-    "from": "2024-12-23T16:28:58.764Z",
-    "to": "2025-12-23T16:28:58.764Z"
+    "from": "2024-12-23T16:55:23.289Z",
+    "to": "2025-12-23T16:55:23.289Z"
   },
   "tallies": {
     "commits": 1476,
@@ -190,27 +190,27 @@
   "activityByHour": [
     {
       "hour": 0,
-      "count": 88
+      "count": 76
     },
     {
       "hour": 1,
-      "count": 84
+      "count": 88
     },
     {
       "hour": 2,
-      "count": 89
-    },
-    {
-      "hour": 3,
-      "count": 89
-    },
-    {
-      "hour": 4,
       "count": 79
     },
     {
+      "hour": 3,
+      "count": 87
+    },
+    {
+      "hour": 4,
+      "count": 78
+    },
+    {
       "hour": 5,
-      "count": 91
+      "count": 76
     },
     {
       "hour": 6,
@@ -218,15 +218,15 @@
     },
     {
       "hour": 7,
-      "count": 86
+      "count": 94
     },
     {
       "hour": 8,
-      "count": 75
+      "count": 92
     },
     {
       "hour": 9,
-      "count": 83
+      "count": 82
     },
     {
       "hour": 10,
@@ -238,51 +238,51 @@
     },
     {
       "hour": 12,
-      "count": 78
+      "count": 83
     },
     {
       "hour": 13,
-      "count": 94
+      "count": 78
     },
     {
       "hour": 14,
-      "count": 77
+      "count": 83
     },
     {
       "hour": 15,
-      "count": 90
-    },
-    {
-      "hour": 16,
-      "count": 92
-    },
-    {
-      "hour": 17,
       "count": 80
     },
     {
+      "hour": 16,
+      "count": 90
+    },
+    {
+      "hour": 17,
+      "count": 88
+    },
+    {
       "hour": 18,
-      "count": 85
+      "count": 78
     },
     {
       "hour": 19,
-      "count": 93
+      "count": 92
     },
     {
       "hour": 20,
-      "count": 86
+      "count": 77
     },
     {
       "hour": 21,
-      "count": 85
+      "count": 76
     },
     {
       "hour": 22,
-      "count": 85
+      "count": 79
     },
     {
       "hour": 23,
-      "count": 75
+      "count": 77
     }
   ],
   "languageKB": [
