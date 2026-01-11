@@ -28,7 +28,7 @@ To fully fix this issue, you need to:
 
 ### Step 2: Add Token as Repository Secret
 
-1. Go to your repository: https://github.com/cywf/cywf
+1. Go to your repository Settings (e.g., `https://github.com/{owner}/{repo}`)
 2. Click Settings → Secrets and variables → Actions
 3. Click "New repository secret"
 4. Name: `GH_PAT`
@@ -55,13 +55,19 @@ The `||` operator means:
 - Use `GH_PAT` if it exists (has gist permissions)
 - Otherwise fall back to `GITHUB_TOKEN` (will fail for gist operations)
 
-## Alternative Solution (Less Secure)
+## Alternative Solution (Not Recommended)
 
-If you don't want to use a PAT, you could:
-1. Make your gists public (they probably already are)
-2. Remove authentication entirely from the API call (rate-limited to 60 requests/hour)
+⚠️ **Warning**: This approach has significant drawbacks:
 
-This is not recommended for reliability.
+If you don't want to use a PAT, you could remove authentication entirely:
+- **Pro**: No token management needed
+- **Cons**: 
+  - Rate limited to 60 requests/hour (vs 5,000 with auth)
+  - Unreliable for scheduled workflows
+  - No access to private gists
+  - Risk of workflow failures during high usage
+
+**Recommendation**: Use the PAT approach for production workflows.
 
 ## Expected Behavior After Fix
 
