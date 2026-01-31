@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-01-31T10:28:30.588Z",
+  "generatedAt": "2026-01-31T10:55:00.974Z",
   "window": {
-    "from": "2025-01-31T10:28:30.588Z",
-    "to": "2026-01-31T10:28:30.588Z"
+    "from": "2025-01-31T10:55:00.974Z",
+    "to": "2026-01-31T10:55:00.974Z"
   },
   "tallies": {
     "commits": 1597,
@@ -194,31 +194,31 @@
     },
     {
       "hour": 1,
-      "count": 88
+      "count": 86
     },
     {
       "hour": 2,
-      "count": 99
+      "count": 87
     },
     {
       "hour": 3,
-      "count": 88
+      "count": 81
     },
     {
       "hour": 4,
-      "count": 83
+      "count": 81
     },
     {
       "hour": 5,
-      "count": 98
+      "count": 88
     },
     {
       "hour": 6,
-      "count": 90
+      "count": 97
     },
     {
       "hour": 7,
-      "count": 87
+      "count": 93
     },
     {
       "hour": 8,
@@ -226,35 +226,35 @@
     },
     {
       "hour": 9,
-      "count": 100
+      "count": 99
     },
     {
       "hour": 10,
-      "count": 88
+      "count": 91
     },
     {
       "hour": 11,
-      "count": 89
+      "count": 100
     },
     {
       "hour": 12,
-      "count": 98
+      "count": 95
     },
     {
       "hour": 13,
-      "count": 82
+      "count": 88
     },
     {
       "hour": 14,
-      "count": 98
+      "count": 87
     },
     {
       "hour": 15,
-      "count": 92
+      "count": 97
     },
     {
       "hour": 16,
-      "count": 90
+      "count": 81
     },
     {
       "hour": 17,
@@ -262,11 +262,11 @@
     },
     {
       "hour": 18,
-      "count": 92
+      "count": 95
     },
     {
       "hour": 19,
-      "count": 96
+      "count": 94
     },
     {
       "hour": 20,
@@ -274,15 +274,15 @@
     },
     {
       "hour": 21,
-      "count": 86
+      "count": 94
     },
     {
       "hour": 22,
-      "count": 92
+      "count": 84
     },
     {
       "hour": 23,
-      "count": 92
+      "count": 84
     }
   ],
   "languageKB": [
