@@ -1,4 +1,4 @@
-name: Update profile sections
+name: Refresh public profile sections
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-profile-sections
+  group: refresh-public-profile-sections
   cancel-in-progress: false
 
 jobs:
@@ -29,38 +29,28 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Refresh latest posts
+      - name: Refresh README dynamic sections
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/updateGists.mjs
-
-      - name: Refresh repository map
-        run: node scripts/buildRepoMermaid.mjs
-
-      - name: Refresh learning section
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/updateLearning.mjs || true
-
-      - name: Refresh showcase section
-        run: node scripts/updateTrending.mjs || true
+        run: npm run profile:update
 
       - name: Validate README structure
-        run: node scripts/validateReadme.mjs
+        run: npm run profile:validate
 
-      - name: Update timestamp
+      - name: Update timestamps
         run: |
           TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
           sed -i "s|<!-- UPDATE_TIME -->.*<!-- /UPDATE_TIME -->|<!-- UPDATE_TIME -->$TIMESTAMP<!-- /UPDATE_TIME -->|g" README.md
+          sed -i "s|<!-- LAST_SYNC -->.*<!-- /LAST_SYNC -->|<!-- LAST_SYNC -->$TIMESTAMP<!-- /LAST_SYNC -->|g" README.md
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add README.md data/gists-history.json scripts/publicRepoData.mjs scripts/updateOverview.mjs scripts/updateProjectMatrix.mjs scripts/updateLearning.mjs scripts/updateTrending.mjs scripts/validateReadme.mjs package.json
           if git diff --cached --quiet; then
             echo "No profile-section changes detected"
             exit 0
           fi
-          git commit -m "ci(profile): refresh README dynamic sections [skip ci]"
+          git commit -m "ci(profile): refresh public repo overview and showcase [skip ci]"
           git push

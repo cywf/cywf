@@ -1,4 +1,4 @@
-name: Update Project Status Matrix
+name: Refresh project status matrix
 
 on:
   schedule:
@@ -24,11 +24,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
-      - name: Refresh project matrix
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh system overview and matrix
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/updateProjectMatrix.mjs
+        run: |
+          node scripts/updateOverview.mjs
+          node scripts/updateProjectMatrix.mjs
 
       - name: Validate README structure
         run: node scripts/validateReadme.mjs
@@ -42,10 +48,10 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add README.md
+          git add README.md scripts/publicRepoData.mjs scripts/updateOverview.mjs scripts/updateProjectMatrix.mjs scripts/validateReadme.mjs
           if git diff --cached --quiet; then
             echo "No project-matrix changes detected"
             exit 0
           fi
-          git commit -m "ci: refresh project matrix [skip ci]"
+          git commit -m "ci: refresh system overview and project matrix [skip ci]"
           git push
