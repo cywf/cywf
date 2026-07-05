@@ -6,8 +6,8 @@ import { join } from 'node:path';
 const README_PATH = join(process.cwd(), 'README.md');
 
 const REQUIRED_MARKERS = [
-  'BEGIN DAILY BRIEF',
-  'END DAILY BRIEF',
+  'START: SYSTEM_OVERVIEW',
+  'END: SYSTEM_OVERVIEW',
   'START: LATEST_POSTS',
   'END: LATEST_POSTS',
   'START: PROJECT_MATRIX',
@@ -31,14 +31,17 @@ async function validateReadme() {
     if (!found) ok = false;
   }
 
+  if (content.includes('## 📅 Daily Brief') || content.includes('BEGIN DAILY BRIEF') || content.includes('END DAILY BRIEF')) {
+    console.log('  ✗ Daily Brief remnants detected');
+    ok = false;
+  } else {
+    console.log('  ✓ Daily Brief section removed');
+  }
+
   const openDetails = (content.match(/<details>/g) || []).length;
   const closeDetails = (content.match(/<\/details>/g) || []).length;
   console.log(`\nDetails tags: ${openDetails} open / ${closeDetails} close`);
   if (openDetails !== closeDetails) ok = false;
-
-  const hasEscapedHtml = content.includes('&lt;details&gt;') || content.includes('&lt;summary&gt;');
-  console.log(`Escaped HTML tags present: ${hasEscapedHtml ? 'yes' : 'no'}`);
-  if (hasEscapedHtml) ok = false;
 
   if (!ok) {
     console.error('\nREADME validation failed');

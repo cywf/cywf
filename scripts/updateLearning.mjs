@@ -1,258 +1,98 @@
 #!/usr/bin/env node
 
-/**
- * Update Learning & Interests
- * Analyzes last 24h of commit activity and infers technologies
- */
-
-import { graphql } from '@octokit/graphql';
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fetchPublicRepoPortfolio } from './publicRepoData.mjs';
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const OWNER = 'cywf';
 const README_PATH = join(process.cwd(), 'README.md');
 
-if (!GITHUB_TOKEN) {
-  console.error('Error: GITHUB_TOKEN environment variable is required');
-  process.exit(1);
-}
-
-const client = graphql.defaults({
-  headers: { authorization: `token ${GITHUB_TOKEN}` },
-});
-
-/**
- * Technology mapping from file extensions
- */
-const TECH_MAP = {
-  '.ts': 'TypeScript',
-  '.tsx': 'TypeScript',
-  '.js': 'JavaScript',
-  '.jsx': 'JavaScript',
-  '.py': 'Python',
-  '.go': 'Go',
-  '.rs': 'Rust',
-  '.java': 'Java',
-  '.tf': 'Terraform',
-  '.yml': 'YAML',
-  '.yaml': 'YAML',
-  '.json': 'JSON',
-  '.md': 'Docs',
-  '.sh': 'Shell',
-  '.bash': 'Bash',
-  '.css': 'CSS',
-  '.scss': 'SCSS',
-  '.html': 'HTML',
-  'Dockerfile': 'Docker',
-  '.dockerignore': 'Docker',
-};
-
-/**
- * Infer technology from file path
- */
-function inferTech(filePath) {
-  const fileName = filePath.split('/').pop();
-  
-  // Check exact filename matches
-  if (TECH_MAP[fileName]) return TECH_MAP[fileName];
-  
-  // Check for GitHub Actions
-  if (filePath.includes('.github/workflows/')) return 'GitHub Actions';
-  
-  // Check extensions
-  for (const [ext, tech] of Object.entries(TECH_MAP)) {
-    if (filePath.endsWith(ext)) return tech;
+function languageSummary(projects) {
+  const counts = new Map();
+  for (const project of projects) {
+    counts.set(project.language, (counts.get(project.language) || 0) + 1);
   }
-  
-  return null;
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([language, count]) => `${language} (${count})`)
+    .join(', ');
 }
 
-/**
- * Fetch recent commits (last 24h)
- */
-async function fetchRecentCommits() {
-  console.log(`Fetching commits from the last 24 hours for user: ${OWNER}`);
-  
-  const now = new Date();
-  const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  
-  const query = `
-    query($login: String!, $since: GitTimestamp!) {
-      user(login: $login) {
-        repositories(first: 100, ownerAffiliations: OWNER, privacy: PUBLIC, orderBy: {field: PUSHED_AT, direction: DESC}) {
-          nodes {
-            name
-            defaultBranchRef {
-              target {
-                ... on Commit {
-                  history(first: 100, since: $since, author: {id: null}) {
-                    totalCount
-                    nodes {
-                      committedDate
-                      author {
-                        user {
-                          login
-                        }
-                      }
-                      additions
-                      deletions
-                      changedFiles
-                      associatedPullRequests(first: 1) {
-                        nodes {
-                          files(first: 100) {
-                            nodes {
-                              path
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+function themeBlocks(projects) {
+  const buckets = new Map();
+  for (const project of projects) {
+    for (const theme of project.themes) {
+      if (!buckets.has(theme)) buckets.set(theme, []);
+      buckets.get(theme).push(project);
     }
-  `;
-  
-  try {
-    const result = await client(query, {
-      login: OWNER,
-      since: yesterday.toISOString(),
-    });
-    
-    return result.user.repositories.nodes;
-  } catch (error) {
-    console.error('Error fetching commits:', error.message);
-    throw error;
   }
+
+  return [...buckets.entries()]
+    .sort((a, b) => b[1].length - a[1].length)
+    .map(([theme, repos]) => {
+      const repoLinks = repos.map((project) => `[${project.repo}](${project.html_url})`).join(', ');
+      return `- **${theme}** — ${repoLinks}`;
+    })
+    .join('\n');
 }
 
-/**
- * Analyze repositories for technologies and commit counts
- */
-function analyzeRepos(repos) {
-  const repoData = [];
-  
-  for (const repo of repos) {
-    if (!repo.defaultBranchRef || !repo.defaultBranchRef.target) continue;
-    
-    const commits = repo.defaultBranchRef.target.history.nodes || [];
-    
-    // Filter commits by the owner
-    const ownerCommits = commits.filter(
-      c => c.author?.user?.login === OWNER
-    );
-    
-    if (ownerCommits.length === 0) continue;
-    
-    // Collect technologies from changed files
-    const techSet = new Set();
-    
-    for (const commit of ownerCommits) {
-      const prs = commit.associatedPullRequests?.nodes || [];
-      
-      for (const pr of prs) {
-        const files = pr.files?.nodes || [];
-        
-        for (const file of files) {
-          const tech = inferTech(file.path);
-          if (tech) techSet.add(tech);
-        }
-      }
-    }
-    
-    // If no files found in PRs, use some default techs based on repo name/common patterns
-    if (techSet.size === 0) {
-      // Add some common defaults
-      techSet.add('Code');
-    }
-    
-    repoData.push({
-      repo: repo.name,
-      commits: ownerCommits.length,
-      technologies: Array.from(techSet).slice(0, 3), // Top 3
-    });
-  }
-  
-  // Sort by commit count
-  repoData.sort((a, b) => b.commits - a.commits);
-  
-  return repoData;
+function buildLearningBlock(projects) {
+  const newest = [...projects]
+    .sort((a, b) => new Date(b.pushed_at || 0) - new Date(a.pushed_at || 0))
+    .slice(0, 5)
+    .map((project) => `| [${project.repo}](${project.html_url}) | ${project.language} | ${project.themes[0]} | ${project.lastPushDays} days ago |`)
+    .join('\n');
+
+  return [
+    '<!-- START: LEARNING_DYNAMIC -->',
+    '### Focus areas inferred from current public projects',
+    '',
+    themeBlocks(projects),
+    '',
+    '### Technology mix',
+    '',
+    `- **Languages in active public portfolio:** ${languageSummary(projects)}`,
+    `- **Projects tracked:** ${projects.length}`,
+    '',
+    '### Recently touched public repos',
+    '',
+    '| Repo | Primary language | Theme | Last public push |',
+    '|------|------------------|-------|------------------|',
+    newest,
+    '<!-- END: LEARNING_DYNAMIC -->',
+  ].join('\n');
 }
 
-/**
- * Generate markdown list
- */
-function generateMarkdown(repoData) {
-  if (repoData.length === 0) {
-    return '_No recent activity detected in the last 24 hours._';
-  }
-  
-  const lines = repoData.map(data => {
-    const techList = data.technologies.length > 0 
-      ? data.technologies.join(', ') 
-      : 'Various';
-    const commitText = data.commits === 1 ? '1 commit' : `${data.commits} commits`;
-    return `- **${data.repo}** — ${techList} (${commitText})`;
-  });
-  
-  return lines.join('\n');
-}
-
-/**
- * Update README with learning data
- */
-async function updateReadme(markdown) {
-  console.log('Reading README.md...');
+async function updateReadme(block) {
   const readme = await readFile(README_PATH, 'utf8');
-  
-  const startMarker = '<!-- START: LEARNING_DYNAMIC -->';
-  const endMarker = '<!-- END: LEARNING_DYNAMIC -->';
-  
-  const startIndex = readme.indexOf(startMarker);
-  const endIndex = readme.indexOf(endMarker);
-  
-  if (startIndex === -1 || endIndex === -1) {
-    console.error('Could not find LEARNING_DYNAMIC markers in README.md');
-    console.error(`Expected markers: '${startMarker}' and '${endMarker}'`);
-    console.error('Please ensure these markers exist in README.md before running this script.');
-    
-    // Exit gracefully for CI
-    console.log('Skipping update due to missing markers.');
-    process.exit(0);
-  }
-  
-  const newContent = `${startMarker}\n${markdown}\n${endMarker}`;
-  
-  const updatedReadme = readme.substring(0, startIndex) + newContent + readme.substring(endIndex + endMarker.length);
-  
-  console.log('Writing updated README.md...');
-  await writeFile(README_PATH, updatedReadme, 'utf8');
-  console.log('✓ README.md updated successfully!');
+  const sectionRegex = /## 🧠 Learning & Interests[\s\S]*?---\n\n## 🌟 GitHub Showcase/;
+  const replacement = [
+    '## 🧠 Learning & Interests',
+    '',
+    '<details>',
+    '<summary><b>Click to view themes inferred from current public repos</b></summary>',
+    '',
+    'This section is generated strictly from the current public repository portfolio — not from generic interest statements.',
+    '',
+    block,
+    '',
+    '</details>',
+    '',
+    '---',
+    '',
+    '## 🌟 GitHub Showcase',
+  ].join('\n');
+
+  await writeFile(README_PATH, readme.replace(sectionRegex, replacement), 'utf8');
 }
 
-/**
- * Main execution
- */
 async function main() {
-  try {
-    const repos = await fetchRecentCommits();
-    const repoData = analyzeRepos(repos);
-    
-    console.log(`Found activity in ${repoData.length} repositories`);
-    
-    const markdown = generateMarkdown(repoData);
-    await updateReadme(markdown);
-    
-    console.log('✓ Learning & Interests update complete!');
-  } catch (error) {
-    console.error('Error updating learning section:', error.message);
-    process.exit(1);
-  }
+  const projects = await fetchPublicRepoPortfolio();
+  await updateReadme(buildLearningBlock(projects));
+  console.log(`✓ Learning & interests updated from ${projects.length} public repositories`);
 }
 
-main();
+main().catch((error) => {
+  console.error('Error updating learning section:', error.message);
+  process.exit(1);
+});

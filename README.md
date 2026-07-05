@@ -1,119 +1,62 @@
 # 🧠 Welcome to my Cyber Space
 
-**A living dashboard for my open-source projects, automations, and analytics.**
+**A living dashboard for my public open-source projects, automations, and analytics.**
 
 <details>
 <summary><b>📊 System Overview</b></summary>
 
+A public-repo-only snapshot of the cywf ecosystem: what is active, what needs attention, and how the projects cluster together.
+
+<!-- START: SYSTEM_OVERVIEW -->
 | Metric | Status |
 |--------|--------|
-| Active Repos | 13 |
-| CI/CD Workflows | 9 |
-| Connected Agents | Hermes + GitHub Actions |
-| Last Sync | <!-- LAST_SYNC -->2026-07-05 22:05 UTC<!-- /LAST_SYNC --> |
+| Public repos tracked | 13 |
+| Working repos | 3 |
+| Semi-functioning repos | 10 |
+| Broken repos | 0 |
+| Repos with substantive public CI | 10 |
+| Open blocker issues | 0 |
+| Primary language mix | Astro, JavaScript, Python, Rust, Shell, TypeScript |
+| Portfolio themes | Cybersecurity & Defense • Developer Tooling & Automation • Infrastructure & Networking • Mapping, Mobility & Aviation • Web Platforms & Content |
+| Last ecosystem refresh | 2026-07-05 22:53 UTC |
+<!-- END: SYSTEM_OVERVIEW -->
 
-</details>
-
----
-
-## 📅 Daily Brief
-
-<!-- BEGIN DAILY BRIEF -->
+<!-- START: REPO_MERMAID -->
 <details>
-<summary><b>📰 Today's Intelligence Brief</b></summary>
+<summary><b>🗺️ Public Repo Ecosystem Graph</b></summary>
 
-<div align="center">
+```mermaid
+flowchart LR
+  root((cywf public repo ecosystem))
+  root --> CybersecurityDefense[Cybersecurity & Defense]
+  CybersecurityDefense --> FortiPath[🟢 FortiPath]
+  CybersecurityDefense --> sentinel-project[🟢 sentinel-project]
+  CybersecurityDefense --> AegisNet[🟡 AegisNet]
+  CybersecurityDefense --> OTG-TAK[🟡 OTG-TAK]
+  CybersecurityDefense --> CTF-Kit[🟡 CTF-Kit]
+  root --> InfrastructureNetworking[Infrastructure & Networking]
+  InfrastructureNetworking --> InfraGuard[🟡 InfraGuard]
+  InfrastructureNetworking --> NetNinja[🟡 NetNinja]
+  InfrastructureNetworking --> ZeroTier-Toolkit[🟡 ZeroTier-Toolkit]
+  root --> MappingMobilityAviation[Mapping, Mobility & Aviation]
+  MappingMobilityAviation --> AirwayAtlas[🟡 AirwayAtlas]
+  root --> WebPlatformsContent[Web Platforms & Content]
+  WebPlatformsContent --> willow[🟡 willow]
+  WebPlatformsContent --> AlphaNest[🟢 AlphaNest]
+  WebPlatformsContent --> cywf.github.io[🟡 cywf.github.io]
+  root --> DeveloperToolingAutomation[Developer Tooling & Automation]
+  DeveloperToolingAutomation --> Boilerplates[🟡 Boilerplates]
+```
 
-# 📅 Daily Brief
-
-**[Sunday, July 05, 2026]**
-
-</div>
-
----
-
-<details>
-<summary><b>💭 Quote of the Day</b></summary>
-
-### 💭 Quote of the Day
-
-> "One of the advantages of being disorganized is that one is always having surprising discoveries."
->
-> — **A.A. Milne**
-
-</details>
-
-<details>
-<summary><b>🌤️ Weather Report</b></summary>
-
-### 🌤️ Weather Report
-
-- **Location**: Rifle, Colorado
-- **Current Conditions**: 95°F, Humidity: 5%, Wind Speed: 4 mph
-- **Today's Forecast**: High 96°F / Low 56°F, Precipitation: 1% ☀️
-
-**Space Weather Status**:
-- **KP Index**: Unavailable
-- **Recent Alerts**: Space weather feed unavailable.
+### Attention queue
+- **ZeroTier-Toolkit** — last push 252 days ago
+- **Boilerplates** — last push 252 days ago
+- **NetNinja** — last push 251 days ago
 
 </details>
-
-<details>
-<summary><b>📰 Global Intelligence News</b></summary>
-
-### 📰 Global Intelligence News
-
-1. **Folarin Balogun available for USMNT vs. Belgium as red card ban suspended - The New York Times**
-   Folarin Balogun available for USMNT vs. Belgium as red card ban suspended The New York Times
-
-2. **World Cup 2026 today: Live updates, news as England prepare for biggest challenge yet against Mexico and Norw…**
-   World Cup 2026 today: Live updates, news as England prepare for biggest challenge yet against Mexico and Norway face Brazil - July 5 ESPN
-
-3. **Trump thanks FIFA after Folarin Balogun’s World Cup red card suspension is reversed - CNBC**
-   Trump thanks FIFA after Folarin Balogun’s World Cup red card suspension is reversed CNBC
+<!-- END: REPO_MERMAID -->
 
 </details>
-
-<details>
-<summary><b>🔐 Cyber Pulse Report</b></summary>
-
-### 🔐 Cyber Pulse Report
-
-1. **Navigating NIST’s New Cybersecurity AI Frontier - GovTech**
-   Navigating NIST’s New Cybersecurity AI Frontier GovTech
-
-2. **Pennington Co. responding to cybersecurity incident - KELOLAND.com**
-   Pennington Co. responding to cybersecurity incident KELOLAND.com
-
-3. **ESA’s CyberCUBE To Launch On 7th July To Open On-orbit Cybersecurity Testbed - Orbital Today**
-   ESA’s CyberCUBE To Launch On 7th July To Open On-orbit Cybersecurity Testbed Orbital Today
-
-</details>
-
-<details>
-<summary><b>🔥 Trending on GitHub</b></summary>
-
-### 🔥 Trending on GitHub
-
-| Repo | Author | Description | Language | Stars | Forks | Link |
-|------|--------|-------------|----------|-------|-------|------|
-| ponytail | DietrichGebert | Makes your AI agent think like the laziest senior dev in the room. The best cod… | JavaScript | 74748 ⭐ | 3932 🔱 | [Link](https://github.com/DietrichGebert/ponytail) |
-| Unlimited-OCR | baidu | Unlimited OCR Works: Welcome the Era of One-shot Long-horizon Parsing. | Python | 13349 ⭐ | 1081 🔱 | [Link](https://github.com/baidu/Unlimited-OCR) |
-| MiMo-Code | XiaomiMiMo | MiMo Code: Where Models and Agents Co-Evolve | TypeScript | 11469 ⭐ | 1120 🔱 | [Link](https://github.com/XiaomiMiMo/MiMo-Code) |
-
-![Trending Repos Chart](assets/trending.png)
-
-</details>
-
----
-
-<div align="center">
-
-_Generated at 10:06 PM UTC_
-
-</div>
-</details>
-<!-- END DAILY BRIEF -->
 
 ---
 
@@ -125,11 +68,11 @@ _Generated at 10:06 PM UTC_
 <!-- START: LATEST_POSTS -->
 | Date | Title | Summary | Source |
 |------|-------|---------|--------|
-| 2025-09-23 | PR-CYBR: WatchDog's Veteran Transition Program - Introduction | PR-CYBR: WatchDog's Veteran Transition Program - Introduction | [View Gist](https://gist.github.com/cywf/db19af1524556eaeadcc2241dd697a29) |
-| 2024-05-31 | Pix4D Combined with RTK GPS for Security Applications | Pix4D Combined with RTK GPS for Security Applications | [View Gist](https://gist.github.com/cywf/e2028faac4b93e5c79fb976e3b4e5b4f) |
-| 2024-02-14 | A guide on how to properly and securely setup Bitwarden for iOS and A… | A guide on how to properly and securely setup Bitwarden for iOS and Android Devices | [View Gist](https://gist.github.com/cywf/3a0bc04d80db3093b9743bfa74a804c2) |
+| 2024-06-13 | Maritime Security Incident June 12, 2024 US / RU | Maritime Security Incident June 12, 2024 US / RU | [View Gist](https://gist.github.com/cywf/2efaea87775dcd3982ecca9642fc1c84) |
+| 2024-06-12 | Intrinsic Motivation | Intrinsic Motivation | [View Gist](https://gist.github.com/cywf/7cb0de24b55165b7536ba3cd5f15a585) |
+| 2024-02-14 | A guide on how to setup ProtonVPN on iOS and Android Devices | A guide on how to setup ProtonVPN on iOS and Android Devices | [View Gist](https://gist.github.com/cywf/46bc012810c0c09bcb6a8d05f878e5fe) |
 | 2024-01-11 | technical-debt.md | No description available | [View Gist](https://gist.github.com/cywf/5048df59015a714dbe95360bd3aab489) |
-| 2023-05-26 | Get ready to witness the ultimate power couple: 5G and the cloud. Wit… | Get ready to witness the ultimate power couple: 5G and the cloud. With blazing fast speed… | [View Gist](https://gist.github.com/cywf/b6dbc46036d7cdedc72be853fe851c40) |
+| 2023-02-28 | Taking a look at the current existing AI Initiatives in 2023 | Taking a look at the current existing AI Initiatives in 2023 | [View Gist](https://gist.github.com/cywf/d601bd5e6387d77d7479df67f2e4a4ce) |
 <!-- END: LATEST_POSTS -->
 
 _This section auto-updates nightly via automation._
@@ -141,29 +84,53 @@ _This section auto-updates nightly via automation._
 ## 🚀 Project M3trix
 
 <details>
-<summary><b> Click or Tap to view Project Analytics & Status</b></summary>
+<summary><b>Click to view public repo health by status category</b></summary>
 
-The matrix below is generated from the tracked public repositories and their primary public workflow badges.
+This matrix groups public repositories into working, semi-functioning, and broken buckets based on public workflow visibility, open issue blockages, and recent push activity.
 
 <!-- START: PROJECT_MATRIX -->
-| Project | Description | Workflow | Link |
-|---------|-------------|----------|------|
-| **[FortiPath](https://github.com/cywf/FortiPath)** | Advanced network path analysis with ML | ![Workflow](https://github.com/cywf/FortiPath/actions/workflows/deployment_automation.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/FortiPath) |
-| **[sentinel-project](https://github.com/cywf/sentinel-project)** | Autonomous threat detection system | ![Workflow](https://github.com/cywf/sentinel-project/actions/workflows/ci.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/sentinel-project) |
-| **[AegisNet](https://github.com/cywf/AegisNet)** | AI-driven secure network architecture | ![Workflow](https://github.com/cywf/AegisNet/actions/workflows/docker.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/AegisNet) |
-| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Airway network visualization with GIS | ![Workflow](https://github.com/cywf/AirwayAtlas/actions/workflows/security.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/AirwayAtlas) |
-| **[willow](https://github.com/cywf/willow)** | Multi-agent orchestration framework | ![Workflow](https://github.com/cywf/willow/actions/workflows/deploy.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/willow) |
-| **[OTG-TAK](https://github.com/cywf/otg-tak)** | Tactical awareness kit for operations | ![Workflow](https://github.com/cywf/OTG-TAK/actions/workflows/test.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/otg-tak) |
-| **[InfraGuard](https://github.com/cywf/Infraguard)** | Infrastructure monitoring & hardening | ![Workflow](https://github.com/cywf/InfraGuard/actions/workflows/terraform-validate.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/Infraguard) |
-| **[NetNinja](https://github.com/cywf/netninja)** | Network reconnaissance & automation | — | [Open repo](https://github.com/cywf/netninja) |
-| **[ZeroTier-Toolkit](https://github.com/cywf/zerotier-toolkit)** | ZeroTier network management tools | — | [Open repo](https://github.com/cywf/zerotier-toolkit) |
-| **[AlphaNest](https://github.com/cywf/AlphaNest)** | Secure collaboration platform | ![Workflow](https://github.com/cywf/AlphaNest/actions/workflows/containers.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/AlphaNest) |
-| **[Boilerplates](https://github.com/cywf/boilerplates)** | Project templates & scaffolding | — | [Open repo](https://github.com/cywf/boilerplates) |
-| **[CTF-Kit](https://github.com/cywf/ctf-kit)** | Capture The Flag tools & utilities | ![Workflow](https://github.com/cywf/CTF-Kit/actions/workflows/validate-contributions.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/ctf-kit) |
-| **[cywf.github.io](https://github.com/cywf/cywf.github.io)** | Personal website & portfolio | ![Workflow](https://github.com/cywf/cywf.github.io/actions/workflows/pages.yml/badge.svg?branch=main) | [Open repo](https://github.com/cywf/cywf.github.io) |
+| Status | Count | Meaning |
+|--------|-------|---------|
+| Working | 3 | Public CI present and no obvious portfolio-level blocker signal |
+| Semi-functioning | 10 | Stale pushes, missing substantive CI, or disabled workflow signals |
+| Broken | 0 | Archived repo or open blocker issue combined with disabled workflow |
 <!-- END: PROJECT_MATRIX -->
 
-_This section updates nightly via automation._
+<details>
+<summary><b>🟢 Working repositories (3)</b></summary>
+
+| Project | What it does | Workflow | Status signal | Blockage |
+|---------|---------------|----------|---------------|----------|
+| **[FortiPath](https://github.com/cywf/FortiPath)** | FortiPath: a comprehensive executive protection tool designed to enha… | ![Workflow](https://github.com/cywf/FortiPath/actions/workflows/deployment_automation.yml/badge.svg?branch=main) | Deployment Automation • 166d since push | None |
+| **[sentinel-project](https://github.com/cywf/sentinel-project)** | Advanced security system for critical infrastructure with threat inte… | ![Workflow](https://github.com/cywf/sentinel-project/actions/workflows/ci.yml/badge.svg?branch=main) | CI/CD Pipeline • 170d since push | None |
+| **[AlphaNest](https://github.com/cywf/AlphaNest)** | Secure collaboration platform. | ![Workflow](https://github.com/cywf/AlphaNest/actions/workflows/containers.yml/badge.svg?branch=main) | Build and Test Containers • 161d since push | None |
+
+</details>
+
+<details>
+<summary><b>🟡 Semi-functioning repositories (10)</b></summary>
+
+| Project | What it does | Workflow | Status signal | Blockage |
+|---------|---------------|----------|---------------|----------|
+| **[AegisNet](https://github.com/cywf/AegisNet)** | Integrated defense solution using AI, autonomous drones, and advanced… | ![Workflow](https://github.com/cywf/AegisNet/actions/workflows/docker.yml/badge.svg?branch=main) | Docker Build and Push • 245d since push | None |
+| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Airport city data platform with interactive map, search, and API for… | ![Workflow](https://github.com/cywf/AirwayAtlas/actions/workflows/security.yml/badge.svg?branch=main) | Security • 245d since push | None |
+| **[willow](https://github.com/cywf/willow)** | Blockchain-based real estate website inspired by Zillow. | ![Workflow](https://github.com/cywf/willow/actions/workflows/deploy.yml/badge.svg?branch=main) | Deploy to GitHub Pages • 245d since push | None |
+| **[OTG-TAK](https://github.com/cywf/otg-tak)** | On-The-Go TAK deployment tooling for tactical operations. | ![Workflow](https://github.com/cywf/OTG-TAK/actions/workflows/test.yml/badge.svg?branch=main) | Test • 245d since push | None |
+| **[InfraGuard](https://github.com/cywf/Infraguard)** | Automated server provisioning and configuration scripts for secure in… | ![Workflow](https://github.com/cywf/InfraGuard/actions/workflows/terraform-validate.yml/badge.svg?branch=main) | Terraform Validation • 244d since push | None |
+| **[NetNinja](https://github.com/cywf/netninja)** | Linux server troubleshooting automation for network and system admins. | — | No public CI • 251d since push | None |
+| **[ZeroTier-Toolkit](https://github.com/cywf/zerotier-toolkit)** | Toolkit for building, configuring, deploying, and troubleshooting Zer… | — | No public CI • 252d since push | None |
+| **[Boilerplates](https://github.com/cywf/boilerplates)** | Personal template collection for tools and technologies. | — | No public CI • 252d since push | None |
+| **[CTF-Kit](https://github.com/cywf/ctf-kit)** | Capture-the-Flag starter kit. | ![Workflow](https://github.com/cywf/CTF-Kit/actions/workflows/validate-contributions.yml/badge.svg?branch=main) | Validate Contributions • 245d since push | None |
+| **[cywf.github.io](https://github.com/cywf/cywf.github.io)** | Personal website and blog hosted on GitHub Pages. | ![Workflow](https://github.com/cywf/cywf.github.io/actions/workflows/pages.yml/badge.svg?branch=main) | Deploy Astro site to Pages • 239d since push | None |
+
+</details>
+
+<details>
+<summary><b>🔴 Broken repositories (0)</b></summary>
+
+_None in this category right now._
+
+</details>
 
 </details>
 
@@ -172,7 +139,7 @@ _This section updates nightly via automation._
 ## 📊 Developer Analytics
 
 <details>
-<summary><b>Click to view GitHub Statistics & Activity</b></summary>
+<summary><b>Click to view GitHub statistics & activity</b></summary>
 
 <div align="center">
 
@@ -201,30 +168,6 @@ _This section updates nightly via automation._
 
 </div>
 
-<!-- START: REPO_MERMAID -->
-<details>
-<summary><b>🧭 Repository Map (Mermaid)</b></summary>
-
-```mermaid
-mindmap
-  root((cywf repos))
-    FortiPath[Advanced network path analysis with ML]
-    sentinel-project[Autonomous threat detection system]
-    AegisNet[AI-driven secure network architecture]
-    AirwayAtlas[Airway network visualization with GIS]
-    willow[Multi-agent orchestration framework]
-    OTG-TAK[Tactical awareness kit for operations]
-    InfraGuard[Infrastructure monitoring & hardening]
-    NetNinja[Network reconnaissance & automation]
-    ZeroTier-Toolkit[ZeroTier network management tools]
-    AlphaNest[Secure collaboration platform]
-    Boilerplates[Project templates & scaffolding]
-    CTF-Kit[Capture The Flag tools & utilities]
-    cywf.github.io[Personal website & portfolio]
-```
-</details>
-<!-- END: REPO_MERMAID -->
-
 </details>
 
 ---
@@ -232,45 +175,33 @@ mindmap
 ## 🧠 Learning & Interests
 
 <details>
-<summary><b>Click to view current focus areas</b></summary>
+<summary><b>Click to view themes inferred from current public repos</b></summary>
 
-I'm constantly exploring new horizons across multiple domains:
-
-### 🔐 Cybersecurity & AI/ML
-- Defensive automation and threat intelligence
-- Ethical hacking and penetration testing
-- Generative models and adversarial ML
-- Zero-trust architecture implementation
-
-### 🌐 PR-CYBR & Community
-- Building resilience in communities
-- WatchDog veteran transition programs
-- Knowledge sharing and education
-- Open-source security tooling
-
-### 🌍 G8 System
-- Sustainable legacy frameworks
-- Intergenerational knowledge transfer
-- Resilience and stewardship models
-
-### 🚀 Space Systems & Quantum
-- Satellite communications
-- Quantum computing fundamentals
-- Energy systems optimization
-- Aviation and aerospace technology
-
-### 🧬 Psionics & Consciousness
-- Resonance and vibration studies
-- Human potential exploration
-- Consciousness research
-- Mind-body integration
-
----
-
-### 📈 Recent Activity (Last 24h)
+This section is generated strictly from the current public repository portfolio — not from generic interest statements.
 
 <!-- START: LEARNING_DYNAMIC -->
-_No recent activity detected in the last 24 hours._
+### Focus areas inferred from current public projects
+
+- **Cybersecurity & Defense** — [FortiPath](https://github.com/cywf/FortiPath), [sentinel-project](https://github.com/cywf/sentinel-project), [AegisNet](https://github.com/cywf/AegisNet), [OTG-TAK](https://github.com/cywf/otg-tak), [CTF-Kit](https://github.com/cywf/ctf-kit)
+- **Infrastructure & Networking** — [FortiPath](https://github.com/cywf/FortiPath), [sentinel-project](https://github.com/cywf/sentinel-project), [InfraGuard](https://github.com/cywf/Infraguard), [NetNinja](https://github.com/cywf/netninja), [ZeroTier-Toolkit](https://github.com/cywf/zerotier-toolkit)
+- **Web Platforms & Content** — [willow](https://github.com/cywf/willow), [AlphaNest](https://github.com/cywf/AlphaNest), [cywf.github.io](https://github.com/cywf/cywf.github.io)
+- **Developer Tooling & Automation** — [NetNinja](https://github.com/cywf/netninja), [ZeroTier-Toolkit](https://github.com/cywf/zerotier-toolkit), [Boilerplates](https://github.com/cywf/boilerplates)
+- **Mapping, Mobility & Aviation** — [AegisNet](https://github.com/cywf/AegisNet), [AirwayAtlas](https://github.com/cywf/AirwayAtlas)
+
+### Technology mix
+
+- **Languages in active public portfolio:** TypeScript (4), Astro (3), Python (2), JavaScript (2), Rust (1), Shell (1)
+- **Projects tracked:** 13
+
+### Recently touched public repos
+
+| Repo | Primary language | Theme | Last public push |
+|------|------------------|-------|------------------|
+| [AlphaNest](https://github.com/cywf/AlphaNest) | TypeScript | Web Platforms & Content | 161 days ago |
+| [FortiPath](https://github.com/cywf/FortiPath) | Python | Cybersecurity & Defense | 166 days ago |
+| [sentinel-project](https://github.com/cywf/sentinel-project) | TypeScript | Cybersecurity & Defense | 170 days ago |
+| [cywf.github.io](https://github.com/cywf/cywf.github.io) | Astro | Web Platforms & Content | 239 days ago |
+| [InfraGuard](https://github.com/cywf/Infraguard) | TypeScript | Infrastructure & Networking | 244 days ago |
 <!-- END: LEARNING_DYNAMIC -->
 
 </details>
@@ -280,10 +211,14 @@ _No recent activity detected in the last 24 hours._
 ## 🌟 GitHub Showcase
 
 <details>
-<summary><b>Click to view today's trending repositories</b></summary>
+<summary><b>Click to view today's top 3 trending repositories</b></summary>
 
 <!-- START: GH_SHOWCASE -->
-_Trending repositories will be displayed here._
+| Rank | Repository | Language | Stars today | Description |
+|------|------------|----------|-------------|-------------|
+| 1 | [Zackriya-Solutions/meetily](https://github.com/Zackriya-Solutions/meetily) | Rust | 1,409 stars today | Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker dia… |
+| 2 | [openai/codex-plugin-cc](https://github.com/openai/codex-plugin-cc) | JavaScript | 1,519 stars today | Use Codex from Claude Code to review code or delegate tasks. |
+| 3 | [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | JavaScript | 981 stars today | Extracted system prompts from Anthropic - Claude Fable 5, Opus 4.8, Claude Code, Claude Design. Ope… |
 <!-- END: GH_SHOWCASE -->
 
 </details>
@@ -292,7 +227,7 @@ _Trending repositories will be displayed here._
 
 <div align="center">
 
-_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2026-07-05 22:28 UTC<!-- /UPDATE_TIME --> • Gists sync: <!-- LAST_SYNC -->2026-07-05 22:05 UTC<!-- /LAST_SYNC -->_
+_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2026-07-05 22:52 UTC<!-- /UPDATE_TIME --> • Gists sync: <!-- LAST_SYNC -->2026-07-05 22:52 UTC<!-- /LAST_SYNC -->_
 
 **Stay curious, secure, and ready for adventure** 🚀
 
