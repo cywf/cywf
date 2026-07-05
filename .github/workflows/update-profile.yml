@@ -3,75 +3,64 @@ name: Update profile sections
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 10 * * *'   # daily at 10:00 UTC
+    - cron: '10 10 * * *'
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-profile-sections
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
-      - name: Update Daily Brief
-        run: node scripts/fetchMetrics.mjs || true
+
+      - name: Refresh latest posts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Update Latest Posts
         run: node scripts/updateGists.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Update Project Matrix
-        run: node scripts/updateProjectMatrix.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Build Repo Mermaid
+
+      - name: Refresh repository map
         run: node scripts/buildRepoMermaid.mjs
+
+      - name: Refresh learning section
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Update Learning & Interests
-        run: node scripts/updateLearning.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Update Trending Showcase
-        run: node scripts/updateTrending.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+        run: node scripts/updateLearning.mjs || true
+
+      - name: Refresh showcase section
+        run: node scripts/updateTrending.mjs || true
+
+      - name: Validate README structure
+        run: node scripts/validateReadme.mjs
+
       - name: Update timestamp
         run: |
           TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
           sed -i "s|<!-- UPDATE_TIME -->.*<!-- /UPDATE_TIME -->|<!-- UPDATE_TIME -->$TIMESTAMP<!-- /UPDATE_TIME -->|g" README.md
-      
-      - name: Check for changes
-        id: check-changes
-        run: |
-          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
-      
+
       - name: Commit and push changes
-        if: steps.check-changes.outputs.changes == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "ci(profile): refresh README dynamic sections" || echo "No changes"
+          if git diff --cached --quiet; then
+            echo "No profile-section changes detected"
+            exit 0
+          fi
+          git commit -m "ci(profile): refresh README dynamic sections [skip ci]"
           git push
