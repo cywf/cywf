@@ -2,51 +2,48 @@ name: Update README with Latest Gists
 
 on:
   schedule:
-    # Runs daily at 10:00 UTC
-    - cron: '0 10 * * *'
+    - cron: '40 9 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-readme-gists
+  cancel-in-progress: false
+
 jobs:
   update-readme:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
-      - name: Fetch Latest Gists
-        id: fetch-gists
+
+      - name: Refresh latest posts from public gists
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
-        run: |
-          node scripts/fetch-gists.js
-      
-      - name: Update Last Sync Time
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/updateGists.mjs
+
+      - name: Update sync timestamps
         run: |
           TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
           sed -i "s|<!-- LAST_SYNC -->.*<!-- /LAST_SYNC -->|<!-- LAST_SYNC -->$TIMESTAMP<!-- /LAST_SYNC -->|g" README.md
           sed -i "s|<!-- UPDATE_TIME -->.*<!-- /UPDATE_TIME -->|<!-- UPDATE_TIME -->$TIMESTAMP<!-- /UPDATE_TIME -->|g" README.md
-      
-      - name: Check for changes
-        id: check-changes
-        run: |
-          git diff --exit-code README.md || echo "changes=true" >> $GITHUB_OUTPUT
-      
+
       - name: Commit and push changes
-        if: steps.check-changes.outputs.changes == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add README.md
-          git commit -m "ci: update README with latest gists [skip ci]"
+          git add README.md data/gists-history.json
+          if git diff --cached --quiet; then
+            echo "No gist changes detected"
+            exit 0
+          fi
+          git commit -m "ci: refresh latest gists [skip ci]"
           git push

@@ -2,151 +2,67 @@
 
 /**
  * Build Repository Mermaid Diagram
- * Generates a Mermaid mindmap of all public repositories
+ * Generates a deterministic mindmap for the tracked public repositories.
  */
 
-import { Octokit } from '@octokit/rest';
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const OWNER = 'cywf';
 const README_PATH = join(process.cwd(), 'README.md');
+const PROJECTS_PATH = join(process.cwd(), 'config', 'projects.json');
 
-if (!GITHUB_TOKEN) {
-  console.error('Error: GITHUB_TOKEN environment variable is required');
-  process.exit(1);
-}
-
-const octokit = new Octokit({ auth: GITHUB_TOKEN });
-
-/**
- * Fetch all public repositories
- */
-async function fetchRepos() {
-  console.log(`Fetching public repositories for user: ${OWNER}`);
-  
-  try {
-    const repos = [];
-    let page = 1;
-    let hasMore = true;
-    
-    while (hasMore) {
-      const { data } = await octokit.rest.repos.listForUser({
-        username: OWNER,
-        per_page: 100,
-        page,
-        type: 'public',
-        sort: 'updated',
-      });
-      
-      repos.push(...data);
-      hasMore = data.length === 100;
-      page++;
-    }
-    
-    console.log(`Fetched ${repos.length} public repositories`);
-    return repos;
-  } catch (error) {
-    console.error('Error fetching repositories:', error.message);
-    throw error;
-  }
-}
-
-/**
- * Sanitize text for Mermaid (remove special chars that break syntax)
- */
 function sanitize(text) {
   if (!text) return 'No description';
-  return text
-    .replace(/["\[\](){}]/g, '') // Remove special chars
-    .replace(/\n/g, ' ') // Remove newlines
-    .substring(0, 60); // Limit length
+  return text.replace(/["\[\](){}]/g, '').replace(/\n/g, ' ').trim();
 }
 
-/**
- * Generate Mermaid mindmap
- */
-function generateMermaid(repos) {
-  console.log('Generating Mermaid mindmap...');
-  
-  // Sort repos by stars (descending)
-  const sorted = repos
-    .filter(r => !r.fork) // Exclude forks
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 20); // Top 20 repos
-  
-  let mermaid = 'mindmap\n';
-  mermaid += '  root((cywf repos))\n';
-  
-  for (const repo of sorted) {
-    const desc = sanitize(repo.description);
-    mermaid += `    ${repo.name}[${desc}]\n`;
+async function loadProjects() {
+  return JSON.parse(await readFile(PROJECTS_PATH, 'utf8'));
+}
+
+function generateMermaid(projects) {
+  const lines = ['mindmap', '  root((cywf repos))'];
+  for (const project of projects) {
+    lines.push(`    ${project.repo}[${sanitize(project.desc)}]`);
   }
-  
-  return mermaid;
+  return lines.join('\n');
 }
 
-/**
- * Update README with Mermaid diagram
- */
 async function updateReadme(mermaidCode) {
-  console.log('Reading README.md...');
   const readme = await readFile(README_PATH, 'utf8');
-  
   const startMarker = '<!-- START: REPO_MERMAID -->';
   const endMarker = '<!-- END: REPO_MERMAID -->';
-  
   const startIndex = readme.indexOf(startMarker);
   const endIndex = readme.indexOf(endMarker);
-  
+
   if (startIndex === -1 || endIndex === -1) {
-    console.error('Could not find REPO_MERMAID markers in README.md');
-    console.error(`Expected markers: '${startMarker}' and '${endMarker}'`);
-    console.error('Please ensure these markers exist in README.md before running this script.');
-    
-    // Exit gracefully for CI
-    console.log('Skipping update due to missing markers.');
+    console.log('Skipping Mermaid update because README markers are missing.');
     process.exit(0);
   }
-  
-  const newContent = `${startMarker}
-<details>
-<summary><b>🧭 Repository Map (Mermaid)</b></summary>
 
-\`\`\`mermaid
-${mermaidCode}
-\`\`\`
-</details>
-${endMarker}`;
-  
-  const updatedReadme = readme.substring(0, startIndex) + newContent + readme.substring(endIndex + endMarker.length);
-  
-  console.log('Writing updated README.md...');
-  await writeFile(README_PATH, updatedReadme, 'utf8');
-  console.log('✓ README.md updated successfully!');
+  const replacement = [
+    startMarker,
+    '<details>',
+    '<summary><b>🧭 Repository Map (Mermaid)</b></summary>',
+    '',
+    '```mermaid',
+    mermaidCode,
+    '```',
+    '</details>',
+    endMarker,
+  ].join('\n');
+
+  const updated = `${readme.slice(0, startIndex)}${replacement}${readme.slice(endIndex + endMarker.length)}`;
+  await writeFile(README_PATH, updated, 'utf8');
 }
 
-/**
- * Main execution
- */
 async function main() {
-  try {
-    const repos = await fetchRepos();
-    
-    if (repos.length === 0) {
-      console.log('No repositories found, skipping update');
-      return;
-    }
-    
-    const mermaidCode = generateMermaid(repos);
-    await updateReadme(mermaidCode);
-    
-    console.log('✓ Mermaid diagram update complete!');
-  } catch (error) {
-    console.error('Error updating Mermaid diagram:', error.message);
-    process.exit(1);
-  }
+  const projects = await loadProjects();
+  await updateReadme(generateMermaid(projects));
+  console.log(`✓ Repository map updated for ${projects.length} repositories`);
 }
 
-main();
+main().catch((error) => {
+  console.error('Error updating Mermaid diagram:', error.message);
+  process.exit(1);
+});
