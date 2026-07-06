@@ -63,19 +63,17 @@ flowchart LR
 ## 📝 Latest Blog Posts
 
 <details>
-<summary><b>Click to view recent Gists & Posts</b></summary>
+<summary><b>Click to view recent Daily Di-Gists</b></summary>
+
+These entries are generated from the scheduled public-repo Daily Di-Gist workflow and summarize the last 24 hours of public repo progress, breakages, health, and next steps.
 
 <!-- START: LATEST_POSTS -->
 | Date | Title | Summary | Source |
 |------|-------|---------|--------|
-| 2024-06-13 | Maritime Security Incident June 12, 2024 US / RU | Maritime Security Incident June 12, 2024 US / RU | [View Gist](https://gist.github.com/cywf/2efaea87775dcd3982ecca9642fc1c84) |
-| 2024-06-12 | Intrinsic Motivation | Intrinsic Motivation | [View Gist](https://gist.github.com/cywf/7cb0de24b55165b7536ba3cd5f15a585) |
-| 2024-02-14 | A guide on how to setup ProtonVPN on iOS and Android Devices | A guide on how to setup ProtonVPN on iOS and Android Devices | [View Gist](https://gist.github.com/cywf/46bc012810c0c09bcb6a8d05f878e5fe) |
-| 2024-01-11 | technical-debt.md | No description available | [View Gist](https://gist.github.com/cywf/5048df59015a714dbe95360bd3aab489) |
-| 2023-02-28 | Taking a look at the current existing AI Initiatives in 2023 | Taking a look at the current existing AI Initiatives in 2023 | [View Gist](https://gist.github.com/cywf/d601bd5e6387d77d7479df67f2e4a4ce) |
+| 2026-07-05 | Daily Di-Gist — 2026-07-05 | Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed. | [View Digest](daily/2026-07-05.md) |
 <!-- END: LATEST_POSTS -->
 
-_This section auto-updates nightly via automation._
+_This section auto-updates from the Daily Di-Gist workflow._
 
 </details>
 

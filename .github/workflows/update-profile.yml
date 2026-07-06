@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md data/gists-history.json scripts/publicRepoData.mjs scripts/updateOverview.mjs scripts/updateProjectMatrix.mjs scripts/updateLearning.mjs scripts/updateTrending.mjs scripts/validateReadme.mjs package.json
+          git add README.md data/daily-digists.json data/gists-history.json daily/ scripts/publicRepoData.mjs scripts/updateOverview.mjs scripts/updateProjectMatrix.mjs scripts/updateLearning.mjs scripts/updateTrending.mjs scripts/updateGists.mjs scripts/createDailyDigist.mjs scripts/validateReadme.mjs package.json .github/workflows/daily-di-gist.yml .github/workflows/update-readme.yml
           if git diff --cached --quiet; then
             echo "No profile-section changes detected"
             exit 0

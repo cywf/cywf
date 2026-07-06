@@ -17,6 +17,7 @@
     "metrics": "node scripts/fetchMetrics.mjs",
     "test": "node scripts/daily/test-daily-brief.js",
     "generate": "node scripts/daily/generate-daily-brief.js",
+    "digist:create": "node scripts/createDailyDigist.mjs",
     "profile:update": "node scripts/updateGists.mjs && node scripts/updateOverview.mjs && node scripts/updateProjectMatrix.mjs && node scripts/updateLearning.mjs && node scripts/updateTrending.mjs",
     "profile:validate": "node scripts/validateReadme.mjs"
   },
