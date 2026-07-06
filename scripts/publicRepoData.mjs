@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 
 import { readFile } from 'node:fs/promises';
+import { fetchWithTimeout } from './lib/fetchJson.mjs';
 import { join } from 'node:path';
 
 const PROJECTS_PATH = join(process.cwd(), 'config', 'projects.json');
 const SNAPSHOT_PATH = join(process.cwd(), 'config', 'public-repo-portfolio.snapshot.json');
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
 const NOW = new Date();
+const API_TIMEOUT_MS = Number(process.env.CYWF_API_TIMEOUT_MS || 10000);
 
 const STATUS = {
   WORKING: 'Working',
@@ -31,13 +33,17 @@ function repoApiPath(owner, repo, suffix = '') {
 }
 
 async function githubJson(url) {
-  const response = await fetch(url, {
-    headers: {
-      'User-Agent': 'cywf-profile-bot/1.0',
-      Accept: 'application/vnd.github+json',
-      ...(GITHUB_TOKEN ? { Authorization: `Bearer ${GITHUB_TOKEN}` } : {}),
+  const response = await fetchWithTimeout(
+    url,
+    {
+      headers: {
+        'User-Agent': 'cywf-profile-bot/1.0',
+        Accept: 'application/vnd.github+json',
+        ...(GITHUB_TOKEN ? { Authorization: `Bearer ${GITHUB_TOKEN}` } : {}),
+      },
     },
-  });
+    API_TIMEOUT_MS
+  );
 
   if (!response.ok) {
     throw new Error(`GitHub API ${response.status} for ${url}`);
@@ -53,7 +59,9 @@ function isSubstantiveWorkflow(workflow = {}) {
 }
 
 function pickPrimaryWorkflow(workflows = []) {
-  const ranked = workflows.filter(isSubstantiveWorkflow).sort((a, b) => workflowRank(b) - workflowRank(a));
+  const ranked = workflows
+    .filter(isSubstantiveWorkflow)
+    .sort((a, b) => workflowRank(b) - workflowRank(a));
   return ranked[0] || null;
 }
 
@@ -75,13 +83,19 @@ function workflowBadge(owner, repo, branch, workflow) {
 }
 
 function inferThemes(project) {
-  const haystack = `${project.repo} ${project.description || ''} ${(project.topics || []).join(' ')}`.toLowerCase();
+  const haystack =
+    `${project.repo} ${project.description || ''} ${(project.topics || []).join(' ')}`.toLowerCase();
   const themes = [];
-  if (/(security|threat|defense|ctf|tactical|tak|risk|osint|cyber)/.test(haystack)) themes.push('Cybersecurity & Defense');
-  if (/(network|infrastructure|server|terraform|zerotier|linux)/.test(haystack)) themes.push('Infrastructure & Networking');
-  if (/(map|airport|gis|aviation|atlas|flight)/.test(haystack)) themes.push('Mapping, Mobility & Aviation');
-  if (/(web|blog|portfolio|pages|real estate|frontend|site)/.test(haystack)) themes.push('Web Platforms & Content');
-  if (/(template|boilerplate|toolkit|automation)/.test(haystack)) themes.push('Developer Tooling & Automation');
+  if (/(security|threat|defense|ctf|tactical|tak|risk|osint|cyber)/.test(haystack))
+    themes.push('Cybersecurity & Defense');
+  if (/(network|infrastructure|server|terraform|zerotier|linux)/.test(haystack))
+    themes.push('Infrastructure & Networking');
+  if (/(map|airport|gis|aviation|atlas|flight)/.test(haystack))
+    themes.push('Mapping, Mobility & Aviation');
+  if (/(web|blog|portfolio|pages|real estate|frontend|site)/.test(haystack))
+    themes.push('Web Platforms & Content');
+  if (/(template|boilerplate|toolkit|automation)/.test(haystack))
+    themes.push('Developer Tooling & Automation');
   if (themes.length === 0) themes.push('General Software Projects');
   return Array.from(new Set(themes));
 }
@@ -154,36 +168,47 @@ async function loadSnapshot() {
 export async function fetchPublicRepoPortfolio() {
   const seeds = await loadProjectSeeds();
   const snapshot = await loadSnapshot();
-  const snapshotMap = new Map(snapshot.map((project) => [`${project.owner}/${project.repo}`.toLowerCase(), project]));
+  const snapshotMap = new Map(
+    snapshot.map((project) => [`${project.owner}/${project.repo}`.toLowerCase(), project])
+  );
   const results = [];
 
   for (const seed of seeds) {
+    const fallback = snapshotMap.get(`${seed.owner}/${seed.repo}`.toLowerCase());
     let repoData;
     let workflows = [];
     let issues = [];
 
     try {
+      if (!GITHUB_TOKEN && fallback) {
+        throw new Error('GITHUB_TOKEN unavailable; using checked-in snapshot for local run');
+      }
       repoData = await githubJson(repoApiPath(seed.owner, seed.repo));
 
       try {
-        const workflowData = await githubJson(repoApiPath(seed.owner, seed.repo, '/actions/workflows'));
+        const workflowData = await githubJson(
+          repoApiPath(seed.owner, seed.repo, '/actions/workflows')
+        );
         workflows = workflowData.workflows || [];
       } catch {
         workflows = [];
       }
 
       try {
-        const issueData = await githubJson(repoApiPath(seed.owner, seed.repo, '/issues?state=open&per_page=10'));
-        issues = issueData.filter((issue) => !issue.pull_request).map((issue) => ({
-          number: issue.number,
-          title: issue.title,
-          html_url: issue.html_url,
-        }));
+        const issueData = await githubJson(
+          repoApiPath(seed.owner, seed.repo, '/issues?state=open&per_page=10')
+        );
+        issues = issueData
+          .filter((issue) => !issue.pull_request)
+          .map((issue) => ({
+            number: issue.number,
+            title: issue.title,
+            html_url: issue.html_url,
+          }));
       } catch {
         issues = [];
       }
-    } catch {
-      const fallback = snapshotMap.get(`${seed.owner}/${seed.repo}`.toLowerCase());
+    } catch (error) {
       repoData = fallback || {
         html_url: `https://github.com/${seed.owner}/${seed.repo}`,
         description: seed.desc,
@@ -196,6 +221,8 @@ export async function fetchPublicRepoPortfolio() {
       };
       workflows = fallback?.workflows || [];
       issues = fallback?.open_issues || [];
+      repoData._data_source = fallback ? 'snapshot' : 'seed';
+      repoData._fetch_error = error.message;
     }
 
     const project = {
@@ -213,10 +240,17 @@ export async function fetchPublicRepoPortfolio() {
       pushed_at: repoData.pushed_at,
       updated_at: repoData.updated_at,
       workflows,
+      dataSource: repoData._data_source || 'live',
+      fetchError: repoData._fetch_error || null,
     };
 
     project.primaryWorkflow = pickPrimaryWorkflow(workflows);
-    project.workflowBadge = workflowBadge(project.owner, project.repo, project.default_branch, project.primaryWorkflow);
+    project.workflowBadge = workflowBadge(
+      project.owner,
+      project.repo,
+      project.default_branch,
+      project.primaryWorkflow
+    );
     project.themes = inferThemes(project);
     project.classification = classifyProject(project);
     project.lastPushDays = daysSince(project.pushed_at);
@@ -237,7 +271,9 @@ export function summarizePortfolio(projects) {
     activeWorkflowRepos: projects.filter((project) => project.primaryWorkflow).length,
   };
 
-  const languages = [...new Set(projects.map((project) => project.language).filter(Boolean))].sort();
+  const languages = [
+    ...new Set(projects.map((project) => project.language).filter(Boolean)),
+  ].sort();
   const themes = [...new Set(projects.flatMap((project) => project.themes))].sort();
 
   return { counts, languages, themes };

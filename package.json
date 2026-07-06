@@ -15,10 +15,10 @@
     "fetch:rss": "tsx scripts/briefs/fetch-rss.mts",
     "fetch:all": "npm run fetch:analytics && npm run fetch:rss",
     "metrics": "node scripts/fetchMetrics.mjs",
-    "test": "node scripts/daily/test-daily-brief.js",
+    "test": "node scripts/tests/readme-sections.test.mjs && npm run profile:validate",
     "generate": "node scripts/daily/generate-daily-brief.js",
     "digist:create": "node scripts/createDailyDigist.mjs",
-    "profile:update": "node scripts/updateGists.mjs && node scripts/updateOverview.mjs && node scripts/updateProjectMatrix.mjs && node scripts/updateLearning.mjs && node scripts/updateTrending.mjs",
+    "profile:update": "node scripts/updateGists.mjs && node scripts/updateOverview.mjs && node scripts/updateProjectMatrix.mjs && node scripts/updateLearning.mjs && node scripts/updateTrending.mjs && npm run profile:validate",
     "profile:validate": "node scripts/validateReadme.mjs"
   },
   "keywords": [

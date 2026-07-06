@@ -13,8 +13,9 @@ function blockageCell(project) {
   return `[Issue #${issue.number}](${issue.html_url})`;
 }
 
-function nextTasksCell(tasks) {
-  if (!tasks || tasks.length === 0) return '—';
+function nextTasksCell(tasks, boardTasks) {
+  if (boardTasks.degradedReason) return `⚠ ${boardTasks.degradedReason}`;
+  if (!tasks || tasks.length === 0) return 'No queued Project task found';
   return tasks.map((t) => `\`${t.status}\` [${t.title}](${t.itemUrl})`).join('<br>');
 }
 
@@ -35,7 +36,7 @@ function detailBlock(title, projects, boardTasks) {
         '|---------|---------------|----------|---------------|----------|------------|',
         ...projects.map((project) => {
           const key = `${project.owner}/${project.repo}`.toLowerCase();
-          return `| **[${project.repo}](${project.html_url})** | ${truncate(project.description, 70)} | ${project.workflowBadge} | ${signalText(project)} | ${blockageCell(project)} | ${nextTasksCell(boardTasks.get(key))} |`;
+          return `| **[${project.repo}](${project.html_url})** | ${truncate(project.description, 70)} | ${project.workflowBadge} | ${signalText(project)} | ${blockageCell(project)} | ${nextTasksCell(boardTasks.get(key), boardTasks)} |`;
         }),
       ].join('\n')
     : '_None in this category right now._';
@@ -86,6 +87,8 @@ async function updateReadme(matrixBlock) {
     '<summary><b>Click to view public repo health by status category</b></summary>',
     '',
     'This matrix groups public repositories into working, semi-functioning, and broken buckets based on public workflow visibility, open issue blockages, and recent push activity.',
+    '',
+    '_Next-Tasks cells are rendered from GitHub Projects v2 when `PROJECTS_TOKEN` is available. Local or unauthenticated runs explicitly mark those cells as degraded instead of pretending there are no tasks._',
     '',
     matrixBlock,
     '',

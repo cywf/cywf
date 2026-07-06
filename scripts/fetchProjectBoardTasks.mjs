@@ -197,7 +197,9 @@ async function fetchViewerBoards() {
 export async function fetchAllBoardTasks(projects) {
   if (!PROJECTS_TOKEN) {
     console.warn('⚠ fetchProjectBoardTasks: PROJECTS_TOKEN not set — skipping board task fetch');
-    return new Map();
+    const map = new Map();
+    map.degradedReason = 'PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty.';
+    return map;
   }
 
   let viewerBoards = null;

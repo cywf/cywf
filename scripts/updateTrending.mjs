@@ -8,11 +8,14 @@ import { join } from 'node:path';
 const README_PATH = join(process.cwd(), 'README.md');
 
 async function fetchTrending() {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), Number(process.env.CYWF_API_TIMEOUT_MS || 10000));
   const response = await fetch('https://github.com/trending?since=daily', {
     headers: {
       'User-Agent': 'Mozilla/5.0 (compatible; cywf-bot/1.0)',
     },
-  });
+    signal: controller.signal,
+  }).finally(() => clearTimeout(timeout));
 
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -83,7 +86,7 @@ async function main() {
   console.log(`✓ GitHub showcase updated with ${repos.length} trending repositories`);
 }
 
-main().catch((error) => {
-  console.error('Error updating showcase:', error.message);
-  process.exit(1);
+main().catch(async (error) => {
+  console.warn(`⚠ GitHub showcase refresh degraded: ${error.message}`);
+  console.warn('Keeping existing GH_SHOWCASE block so the daily pipeline can continue.');
 });
