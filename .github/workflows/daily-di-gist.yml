@@ -1,17 +1,20 @@
-name: Refresh latest Daily Di-Gists in README
+name: Create Daily Di-Gist
 
 on:
   workflow_dispatch:
+  schedule:
+    # 03:00 America/Denver during DST (09:00 UTC)
+    - cron: '0 9 * * *'
 
 permissions:
   contents: write
 
 concurrency:
-  group: update-readme-daily-digists
+  group: create-daily-di-gist
   cancel-in-progress: false
 
 jobs:
-  update-readme:
+  daily-di-gist:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,11 +25,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
-      - name: Refresh latest posts from Daily Di-Gist history
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Daily Di-Gist from last 24h public repo activity
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run digist:create
+
+      - name: Refresh Latest Blog Posts from Daily Di-Gist history
         run: node scripts/updateGists.mjs
 
-      - name: Update sync timestamps
+      - name: Validate README structure
+        run: npm run profile:validate
+
+      - name: Update timestamps
         run: |
           TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
           sed -i "s|<!-- LAST_SYNC -->.*<!-- /LAST_SYNC -->|<!-- LAST_SYNC -->$TIMESTAMP<!-- /LAST_SYNC -->|g" README.md
@@ -38,8 +53,8 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add README.md data/daily-digists.json daily/
           if git diff --cached --quiet; then
-            echo "No Daily Di-Gist README changes detected"
+            echo "No Daily Di-Gist changes detected"
             exit 0
           fi
-          git commit -m "ci: refresh Daily Di-Gist links in README [skip ci]"
+          git commit -m "ci: publish Daily Di-Gist and refresh latest posts [skip ci]"
           git push
