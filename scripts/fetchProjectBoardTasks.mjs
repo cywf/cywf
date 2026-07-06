@@ -44,14 +44,21 @@ async function graphqlRequest(query, variables = {}) {
       },
       body: JSON.stringify({ query, variables }),
     });
-  } catch {
+  } catch (err) {
+    console.warn(`⚠ fetchProjectBoardTasks: GraphQL network error: ${err.message}`);
     return null;
   }
 
-  if (!response.ok) return null;
+  if (!response.ok) {
+    console.warn(`⚠ fetchProjectBoardTasks: GraphQL HTTP ${response.status}`);
+    return null;
+  }
 
   const json = await response.json();
-  if (json.errors?.length) return null;
+  if (json.errors?.length) {
+    console.warn(`⚠ fetchProjectBoardTasks: GraphQL errors: ${json.errors.map((e) => e.message).join('; ')}`);
+    return null;
+  }
 
   return json.data;
 }
@@ -189,6 +196,7 @@ async function fetchViewerBoards() {
  */
 export async function fetchAllBoardTasks(projects) {
   if (!PROJECTS_TOKEN) {
+    console.warn('⚠ fetchProjectBoardTasks: PROJECTS_TOKEN not set — skipping board task fetch');
     return new Map();
   }
 
@@ -206,12 +214,15 @@ export async function fetchAllBoardTasks(projects) {
         if (!viewerBoards) {
           viewerBoards = await fetchViewerBoards();
         }
+        // Fallback: match user-level boards whose title exactly equals the repo name (case-insensitive).
+        // Board owners are expected to name their per-repo boards after the repository.
         board =
           viewerBoards.find((b) => b.title.toLowerCase() === project.repo.toLowerCase()) ?? null;
       }
 
       result.set(key, board ? processItems(board, board.items?.nodes ?? []) : []);
-    } catch {
+    } catch (err) {
+      console.warn(`⚠ fetchProjectBoardTasks: error for ${project.owner}/${project.repo}: ${err.message}`);
       result.set(key, []);
     }
   }
