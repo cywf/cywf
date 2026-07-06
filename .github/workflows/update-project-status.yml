@@ -32,6 +32,7 @@ jobs:
       - name: Refresh system overview and matrix
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROJECTS_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
         run: |
           node scripts/updateOverview.mjs
           node scripts/updateProjectMatrix.mjs
@@ -48,7 +49,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add README.md scripts/publicRepoData.mjs scripts/updateOverview.mjs scripts/updateProjectMatrix.mjs scripts/validateReadme.mjs
+          git add README.md scripts/publicRepoData.mjs scripts/updateOverview.mjs scripts/updateProjectMatrix.mjs scripts/fetchProjectBoardTasks.mjs scripts/validateReadme.mjs
           if git diff --cached --quiet; then
             echo "No project-matrix changes detected"
             exit 0

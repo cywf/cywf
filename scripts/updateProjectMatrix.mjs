@@ -3,6 +3,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fetchPublicRepoPortfolio, STATUS, truncate } from './publicRepoData.mjs';
+import { fetchAllBoardTasks } from './fetchProjectBoardTasks.mjs';
 
 const README_PATH = join(process.cwd(), 'README.md');
 
@@ -10,6 +11,11 @@ function blockageCell(project) {
   const issue = project.open_issues[0];
   if (!issue) return 'None';
   return `[Issue #${issue.number}](${issue.html_url})`;
+}
+
+function nextTasksCell(tasks) {
+  if (!tasks || tasks.length === 0) return '—';
+  return tasks.map((t) => `\`${t.status}\` [${t.title}](${t.itemUrl})`).join('<br>');
 }
 
 function signalText(project) {
@@ -22,12 +28,15 @@ function row(project) {
   return `| **[${project.repo}](${project.html_url})** | ${truncate(project.description, 78)} | ${project.workflowBadge} | ${project.classification.reason} | ${blockageCell(project)} |`;
 }
 
-function detailBlock(title, projects) {
+function detailBlock(title, projects, boardTasks) {
   const table = projects.length
     ? [
-        '| Project | What it does | Workflow | Status signal | Blockage |',
-        '|---------|---------------|----------|---------------|----------|',
-        ...projects.map((project) => `| **[${project.repo}](${project.html_url})** | ${truncate(project.description, 70)} | ${project.workflowBadge} | ${signalText(project)} | ${blockageCell(project)} |`),
+        '| Project | What it does | Workflow | Status signal | Blockage | Next tasks |',
+        '|---------|---------------|----------|---------------|----------|------------|',
+        ...projects.map((project) => {
+          const key = `${project.owner}/${project.repo}`.toLowerCase();
+          return `| **[${project.repo}](${project.html_url})** | ${truncate(project.description, 70)} | ${project.workflowBadge} | ${signalText(project)} | ${blockageCell(project)} | ${nextTasksCell(boardTasks.get(key))} |`;
+        }),
       ].join('\n')
     : '_None in this category right now._';
 
@@ -41,7 +50,7 @@ function detailBlock(title, projects) {
   ].join('\n');
 }
 
-function buildMatrix(projects) {
+function buildMatrix(projects, boardTasks) {
   const working = projects.filter((project) => project.classification.status === STATUS.WORKING);
   const semi = projects.filter((project) => project.classification.status === STATUS.SEMI);
   const broken = projects.filter((project) => project.classification.status === STATUS.BROKEN);
@@ -59,11 +68,11 @@ function buildMatrix(projects) {
   return [
     summary,
     '',
-    detailBlock('🟢 Working repositories', working),
+    detailBlock('🟢 Working repositories', working, boardTasks),
     '',
-    detailBlock('🟡 Semi-functioning repositories', semi),
+    detailBlock('🟡 Semi-functioning repositories', semi, boardTasks),
     '',
-    detailBlock('🔴 Broken repositories', broken),
+    detailBlock('🔴 Broken repositories', broken, boardTasks),
   ].join('\n');
 }
 
@@ -92,7 +101,8 @@ async function updateReadme(matrixBlock) {
 
 async function main() {
   const projects = await fetchPublicRepoPortfolio();
-  await updateReadme(buildMatrix(projects));
+  const boardTasks = await fetchAllBoardTasks(projects);
+  await updateReadme(buildMatrix(projects, boardTasks));
   console.log(`✓ Project matrix updated for ${projects.length} public repositories`);
 }
 

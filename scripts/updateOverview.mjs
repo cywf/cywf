@@ -3,6 +3,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fetchPublicRepoPortfolio, portfolioTimestamp, summarizePortfolio, STATUS } from './publicRepoData.mjs';
+import { fetchAllBoardTasks } from './fetchProjectBoardTasks.mjs';
 
 const README_PATH = join(process.cwd(), 'README.md');
 
@@ -38,9 +39,10 @@ function buildGraph(projects) {
   return lines.join('\n');
 }
 
-function buildOverviewBlock(projects) {
+function buildOverviewBlock(projects, boardTasks) {
   const { counts, languages, themes } = summarizePortfolio(projects);
   const timestamp = portfolioTimestamp();
+  const queuedBoardTasks = [...boardTasks.values()].reduce((sum, tasks) => sum + tasks.length, 0);
 
   const staleProjects = [...projects]
     .filter((project) => project.lastPushDays !== null)
@@ -59,6 +61,7 @@ function buildOverviewBlock(projects) {
     `| Broken repos | ${counts.broken} |`,
     `| Repos with substantive public CI | ${counts.activeWorkflowRepos} |`,
     `| Open blocker issues | ${counts.totalIssues} |`,
+    `| Queued board tasks | ${queuedBoardTasks} |`,
     `| Primary language mix | ${languages.join(', ')} |`,
     `| Portfolio themes | ${themes.join(' • ')} |`,
     `| Last ecosystem refresh | ${timestamp} |`,
@@ -101,7 +104,8 @@ async function updateReadme(block) {
 
 async function main() {
   const projects = await fetchPublicRepoPortfolio();
-  await updateReadme(buildOverviewBlock(projects));
+  const boardTasks = await fetchAllBoardTasks(projects);
+  await updateReadme(buildOverviewBlock(projects, boardTasks));
   console.log(`✓ System overview updated for ${projects.length} public repositories`);
 }
 
