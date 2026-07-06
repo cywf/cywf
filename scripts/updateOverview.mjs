@@ -43,6 +43,9 @@ function buildOverviewBlock(projects, boardTasks) {
   const { counts, languages, themes } = summarizePortfolio(projects);
   const timestamp = portfolioTimestamp();
   const queuedBoardTasks = [...boardTasks.values()].reduce((sum, tasks) => sum + tasks.length, 0);
+  const liveProjects = projects.filter((project) => project.dataSource === 'live').length;
+  const fallbackProjects = projects.length - liveProjects;
+  const taskMode = boardTasks.degradedReason || 'Live Projects v2 data when PROJECTS_TOKEN is available; local runs without it show an explicit degraded state.';
 
   const staleProjects = [...projects]
     .filter((project) => project.lastPushDays !== null)
@@ -62,6 +65,8 @@ function buildOverviewBlock(projects, boardTasks) {
     `| Repos with substantive public CI | ${counts.activeWorkflowRepos} |`,
     `| Open blocker issues | ${counts.totalIssues} |`,
     `| Queued board tasks | ${queuedBoardTasks} |`,
+    `| Data freshness mode | ${liveProjects}/${projects.length} live GitHub reads; ${fallbackProjects} snapshot/seed fallbacks |`,
+    `| Next-Tasks source | ${taskMode} |`,
     `| Primary language mix | ${languages.join(', ')} |`,
     `| Portfolio themes | ${themes.join(' • ')} |`,
     `| Last ecosystem refresh | ${timestamp} |`,
