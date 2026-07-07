@@ -11,17 +11,17 @@ A public-repo-only snapshot of the cywf ecosystem: what is active, what needs at
 | Metric | Status |
 |--------|--------|
 | Public repos tracked | 13 |
-| Working repos | 3 |
-| Semi-functioning repos | 10 |
+| Working repos | 4 |
+| Semi-functioning repos | 9 |
 | Broken repos | 0 |
 | Repos with substantive public CI | 10 |
-| Open blocker issues | 0 |
+| Open blocker issues | 1 |
 | Queued board tasks | 0 |
-| Data freshness mode | 0/13 live GitHub reads; 13 snapshot/seed fallbacks |
-| Next-Tasks source | PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
+| Data freshness mode | 13/13 live GitHub reads; 0 snapshot/seed fallbacks |
+| Next-Tasks source | Live Projects v2 data when PROJECTS_TOKEN is available; local runs without it show an explicit degraded state. |
 | Primary language mix | Astro, JavaScript, Python, Rust, Shell, TypeScript |
-| Portfolio themes | Cybersecurity & Defense • Developer Tooling & Automation • Infrastructure & Networking • Mapping, Mobility & Aviation • Web Platforms & Content |
-| Last ecosystem refresh | 2026-07-06 23:30 UTC |
+| Portfolio themes | Cybersecurity & Defense • Developer Tooling & Automation • General Software Projects • Infrastructure & Networking • Mapping, Mobility & Aviation • Web Platforms & Content |
+| Last ecosystem refresh | 2026-07-07 11:16 UTC |
 <!-- END: SYSTEM_OVERVIEW -->
 
 <!-- START: REPO_MERMAID -->
@@ -45,15 +45,16 @@ flowchart LR
   MappingMobilityAviation --> AirwayAtlas[🟡 AirwayAtlas]
   root --> WebPlatformsContent[Web Platforms & Content]
   WebPlatformsContent --> willow[🟡 willow]
-  WebPlatformsContent --> AlphaNest[🟢 AlphaNest]
-  WebPlatformsContent --> cywf.github.io[🟡 cywf.github.io]
+  WebPlatformsContent --> cywf.github.io[🟢 cywf.github.io]
   root --> DeveloperToolingAutomation[Developer Tooling & Automation]
   DeveloperToolingAutomation --> Boilerplates[🟡 Boilerplates]
+  root --> GeneralSoftwareProjects[General Software Projects]
+  GeneralSoftwareProjects --> AlphaNest[🟢 AlphaNest]
 ```
 
 ### Attention queue
-- **ZeroTier-Toolkit** — last push 253 days ago
-- **Boilerplates** — last push 253 days ago
+- **ZeroTier-Toolkit** — last push 254 days ago
+- **Boilerplates** — last push 254 days ago
 - **NetNinja** — last push 252 days ago
 
 </details>
@@ -96,37 +97,37 @@ _Next-Tasks cells are rendered from GitHub Projects v2 when `PROJECTS_TOKEN` is 
 <!-- START: PROJECT_MATRIX -->
 | Status | Count | Meaning |
 |--------|-------|---------|
-| Working | 3 | Public CI present and no obvious portfolio-level blocker signal |
-| Semi-functioning | 10 | Stale pushes, missing substantive CI, or disabled workflow signals |
+| Working | 4 | Public CI present and no obvious portfolio-level blocker signal |
+| Semi-functioning | 9 | Stale pushes, missing substantive CI, or disabled workflow signals |
 | Broken | 0 | Archived repo or open blocker issue combined with disabled workflow |
 <!-- END: PROJECT_MATRIX -->
 
 <details>
-<summary><b>🟢 Working repositories (3)</b></summary>
+<summary><b>🟢 Working repositories (4)</b></summary>
 
 | Project | What it does | Workflow | Status signal | Blockage | Next tasks |
 |---------|---------------|----------|---------------|----------|------------|
-| **[FortiPath](https://github.com/cywf/FortiPath)** | FortiPath: a comprehensive executive protection tool designed to enha… | ![Workflow](https://github.com/cywf/FortiPath/actions/workflows/deployment_automation.yml/badge.svg?branch=main) | Deployment Automation • 167d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[sentinel-project](https://github.com/cywf/sentinel-project)** | Advanced security system for critical infrastructure with threat inte… | ![Workflow](https://github.com/cywf/sentinel-project/actions/workflows/ci.yml/badge.svg?branch=main) | CI/CD Pipeline • 171d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[AlphaNest](https://github.com/cywf/AlphaNest)** | Secure collaboration platform. | ![Workflow](https://github.com/cywf/AlphaNest/actions/workflows/containers.yml/badge.svg?branch=main) | Build and Test Containers • 162d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
+| **[FortiPath](https://github.com/cywf/FortiPath)** | FortiPath: a comprehensive executive protection tool designed to enha… | ![Workflow](https://github.com/cywf/FortiPath/actions/workflows/deployment_automation.yml/badge.svg?branch=main) | Deployment Automation • 167d since push | [Issue #45](https://github.com/cywf/FortiPath/issues/45) | No queued Project task found |
+| **[sentinel-project](https://github.com/cywf/sentinel-project)** | The Sentinel Project is an advanced security system designed to prote… | ![Workflow](https://github.com/cywf/sentinel-project/actions/workflows/ci.yml/badge.svg?branch=main) | CI/CD Pipeline • 172d since push | None | No queued Project task found |
+| **[AlphaNest](https://github.com/cywf/AlphaNest)** | The Official AlphaNest Repo | ![Workflow](https://github.com/cywf/AlphaNest/actions/workflows/containers.yml/badge.svg?branch=main) | Build and Test Containers • 162d since push | None | No queued Project task found |
+| **[cywf.github.io](https://github.com/cywf/cywf.github.io)** | Welcome to my blog, kindly hosted via github | ![Workflow](https://github.com/cywf/cywf.github.io/actions/workflows/pages.yml/badge.svg?branch=main) | Deploy Astro site to Pages • 0d since push | None | No queued Project task found |
 
 </details>
 
 <details>
-<summary><b>🟡 Semi-functioning repositories (10)</b></summary>
+<summary><b>🟡 Semi-functioning repositories (9)</b></summary>
 
 | Project | What it does | Workflow | Status signal | Blockage | Next tasks |
 |---------|---------------|----------|---------------|----------|------------|
-| **[AegisNet](https://github.com/cywf/AegisNet)** | Integrated defense solution using AI, autonomous drones, and advanced… | ![Workflow](https://github.com/cywf/AegisNet/actions/workflows/docker.yml/badge.svg?branch=main) | Docker Build and Push • 246d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | Airport city data platform with interactive map, search, and API for… | ![Workflow](https://github.com/cywf/AirwayAtlas/actions/workflows/security.yml/badge.svg?branch=main) | Security • 246d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[willow](https://github.com/cywf/willow)** | Blockchain-based real estate website inspired by Zillow. | ![Workflow](https://github.com/cywf/willow/actions/workflows/deploy.yml/badge.svg?branch=main) | Deploy to GitHub Pages • 246d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[OTG-TAK](https://github.com/cywf/otg-tak)** | On-The-Go TAK deployment tooling for tactical operations. | ![Workflow](https://github.com/cywf/OTG-TAK/actions/workflows/test.yml/badge.svg?branch=main) | Test • 246d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[InfraGuard](https://github.com/cywf/Infraguard)** | Automated server provisioning and configuration scripts for secure in… | ![Workflow](https://github.com/cywf/InfraGuard/actions/workflows/terraform-validate.yml/badge.svg?branch=main) | Terraform Validation • 245d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[NetNinja](https://github.com/cywf/netninja)** | Linux server troubleshooting automation for network and system admins. | — | No public CI • 252d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[ZeroTier-Toolkit](https://github.com/cywf/zerotier-toolkit)** | Toolkit for building, configuring, deploying, and troubleshooting Zer… | — | No public CI • 253d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[Boilerplates](https://github.com/cywf/boilerplates)** | Personal template collection for tools and technologies. | — | No public CI • 253d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[CTF-Kit](https://github.com/cywf/ctf-kit)** | Capture-the-Flag starter kit. | ![Workflow](https://github.com/cywf/CTF-Kit/actions/workflows/validate-contributions.yml/badge.svg?branch=main) | Validate Contributions • 246d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
-| **[cywf.github.io](https://github.com/cywf/cywf.github.io)** | Personal website and blog hosted on GitHub Pages. | ![Workflow](https://github.com/cywf/cywf.github.io/actions/workflows/pages.yml/badge.svg?branch=main) | Deploy Astro site to Pages • 240d since push | None | ⚠ PROJECTS_TOKEN unavailable — Next tasks are intentionally marked unavailable, not empty. |
+| **[AegisNet](https://github.com/cywf/AegisNet)** | AegisNet: An advanced, integrated defense solution leveraging AI, aut… | ![Workflow](https://github.com/cywf/AegisNet/actions/workflows/docker.yml/badge.svg?branch=main) | Docker Build and Push • 247d since push | None | No queued Project task found |
+| **[AirwayAtlas](https://github.com/cywf/AirwayAtlas)** | ✈️ AirwayAtlas: Your go-to resource for airport city data in North Am… | ![Workflow](https://github.com/cywf/AirwayAtlas/actions/workflows/security.yml/badge.svg?branch=main) | .github/workflows/security.yml • 247d since push | None | No queued Project task found |
+| **[willow](https://github.com/cywf/willow)** | A Blockchain based Real Estate Website inspired by Zillow. | ![Workflow](https://github.com/cywf/willow/actions/workflows/deploy.yml/badge.svg?branch=main) | Deploy to GitHub Pages • 247d since push | None | No queued Project task found |
+| **[OTG-TAK](https://github.com/cywf/otg-tak)** | On-The-Go TAK Deployment | ![Workflow](https://github.com/cywf/OTG-TAK/actions/workflows/test.yml/badge.svg?branch=main) | Test • 247d since push | None | No queued Project task found |
+| **[InfraGuard](https://github.com/cywf/Infraguard)** | Repo containing automated server provisioning and configuration scrip… | ![Workflow](https://github.com/cywf/InfraGuard/actions/workflows/terraform-validate.yml/badge.svg?branch=main) | Terraform Validation • 245d since push | None | No queued Project task found |
+| **[NetNinja](https://github.com/cywf/netninja)** | Streamline Linux server troubleshooting with NetNinja - the ultimate… | — | No public CI • 252d since push | None | No queued Project task found |
+| **[ZeroTier-Toolkit](https://github.com/cywf/zerotier-toolkit)** | 🌐 ZeroTier Toolkit: A powerful suite designed to empower network & s… | — | No public CI • 254d since push | None | No queued Project task found |
+| **[Boilerplates](https://github.com/cywf/boilerplates)** | This is my personal template collection. Here you'll find templates,… | — | No public CI • 254d since push | None | No queued Project task found |
+| **[CTF-Kit](https://github.com/cywf/ctf-kit)** | A Capture-the-Flag (CTF) Starter Kit | ![Workflow](https://github.com/cywf/CTF-Kit/actions/workflows/validate-contributions.yml/badge.svg?branch=main) | Validate Contributions • 247d since push | None | No queued Project task found |
 
 </details>
 
@@ -189,23 +190,24 @@ This section is generated strictly from the current public repository portfolio 
 
 - **Cybersecurity & Defense** — [FortiPath](https://github.com/cywf/FortiPath), [sentinel-project](https://github.com/cywf/sentinel-project), [AegisNet](https://github.com/cywf/AegisNet), [OTG-TAK](https://github.com/cywf/otg-tak), [CTF-Kit](https://github.com/cywf/ctf-kit)
 - **Infrastructure & Networking** — [FortiPath](https://github.com/cywf/FortiPath), [sentinel-project](https://github.com/cywf/sentinel-project), [InfraGuard](https://github.com/cywf/Infraguard), [NetNinja](https://github.com/cywf/netninja), [ZeroTier-Toolkit](https://github.com/cywf/zerotier-toolkit)
-- **Web Platforms & Content** — [willow](https://github.com/cywf/willow), [AlphaNest](https://github.com/cywf/AlphaNest), [cywf.github.io](https://github.com/cywf/cywf.github.io)
-- **Developer Tooling & Automation** — [NetNinja](https://github.com/cywf/netninja), [ZeroTier-Toolkit](https://github.com/cywf/zerotier-toolkit), [Boilerplates](https://github.com/cywf/boilerplates)
+- **Developer Tooling & Automation** — [sentinel-project](https://github.com/cywf/sentinel-project), [ZeroTier-Toolkit](https://github.com/cywf/zerotier-toolkit), [Boilerplates](https://github.com/cywf/boilerplates)
 - **Mapping, Mobility & Aviation** — [AegisNet](https://github.com/cywf/AegisNet), [AirwayAtlas](https://github.com/cywf/AirwayAtlas)
+- **Web Platforms & Content** — [willow](https://github.com/cywf/willow), [cywf.github.io](https://github.com/cywf/cywf.github.io)
+- **General Software Projects** — [AlphaNest](https://github.com/cywf/AlphaNest)
 
 ### Technology mix
 
-- **Languages in active public portfolio:** TypeScript (4), Astro (3), Python (2), JavaScript (2), Rust (1), Shell (1)
+- **Languages in active public portfolio:** TypeScript (5), Python (2), JavaScript (2), Astro (2), Rust (1), Shell (1)
 - **Projects tracked:** 13
 
 ### Recently touched public repos
 
 | Repo | Primary language | Theme | Last public push |
 |------|------------------|-------|------------------|
-| [AlphaNest](https://github.com/cywf/AlphaNest) | TypeScript | Web Platforms & Content | 162 days ago |
+| [cywf.github.io](https://github.com/cywf/cywf.github.io) | TypeScript | Web Platforms & Content | 0 days ago |
+| [AlphaNest](https://github.com/cywf/AlphaNest) | TypeScript | General Software Projects | 162 days ago |
 | [FortiPath](https://github.com/cywf/FortiPath) | Python | Cybersecurity & Defense | 167 days ago |
-| [sentinel-project](https://github.com/cywf/sentinel-project) | TypeScript | Cybersecurity & Defense | 171 days ago |
-| [cywf.github.io](https://github.com/cywf/cywf.github.io) | Astro | Web Platforms & Content | 240 days ago |
+| [sentinel-project](https://github.com/cywf/sentinel-project) | TypeScript | Cybersecurity & Defense | 172 days ago |
 | [InfraGuard](https://github.com/cywf/Infraguard) | TypeScript | Infrastructure & Networking | 245 days ago |
 <!-- END: LEARNING_DYNAMIC -->
 
@@ -221,9 +223,9 @@ This section is generated strictly from the current public repository portfolio 
 <!-- START: GH_SHOWCASE -->
 | Rank | Repository | Language | Stars today | Description |
 |------|------------|----------|-------------|-------------|
-| 1 | [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | JavaScript | 981 stars today | Extracted system prompts from Anthropic - Claude Fable 5, Opus 4.8, Claude Code, Claude Design. Ope… |
-| 2 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | Shell | 1,114 stars today | Production-grade engineering skills for AI coding agents. |
-| 3 | [Zackriya-Solutions/meetily](https://github.com/Zackriya-Solutions/meetily) | Rust | 1,409 stars today | Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker dia… |
+| 1 | [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | JavaScript | 1,378 stars today | Extracted system prompts from Anthropic - Claude Fable 5, Opus 4.8, Claude Code, Claude Design. Ope… |
+| 2 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | JavaScript | 1,112 stars today | Production-grade engineering skills for AI coding agents. |
+| 3 | [Zackriya-Solutions/meetily](https://github.com/Zackriya-Solutions/meetily) | Rust | 2,494 stars today | Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker dia… |
 <!-- END: GH_SHOWCASE -->
 
 </details>
@@ -232,7 +234,7 @@ This section is generated strictly from the current public repository portfolio 
 
 <div align="center">
 
-_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2026-07-07 10:12 UTC<!-- /UPDATE_TIME --> • Gists sync: <!-- LAST_SYNC -->2026-07-07 10:12 UTC<!-- /LAST_SYNC -->_
+_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2026-07-07 11:17 UTC<!-- /UPDATE_TIME --> • Gists sync: <!-- LAST_SYNC -->2026-07-07 11:17 UTC<!-- /LAST_SYNC -->_
 
 **Stay curious, secure, and ready for adventure** 🚀
 
