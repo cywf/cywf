@@ -1,0 +1,14 @@
+{
+  "name": "cywf-dev-analytics",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "json-render-powered Developer Analytics for the cywf/cywf profile README (G8S TID-129).",
+  "scripts": {
+    "generate": "node generate.mjs"
+  },
+  "dependencies": {
+    "@json-render/core": "^0.17.0",
+    "@json-render/image": "^0.17.0"
+  }
+}
