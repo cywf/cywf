@@ -3,6 +3,26 @@
 **A living dashboard for my public open-source projects, automations, and analytics.**
 
 <details>
+<summary><b>ℹ️ About This Repository</b></summary>
+
+This is a self-documenting profile repository that automatically:
+- **Generates README sections** from live GitHub API data (System Overview, Project Matrix, Learning focus)
+- **Creates Daily Di-Gists** — 24-hour summaries of public repo activity ([see daily/](daily/))
+- **Renders an analytics dashboard** — Next.js app with ECharts visualizations ([preview](https://cywf.github.io))
+
+The repository uses a 4-domain architecture:
+1. **Profile README Generation** — Marker-based section updates with validation
+2. **Daily Intelligence Reporting** — Scheduled workflow creating Di-Gist entries
+3. **Analytics Dashboard** — Static site with GitHub metrics visualization  
+4. **Configuration Management** — Centralized repo seeds and portfolio metadata
+
+For technical details, see [AGENTS.md](AGENTS.md) for workflow documentation and [AUTOMATION.md](AUTOMATION.md) for CI/CD pipeline details. The domain model is available in [.understand-anything/domain-graph.json](.understand-anything/domain-graph.json).
+
+</details>
+
+---
+
+<details>
 <summary><b>📊 System Overview</b></summary>
 
 A public-repo-only snapshot of the cywf ecosystem: what is active, what needs attention, and how the projects cluster together.
