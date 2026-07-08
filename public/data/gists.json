@@ -1,6 +1,13 @@
 {
-  "generatedAt": "2026-01-31T23:57:07.745Z",
+  "generatedAt": "2026-07-08T19:46:39.466Z",
   "items": [
+    {
+      "name": "2a88f6b6095758ffe8d78d21a6f55826",
+      "description": "",
+      "url": "https://gist.github.com/2a88f6b6095758ffe8d78d21a6f55826",
+      "updatedAt": "2026-02-04T07:47:48Z",
+      "preview": "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmG8EaYLu+RMFK4EEACIDAwRXQQvKvQzG+gn2ZEis2tVCjTTKccum0xu59u5wgua3\n19Lh1p7BNeXggVUshl1qrVxWQTq+sd1rCHwOvC1QLisccYIjQ0U5UjbU5logzdJ3\nss8aKenz91AHPia1+Af6FHy0ImRhZW1vbiAoUVc1amIzSmgpIDxjeXdmLmQzdkBw\nbS5tZT6IuQQTEwkAQRYhBMRAKyioures228nzkdb0OyZ284NBQJpgu75AhsDBQkB\n4TOABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJEEdb0OyZ284NcukBgNVJ\n8i/Nxf5Fhbfx0l4bLTUx5Xr+0FNd3QJ0nXYVaF44VhzuH2zO60UB78h7Mv6ptQF+\nLHYYBp+HcZcnqIjO9/GIDM/EfPbOlmjsSFtmze1YNRTbXgdVCVOasiNpIg426ubK\nuHMEaYLu+RIFK4EEACIDAwSrCUluYU5CO7N8X55pcBzzT1UBFs+k1Betjl72pujK\ntl2DgOgF7oLQ7S+gUlWgDvV0noccUhCVNrM9NgxKHg1jV5Q95nGFNYNUCxeamBxw\nIJBBmjPYKSX3HIzAci1DRq4DAQkJiJ4EGBMJACYWIQTEQCsoqLq3rNtvJ85HW9Ds\nmdvODQUCaYLu+QIbDAUJAeEzgAAKCRBHW9DsmdvODaNpAX4gDID4tz9iGljxG1fE\nG9EWrHJQzQckg8Yb4mpqoOlF71pSzFlAXkqpXi3AuhXsxhwBfRKsXVJzoJUQGmz+\ny4GuUehj3WPjDl+/zVt285iqUVs+mZxPHorPBW8ZH8V6f3yZbw==\n=kld2\n-----END PGP PUBLIC KEY BLOCK-----"
+    },
     {
       "name": "973f9180269ad66418b392be25a5a373",
       "description": "Guide for maintaining and configuring Proxmox ",
@@ -133,13 +140,6 @@
       "url": "https://gist.github.com/46bc012810c0c09bcb6a8d05f878e5fe",
       "updatedAt": "2024-02-14T16:10:15Z",
       "preview": "# Setting up ProtonVPN on iOS and Android Devices\n\n## Introduction\n\nProtonVPN is a highly secure VPN service that prioritizes privacy and security for its users. Using a VPN like ProtonVPN is essential for protecting your online activities from eavesdropping, especially on unsecured Wi-Fi networks, and for bypassing geo-restrictions.\n\n## Installation\n\n### iOS\n\n1. Open the App Store on your iOS device.\n2. Search for \"ProtonVPN\" using the search bar.\n3. Find the ProtonVPN app developed by Proton Technologies AG.\n4. Tap \"Get\" to download and install the app on your device.\n\n### Android\n\n1. Open the Google Play Store on your Android device.\n2. Use the search function to find \"ProtonVPN\".\n3. Choose the official ProtonVPN app by Proton Technologies AG.\n4. Click \"Install\" to begin the download and installation process.\n\n## Creating a ProtonVPN Account\n\nBefore using ProtonVPN, you'll need to create an account:\n\n1. Open the ProtonVPN app after installation.\n2. Select \"Sign Up\" to create a new account.\n3. Follow the on-screen instructions to complete the registration process, including verifying your email address.\n\n## Initial Setup\n\nOnce your account is ready, log in to the ProtonVPN app:\n\n1. Enter your ProtonVPN username and password.\n2. Upon logging in, you'll be prompted to select a server. Choose a server based on your desired location or let ProtonVPN select the fastest server automatically.\n\n## Configuring VPN Settings\n\nTo enhance your VPN experience, consider adjusting these se"
-    },
-    {
-      "name": "9e9c3f8c6367c4cb22eec14e39af32c9",
-      "description": "A gist guide on how to properly setup Brave Browser securely on iOS & Android",
-      "url": "https://gist.github.com/9e9c3f8c6367c4cb22eec14e39af32c9",
-      "updatedAt": "2024-02-14T16:02:12Z",
-      "preview": "# Setting up Brave Browser on iOS & Android\n\n## Introduction\n\nBrave Browser is a fast, private, and secure web browser for iOS and Android. It comes with built-in features to block ads and trackers, making your browsing experience more secure and private. This guide will walk you through setting up Brave Browser on your mobile devices, ensuring you're browsing securely from the start.\n\n## Installation\n\n### iOS\n\n1. Open the App Store on your iOS device.\n2. Tap the search bar and type \"Brave Browser\".\n3. Look for the Brave Browser app published by Brave Software.\n4. Tap \"Get\" to download and install Brave Browser on your device.\n\n### Android\n\n1. Open the Google Play Store on your Android device.\n2. Use the search bar to find \"Brave Browser\".\n3. Choose the Brave Browser app made by Brave Software.\n4. Click \"Install\" to download and install Brave Browser on your device.\n\n## Initial Setup\n\nAfter installing Brave Browser, open the app to configure some initial settings:\n\n- **Set Brave as your default browser:** Navigate to your device's settings, find Brave Browser, and select it as your default browser.\n- **Key Settings for Enhanced Security and Privacy:** Visit the settings menu in Brave to customize your experience. Here, you can enable or disable various features to suit your privacy needs.\n\n## Privacy Settings\n\nBrave Browser offers several settings to enhance your privacy:\n\n- **Enable Brave Shields:** This feature blocks trackers and ads. To enable, tap the lion icon on the to"
     }
   ]
 }

@@ -2,10 +2,12 @@
   "source": "zenquotes",
   "data": [
     {
-      "q": "Know yourself and you will win all battles.",
-      "a": "Sun Tzu",
-      "h": "<blockquote>&ldquo;Know yourself and you will win all battles.&rdquo; &mdash; <footer>Sun Tzu</footer></blockquote>"
+      "q": "Letting go means to come to the realization that some people are a part of your history, but not a part of your destiny.",
+      "a": "Steve Maraboli",
+      "i": "https://zenquotes.io/img/steve-maraboli.jpg",
+      "h": "<blockquote>&ldquo;Letting go means to come to the realization that some people are a part of your history, but not a part of your destiny.&rdquo; &mdash; <footer>Steve Maraboli</footer></blockquote>",
+      "date": "2026-07-08"
     }
   ],
-  "fetchedAt": "2026-01-31T23:57:07.745Z"
+  "fetchedAt": "2026-07-08T19:46:39.466Z"
 }
