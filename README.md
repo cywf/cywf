@@ -41,7 +41,7 @@ A public-repo-only snapshot of the cywf ecosystem: what is active, what needs at
 | Next-Tasks source | Live Projects v2 data when PROJECTS_TOKEN is available; local runs without it show an explicit degraded state. |
 | Primary language mix | Astro, JavaScript, Python, Rust, Shell, TypeScript |
 | Portfolio themes | Cybersecurity & Defense • Developer Tooling & Automation • General Software Projects • Infrastructure & Networking • Mapping, Mobility & Aviation • Web Platforms & Content |
-| Last ecosystem refresh | 2026-07-12 10:41 UTC |
+| Last ecosystem refresh | 2026-07-12 10:51 UTC |
 <!-- END: SYSTEM_OVERVIEW -->
 
 <!-- START: REPO_MERMAID -->
@@ -256,7 +256,7 @@ This section is generated strictly from the current public repository portfolio 
 
 <div align="center">
 
-_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2026-07-12 10:42 UTC<!-- /UPDATE_TIME --> • Gists sync: <!-- LAST_SYNC -->2026-07-12 10:42 UTC<!-- /LAST_SYNC -->_
+_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2026-07-12 10:51 UTC<!-- /UPDATE_TIME --> • Gists sync: <!-- LAST_SYNC -->2026-07-12 10:42 UTC<!-- /LAST_SYNC -->_
 
 **Stay curious, secure, and ready for adventure** 🚀
 
