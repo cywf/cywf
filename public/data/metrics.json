@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-26T22:38:13.129Z",
+  "generatedAt": "2026-07-26T23:09:25.800Z",
   "window": {
-    "from": "2025-07-26T22:38:13.129Z",
-    "to": "2026-07-26T22:38:13.129Z"
+    "from": "2025-07-26T23:09:25.800Z",
+    "to": "2026-07-26T23:09:25.800Z"
   },
   "tallies": {
     "commits": 1718,
@@ -190,99 +190,99 @@
   "activityByHour": [
     {
       "hour": 0,
-      "count": 135
-    },
-    {
-      "hour": 1,
-      "count": 132
-    },
-    {
-      "hour": 2,
-      "count": 145
-    },
-    {
-      "hour": 3,
-      "count": 137
-    },
-    {
-      "hour": 4,
-      "count": 130
-    },
-    {
-      "hour": 5,
-      "count": 143
-    },
-    {
-      "hour": 6,
-      "count": 141
-    },
-    {
-      "hour": 7,
-      "count": 141
-    },
-    {
-      "hour": 8,
-      "count": 143
-    },
-    {
-      "hour": 9,
-      "count": 142
-    },
-    {
-      "hour": 10,
-      "count": 137
-    },
-    {
-      "hour": 11,
-      "count": 140
-    },
-    {
-      "hour": 12,
-      "count": 134
-    },
-    {
-      "hour": 13,
-      "count": 126
-    },
-    {
-      "hour": 14,
-      "count": 127
-    },
-    {
-      "hour": 15,
-      "count": 131
-    },
-    {
-      "hour": 16,
-      "count": 134
-    },
-    {
-      "hour": 17,
-      "count": 145
-    },
-    {
-      "hour": 18,
-      "count": 138
-    },
-    {
-      "hour": 19,
-      "count": 132
-    },
-    {
-      "hour": 20,
-      "count": 130
-    },
-    {
-      "hour": 21,
-      "count": 142
-    },
-    {
-      "hour": 22,
       "count": 128
     },
     {
+      "hour": 1,
+      "count": 128
+    },
+    {
+      "hour": 2,
+      "count": 135
+    },
+    {
+      "hour": 3,
+      "count": 140
+    },
+    {
+      "hour": 4,
+      "count": 143
+    },
+    {
+      "hour": 5,
+      "count": 142
+    },
+    {
+      "hour": 6,
+      "count": 133
+    },
+    {
+      "hour": 7,
+      "count": 126
+    },
+    {
+      "hour": 8,
+      "count": 137
+    },
+    {
+      "hour": 9,
+      "count": 127
+    },
+    {
+      "hour": 10,
+      "count": 126
+    },
+    {
+      "hour": 11,
+      "count": 134
+    },
+    {
+      "hour": 12,
+      "count": 133
+    },
+    {
+      "hour": 13,
+      "count": 140
+    },
+    {
+      "hour": 14,
+      "count": 136
+    },
+    {
+      "hour": 15,
+      "count": 129
+    },
+    {
+      "hour": 16,
+      "count": 131
+    },
+    {
+      "hour": 17,
+      "count": 134
+    },
+    {
+      "hour": 18,
+      "count": 139
+    },
+    {
+      "hour": 19,
+      "count": 143
+    },
+    {
+      "hour": 20,
+      "count": 139
+    },
+    {
+      "hour": 21,
+      "count": 135
+    },
+    {
+      "hour": 22,
+      "count": 131
+    },
+    {
       "hour": 23,
-      "count": 141
+      "count": 134
     }
   ],
   "languageKB": [
