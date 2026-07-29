@@ -94,11 +94,11 @@ These entries are generated from the scheduled public-repo Daily Di-Gist workflo
 <!-- START: LATEST_POSTS -->
 | Date | Title | Summary | Source |
 |------|-------|---------|--------|
+| 2026-07-29 | Daily Di-Gist — 2026-07-29 | Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed. | [View Digest](daily/2026-07-29.md) |
 | 2026-07-28 | Daily Di-Gist — 2026-07-28 | Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed. | [View Digest](daily/2026-07-28.md) |
 | 2026-07-27 | Daily Di-Gist — 2026-07-27 | Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed. | [View Digest](daily/2026-07-27.md) |
 | 2026-07-26 | Daily Di-Gist — 2026-07-26 | Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed. | [View Digest](daily/2026-07-26.md) |
 | 2026-07-25 | Daily Di-Gist — 2026-07-25 | Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed. | [View Digest](daily/2026-07-25.md) |
-| 2026-07-24 | Daily Di-Gist — 2026-07-24 | Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed. | [View Digest](daily/2026-07-24.md) |
 <!-- END: LATEST_POSTS -->
 
 _This section auto-updates from the Daily Di-Gist workflow._
@@ -256,7 +256,7 @@ This section is generated strictly from the current public repository portfolio 
 
 <div align="center">
 
-_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2026-07-28 12:40 UTC<!-- /UPDATE_TIME --> • Gists sync: <!-- LAST_SYNC -->2026-07-28 11:00 UTC<!-- /LAST_SYNC -->_
+_README auto-updated daily by CI workflow • Last update: <!-- UPDATE_TIME -->2026-07-29 09:56 UTC<!-- /UPDATE_TIME --> • Gists sync: <!-- LAST_SYNC -->2026-07-29 09:56 UTC<!-- /LAST_SYNC -->_
 
 **Stay curious, secure, and ready for adventure** 🚀
 
