@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-07T09:12:44.121Z",
+  "generatedAt": "2026-08-07T09:38:10.139Z",
   "window": {
-    "from": "2025-08-07T09:12:44.121Z",
-    "to": "2026-08-07T09:12:44.121Z"
+    "from": "2025-08-07T09:38:10.139Z",
+    "to": "2026-08-07T09:38:10.139Z"
   },
   "tallies": {
     "commits": 1743,
@@ -190,23 +190,23 @@
   "activityByHour": [
     {
       "hour": 0,
-      "count": 140
+      "count": 137
     },
     {
       "hour": 1,
-      "count": 151
+      "count": 132
     },
     {
       "hour": 2,
-      "count": 141
+      "count": 139
     },
     {
       "hour": 3,
-      "count": 149
+      "count": 147
     },
     {
       "hour": 4,
-      "count": 148
+      "count": 139
     },
     {
       "hour": 5,
@@ -214,39 +214,39 @@
     },
     {
       "hour": 6,
-      "count": 138
+      "count": 137
     },
     {
       "hour": 7,
-      "count": 145
+      "count": 147
     },
     {
       "hour": 8,
-      "count": 149
+      "count": 150
     },
     {
       "hour": 9,
-      "count": 139
+      "count": 143
     },
     {
       "hour": 10,
-      "count": 151
+      "count": 138
     },
     {
       "hour": 11,
-      "count": 151
+      "count": 149
     },
     {
       "hour": 12,
-      "count": 146
+      "count": 141
     },
     {
       "hour": 13,
-      "count": 144
+      "count": 140
     },
     {
       "hour": 14,
-      "count": 136
+      "count": 145
     },
     {
       "hour": 15,
@@ -254,35 +254,35 @@
     },
     {
       "hour": 16,
-      "count": 144
+      "count": 141
     },
     {
       "hour": 17,
-      "count": 143
+      "count": 134
     },
     {
       "hour": 18,
-      "count": 138
+      "count": 134
     },
     {
       "hour": 19,
-      "count": 132
+      "count": 136
     },
     {
       "hour": 20,
-      "count": 132
+      "count": 146
     },
     {
       "hour": 21,
-      "count": 139
+      "count": 134
     },
     {
       "hour": 22,
-      "count": 150
+      "count": 134
     },
     {
       "hour": 23,
-      "count": 150
+      "count": 141
     }
   ],
   "languageKB": [
