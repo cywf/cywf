@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-31T23:50:59.420Z",
+  "generatedAt": "2026-09-01T01:11:57.624Z",
   "window": {
-    "from": "2025-08-31T23:50:59.420Z",
-    "to": "2026-08-31T23:50:59.420Z"
+    "from": "2025-09-01T01:11:57.624Z",
+    "to": "2026-09-01T01:11:57.624Z"
   },
   "tallies": {
     "commits": 1767,
@@ -109,12 +109,6 @@
   ],
   "timeseriesMonthly": [
     {
-      "month": "2025-08",
-      "commits": 0,
-      "prs": 0,
-      "issues": 0
-    },
-    {
       "month": "2025-09",
       "commits": 44,
       "prs": 26,
@@ -185,32 +179,38 @@
       "commits": 42,
       "prs": 25,
       "issues": 16
+    },
+    {
+      "month": "2026-09",
+      "commits": 0,
+      "prs": 0,
+      "issues": 0
     }
   ],
   "activityByHour": [
     {
       "hour": 0,
-      "count": 146
+      "count": 144
     },
     {
       "hour": 1,
-      "count": 146
-    },
-    {
-      "hour": 2,
-      "count": 139
-    },
-    {
-      "hour": 3,
       "count": 138
     },
     {
+      "hour": 2,
+      "count": 149
+    },
+    {
+      "hour": 3,
+      "count": 142
+    },
+    {
       "hour": 4,
-      "count": 143
+      "count": 144
     },
     {
       "hour": 5,
-      "count": 147
+      "count": 143
     },
     {
       "hour": 6,
@@ -218,71 +218,71 @@
     },
     {
       "hour": 7,
-      "count": 137
+      "count": 146
     },
     {
       "hour": 8,
-      "count": 146
+      "count": 152
     },
     {
       "hour": 9,
-      "count": 143
+      "count": 141
     },
     {
       "hour": 10,
-      "count": 152
+      "count": 146
     },
     {
       "hour": 11,
-      "count": 145
+      "count": 152
     },
     {
       "hour": 12,
-      "count": 151
+      "count": 138
     },
     {
       "hour": 13,
-      "count": 147
+      "count": 149
     },
     {
       "hour": 14,
-      "count": 152
-    },
-    {
-      "hour": 15,
       "count": 134
     },
     {
+      "hour": 15,
+      "count": 140
+    },
+    {
       "hour": 16,
-      "count": 135
+      "count": 148
     },
     {
       "hour": 17,
-      "count": 143
-    },
-    {
-      "hour": 18,
-      "count": 133
-    },
-    {
-      "hour": 19,
-      "count": 152
-    },
-    {
-      "hour": 20,
       "count": 147
     },
     {
+      "hour": 18,
+      "count": 140
+    },
+    {
+      "hour": 19,
+      "count": 147
+    },
+    {
+      "hour": 20,
+      "count": 135
+    },
+    {
       "hour": 21,
-      "count": 144
+      "count": 151
     },
     {
       "hour": 22,
-      "count": 136
+      "count": 140
     },
     {
       "hour": 23,
-      "count": 146
+      "count": 140
     }
   ],
   "languageKB": [
@@ -306,11 +306,6 @@
     "weeks": [
       {
         "contributionDays": [
-          {
-            "date": "2025-08-31",
-            "contributionCount": 0,
-            "weekday": 0
-          },
           {
             "date": "2025-09-01",
             "contributionCount": 0,
@@ -2343,6 +2338,11 @@
             "date": "2026-08-31",
             "contributionCount": 1,
             "weekday": 1
+          },
+          {
+            "date": "2026-09-01",
+            "contributionCount": 0,
+            "weekday": 2
           }
         ]
       }
