@@ -2,12 +2,12 @@
   "source": "zenquotes",
   "data": [
     {
-      "q": "Everyday is a second chance.",
-      "a": "Unknown",
-      "i": "https://zenquotes.io/img/unknown.jpg",
-      "h": "<blockquote>&ldquo;Everyday is a second chance.&rdquo; &mdash; <footer>Unknown</footer></blockquote>",
-      "date": "2026-09-13"
+      "q": "If you spend too much time thinking about a thing, you'll never get it done.",
+      "a": "Bruce Lee",
+      "i": "https://zenquotes.io/img/bruce-lee.jpg",
+      "h": "<blockquote>&ldquo;If you spend too much time thinking about a thing, you&#039;ll never get it done.&rdquo; &mdash; <footer>Bruce Lee</footer></blockquote>",
+      "date": "2026-09-14"
     }
   ],
-  "fetchedAt": "2026-09-13T23:50:52.932Z"
+  "fetchedAt": "2026-09-14T01:06:51.144Z"
 }
