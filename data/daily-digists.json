@@ -1,5 +1,12 @@
 [
   {
+    "date": "2026-09-22",
+    "title": "Daily Di-Gist — 2026-09-22",
+    "summary": "Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed.",
+    "path": "daily/2026-09-22.md",
+    "updated_at": "2026-09-22T09:14:25.123Z"
+  },
+  {
     "date": "2026-09-21",
     "title": "Daily Di-Gist — 2026-09-21",
     "summary": "Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed.",
@@ -201,12 +208,5 @@
     "summary": "Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed.",
     "path": "daily/2026-08-24.md",
     "updated_at": "2026-08-24T09:19:52.674Z"
-  },
-  {
-    "date": "2026-08-23",
-    "title": "Daily Di-Gist — 2026-08-23",
-    "summary": "Public repos reviewed: 13. 0 commits observed. 0 workflow failures observed.",
-    "path": "daily/2026-08-23.md",
-    "updated_at": "2026-08-23T09:09:21.903Z"
   }
 ]
