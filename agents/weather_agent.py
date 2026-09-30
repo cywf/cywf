@@ -12,9 +12,9 @@ from base_agent import BaseAgent
 class WeatherAgent(BaseAgent):
     """Agent for fetching terrestrial and space weather data."""
     
-    # San Juan, Puerto Rico coordinates
-    SAN_JUAN_LAT = 18.4655
-    SAN_JUAN_LON = -66.1057
+    # Rifle, Colorado coordinates
+    RIFLE_LAT = 39.5347
+    RIFLE_LON = -107.7834
     
     # API endpoints (no authentication required)
     OPEN_METEO_API = "https://api.open-meteo.com/v1/forecast"
@@ -52,14 +52,14 @@ class WeatherAgent(BaseAgent):
         """Fetch weather from Open-Meteo API."""
         try:
             params = {
-                'latitude': self.SAN_JUAN_LAT,
-                'longitude': self.SAN_JUAN_LON,
+                'latitude': self.RIFLE_LAT,
+                'longitude': self.RIFLE_LON,
                 'current': 'temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m',
                 'daily': 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum',
                 'temperature_unit': 'fahrenheit',
                 'wind_speed_unit': 'mph',
                 'precipitation_unit': 'inch',
-                'timezone': 'America/Puerto_Rico',
+                'timezone': 'America/Denver',
                 'forecast_days': 3
             }
             
@@ -78,7 +78,7 @@ class WeatherAgent(BaseAgent):
             daily = data.get('daily', {})
             
             return {
-                'location': 'San Juan, Puerto Rico',
+                'location': 'Rifle, Colorado',
                 'temperature': round(current.get('temperature_2m', 0)),
                 'humidity': current.get('relative_humidity_2m', 0),
                 'wind_speed': round(current.get('wind_speed_10m', 0)),
